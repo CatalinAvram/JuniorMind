@@ -1,21 +1,23 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-/*În X zile Y capre mănâncă Z kg fân. Câte kg de fân mănâncă Q capre în W zile?*/
 namespace Goats
 {
     [TestClass]
     public class GoatsTests
     {
         [TestMethod]
-        public void NumberOfKilograms()
+        public void NumberOfKilogramsForSecondFlock()
         {
-            int totalKilograms = FindNumberOfKilograms(5, 4);
-            Assert.AreEqual(20, totalKilograms);
+            decimal secondFlockKilograms = FindNumberOfKilograms(3, 6, 9, 2, 4);
+            Assert.AreEqual(4, secondFlockKilograms);
         }
-        int FindNumberOfKilograms(int numberOfGoats, int numberOfDays)
+        decimal FindNumberOfKilograms(int firstFlockNumberOfDays, int firstFlockNumberOfGoats, int firstFlockEatenKilograms, int secondFlockNumberOfDays, int secondFlockNumberOfGoats)
         {
-            return numberOfGoats * numberOfDays;
+            decimal kilogramsPerGoat = firstFlockEatenKilograms / firstFlockNumberOfGoats;
+            decimal kilogramsPerGoatPerDay = kilogramsPerGoat / firstFlockNumberOfDays;
+            decimal secondFlockEatenKilograms = kilogramsPerGoatPerDay * secondFlockNumberOfDays * secondFlockNumberOfGoats;
+            return secondFlockEatenKilograms;
         }
     }
 }
