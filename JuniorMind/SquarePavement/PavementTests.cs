@@ -18,9 +18,15 @@ namespace SquarePavement
         {
             Assert.AreEqual(4, CalculateNumberOfStones(6, 6, 4));
         }
+
+        [TestMethod]
+        public void NumberOfStonesOddLength()
+        {
+            Assert.AreEqual(12, CalculateNumberOfStones(7, 6, 2));
+        }
         decimal CalculateNumberOfStones(decimal lengthOfSquare, decimal widthOfSquare, decimal stoneDimension)
         {
-            return Math.Ceiling(lengthOfSquare / stoneDimension) + Math.Ceiling(widthOfSquare / stoneDimension);
+            return Math.Ceiling(lengthOfSquare / stoneDimension) * Math.Ceiling(widthOfSquare / stoneDimension);
         }
     }
 }
