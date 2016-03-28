@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 /*Doi prieteni au cumpărat un pepene de X kg, și doresc să îl împartă.
 Singura lor dorință e ca fiecare să primească un număr par de kg din pepene.
 E ok și dacă nu primesc aceeași cantitate.
@@ -23,8 +24,16 @@ namespace Watermelon
             String asnwer = checkIfCanBeSplittedInEvenParts(5);
             Assert.AreEqual("NU", asnwer);
         }
+        [TestMethod]
+        public void WatermelonWithWeightTwo() 
+        {
+            String asnwer = checkIfCanBeSplittedInEvenParts(2);
+            Assert.AreEqual("NU", asnwer);
+        }
         string checkIfCanBeSplittedInEvenParts(int watermelonWeight)
         {
+            if (watermelonWeight == 2)
+                return ("NU"); 
             return (watermelonWeight % 2 == 0 ? "DA" : "NU");
         }
     }
