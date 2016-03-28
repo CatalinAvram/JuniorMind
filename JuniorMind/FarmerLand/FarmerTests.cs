@@ -10,12 +10,16 @@ namespace FarmerLand
     public class FarmerTests
     {
         [TestMethod]
-        public void Farm   ()
+        public void initialArea()
         {
+            Assert.AreEqual(1000000, CalculateInitialArea(230, 770000));
         }
-        decimal initialLandDimension(int initialLandLength, int initialLandWeight, int secondLandLength )
+        double CalculateInitialArea(double secondLandWidth, double finalArea)
         {
-            return 0;
+            double delta = Math.Pow(secondLandWidth, 2) + 4 * finalArea;
+            double length = (secondLandWidth + Math.Sqrt(delta)) / 2;
+            double initialLandArea = Math.Pow(length, 2);
+            return initialLandArea;
         }
     }
 }
