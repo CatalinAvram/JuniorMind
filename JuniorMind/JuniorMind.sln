@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parquet", "Parquet\Parquet.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchaeologicalSite", "ArchaeologicalSite\ArchaeologicalSite.csproj", "{AEC78CD1-6EB6-4242-9DF6-6DABE4360090}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watermelon", "Watermelon\Watermelon.csproj", "{F5361560-8A42-4277-9A22-96DB7624D8C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{AEC78CD1-6EB6-4242-9DF6-6DABE4360090}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEC78CD1-6EB6-4242-9DF6-6DABE4360090}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEC78CD1-6EB6-4242-9DF6-6DABE4360090}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5361560-8A42-4277-9A22-96DB7624D8C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5361560-8A42-4277-9A22-96DB7624D8C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5361560-8A42-4277-9A22-96DB7624D8C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5361560-8A42-4277-9A22-96DB7624D8C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
