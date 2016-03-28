@@ -12,6 +12,12 @@ namespace FizzBuzz
         {
             Assert.AreEqual("Fizz", CheckDivisibility(9));
         }
+
+        [TestMethod]
+        public void MultipleOfFive()
+        {
+            Assert.AreEqual("Buzz", CheckDivisibility(10));
+        }
         string CheckDivisibility(int number)
         {
             if ((number % 3 == 0) && (number % 5 == 0))
