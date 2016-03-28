@@ -18,6 +18,13 @@ namespace FizzBuzz
         {
             Assert.AreEqual("Buzz", CheckDivisibility(10));
         }
+
+        [TestMethod]
+        public void MultipleOfThreeAndFive()
+        {
+            Assert.AreEqual("FizzBuzz", CheckDivisibility(15));
+        }
+
         string CheckDivisibility(int number)
         {
             if ((number % 3 == 0) && (number % 5 == 0))
