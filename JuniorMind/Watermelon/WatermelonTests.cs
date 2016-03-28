@@ -17,6 +17,12 @@ namespace Watermelon
             String answer = checkIfCanBeSplittedInEvenParts(4);
             Assert.AreEqual("DA", answer);
         }
+        [TestMethod]
+        public void SplittedWatermelonNo()
+        {
+            String asnwer = checkIfCanBeSplittedInEvenParts(5);
+            Assert.AreEqual("NU", asnwer);
+        }
         string checkIfCanBeSplittedInEvenParts(int watermelonWeight)
         {
             return (watermelonWeight % 2 == 0 ? "DA" : "NU");
