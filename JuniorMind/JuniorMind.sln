@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watermelon", "Watermelon\Wa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmerLand", "FarmerLand\FarmerLand.csproj", "{918354B2-CBD8-4E50-9955-84337F6E4470}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizzBuzz", "FizzBuzz\FizzBuzz.csproj", "{78B0294A-0166-4D2C-8C7D-316F26F95C4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{918354B2-CBD8-4E50-9955-84337F6E4470}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{918354B2-CBD8-4E50-9955-84337F6E4470}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{918354B2-CBD8-4E50-9955-84337F6E4470}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78B0294A-0166-4D2C-8C7D-316F26F95C4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78B0294A-0166-4D2C-8C7D-316F26F95C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78B0294A-0166-4D2C-8C7D-316F26F95C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78B0294A-0166-4D2C-8C7D-316F26F95C4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
