@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmerLand", "FarmerLand\Fa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizzBuzz", "FizzBuzz\FizzBuzz.csproj", "{78B0294A-0166-4D2C-8C7D-316F26F95C4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debt", "Debt\Debt.csproj", "{5E9B9827-5D43-4D7A-8C18-F8AB7DC0F510}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{78B0294A-0166-4D2C-8C7D-316F26F95C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78B0294A-0166-4D2C-8C7D-316F26F95C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78B0294A-0166-4D2C-8C7D-316F26F95C4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E9B9827-5D43-4D7A-8C18-F8AB7DC0F510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E9B9827-5D43-4D7A-8C18-F8AB7DC0F510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E9B9827-5D43-4D7A-8C18-F8AB7DC0F510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E9B9827-5D43-4D7A-8C18-F8AB7DC0F510}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
