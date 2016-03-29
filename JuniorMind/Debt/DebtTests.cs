@@ -17,11 +17,11 @@ namespace Debt
         {
             Assert.AreEqual(110, CalculateDebt(100, 5));
         }
-        
-        decimal CalculateDebt(decimal rent, int delayDays)
+
+        double CalculateDebt(double rent, double delayDays)
         {
-            if (delayDays >= 1 && delayDays < 11)
-                return rent + 2 / 100 * rent * delayDays;
+            if ((delayDays >= 1) && (delayDays < 11))
+                return rent + rent * 0.02 * delayDays;
             else
                 return 0;
         }
