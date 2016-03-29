@@ -23,7 +23,7 @@ namespace Debt
             if ((delayDays >= 1) && (delayDays < 11))
                 return rent + rent * 0.02 * delayDays;
             else
-                return 0;
+                return rent + rent * 0.05 * delayDays;
         }
     }
 }
