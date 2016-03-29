@@ -23,12 +23,19 @@ namespace Debt
         {
             Assert.AreEqual(175, CalculateDebt(100, 15));
         }
+        [TestMethod]
+        public void HighDelay()
+        {
+            Assert.AreEqual(500, CalculateDebt(100, 40));
+        }
 
         double CalculateDebt(double rent, double delayDays)
         {
             if ((delayDays >= 1) && (delayDays < 11))
-                return rent + rent * 0.02 * delayDays;           
-            return rent + rent * 0.05 * delayDays;
+                return rent + rent * 0.02 * delayDays;
+            if (delayDays >= 11 && delayDays < 31)
+                return rent + rent * 0.05 * delayDays;
+            return rent + rent * 0.1 * delayDays;      
         }
     }
 }
