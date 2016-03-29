@@ -18,12 +18,17 @@ namespace Debt
             Assert.AreEqual(110, CalculateDebt(100, 5));
         }
 
+        [TestMethod]
+        public void MediumDelay()
+        {
+            Assert.AreEqual(175, CalculateDebt(100, 15));
+        }
+
         double CalculateDebt(double rent, double delayDays)
         {
             if ((delayDays >= 1) && (delayDays < 11))
-                return rent + rent * 0.02 * delayDays;
-            else
-                return rent + rent * 0.05 * delayDays;
+                return rent + rent * 0.02 * delayDays;           
+            return rent + rent * 0.05 * delayDays;
         }
     }
 }
