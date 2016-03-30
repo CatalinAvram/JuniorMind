@@ -27,15 +27,22 @@ namespace TaxiFare
         {
             Assert.AreEqual(240, CalculateTaxiFare(30, 16));
         }
+
+        [TestMethod]
+        public void HighDistanceDuringDay()
+        {
+            Assert.AreEqual(420, CalculateTaxiFare(70, 19));
+        }
         decimal CalculateTaxiFare(int distance, int clockTime)
         {
             if (distance >= 1 && distance <= 20 && clockTime >= 8 && clockTime <= 21)
                 return distance * 5;
             if (distance >= 21 && distance <= 60 && clockTime >= 8 && clockTime <= 21)
                 return 2 * distance * 4;
+            if (distance > 60 && clockTime >= 8 && clockTime <= 21)
+                return 2 * distance * 3;
             else
-                return 0;
-           
+                return 0;          
         }
     }
 }
