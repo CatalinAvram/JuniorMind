@@ -39,6 +39,11 @@ namespace TaxiFare
         {
             Assert.AreEqual(70, CalculateTaxiFare(10, 3));
         }
+        [TestMethod]
+        public void MediumDistanceDuringNight()
+        {
+            Assert.AreEqual(300, CalculateTaxiFare(30, 5));
+        }
         decimal CalculateTaxiFare(int distance, int clockTime)
         {
             if (distance >= 1 && distance <= 20 && clockTime >= 8 && clockTime <= 21)
@@ -54,9 +59,7 @@ namespace TaxiFare
                 return 2 * distance * 5;
             if (distance > 60 && clockTime < 8 || clockTime > 21)
                 return 2 * distance * 4;
-
             return 0;
-
         }
     }
 }
