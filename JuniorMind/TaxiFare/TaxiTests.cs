@@ -50,22 +50,33 @@ namespace TaxiFare
         {
             Assert.AreEqual(560, CalculateTaxiFare(70, 6));
         }
+
         decimal CalculateTaxiFare(int distance, int clockTime)
         {
-            if (distance >= 1 && distance <= 20 && clockTime >= 8 && clockTime <= 21)
-                return distance * 5;
-            if (distance >= 21 && distance <= 60 && clockTime >= 8 && clockTime <= 21)
-                return 2 * distance * 4;
-            if (distance > 60 && clockTime >= 8 && clockTime <= 21)
-                return 2 * distance * 3;
+            int[] dayTimePrices = { 5, 4, 3 };
+            int[] nightTimePrices = { 7, 5, 4 };
 
-            if (distance >= 1 && distance <= 20 && clockTime < 8 || clockTime > 21)
-                return distance * 7;
-            if (distance >= 21 && distance <= 60 && clockTime < 8|| clockTime > 21)
-                return 2 * distance * 5;
-            if (distance > 60 && clockTime < 8 || clockTime > 21)
-                return 2 * distance * 4;
+            if (distance >= 1 && distance <= 20 && dayTime(clockTime))
+                return distance * dayTimePrices[0];
+            if (distance >= 21 && distance <= 60 && dayTime(clockTime))
+                return 2 * distance * dayTimePrices[1];
+            if (distance > 60 && clockTime >= 8 && dayTime(clockTime))
+                return 2 * distance * dayTimePrices[2];
+
+            if (distance >= 1 && distance <= 20 && !dayTime(clockTime))
+                return distance * nightTimePrices[0];
+            if (distance >= 21 && distance <= 60 && !dayTime(clockTime))
+                return 2 * distance * nightTimePrices[1];
+            if (distance > 60 && !dayTime(clockTime))
+                return 2 * distance * nightTimePrices[2];
             return 0;
+        }
+
+        bool dayTime(int clockTime)
+        {
+            if (clockTime >= 8 && clockTime <= 21)
+                return true;
+            return false;
         }
     }
 }
