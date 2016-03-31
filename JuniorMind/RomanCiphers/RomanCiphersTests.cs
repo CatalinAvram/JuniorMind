@@ -27,10 +27,25 @@ namespace RomanCiphers
         {
             Assert.AreEqual("I", ConvertNumberFromArabicToRoman(1));
         }
+
+        [TestMethod]
+        public void CipherSeven()
+        {
+            Assert.AreEqual("VII", ConvertNumberFromArabicToRoman(7));
+        }
+
+        [TestMethod]
+        public void RomanFourteen()
+        {
+            Assert.AreEqual("XIV", ConvertNumberFromArabicToRoman(14));    
+        }
         string ConvertNumberFromArabicToRoman(int arabicNumber)
         {
-            if(arabicNumber == 1)
-                return "I";
+            string[] oneToTenRomanCiphers = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+            if (arabicNumber < 10)
+                return oneToTenRomanCiphers[arabicNumber - 1];
+            if (arabicNumber >= 10 && arabicNumber < 20)
+                return "X" + oneToTenRomanCiphers[arabicNumber - 11];
             return "";
         }
     }
