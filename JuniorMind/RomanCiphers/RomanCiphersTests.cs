@@ -51,17 +51,33 @@ namespace RomanCiphers
         {
             Assert.AreEqual("XXXVII", ConvertNumberFromArabicToRoman(37));
         }
+
+        [TestMethod]
+        public void BetweenFourtyAndFifty()
+        {
+            Assert.AreEqual("XLV", ConvertNumberFromArabicToRoman(45));
+        }
         string ConvertNumberFromArabicToRoman(int arabicNumber)
         {
             string[] oneToTenRomanCiphers = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+
             if (arabicNumber < 10)
                 return oneToTenRomanCiphers[arabicNumber - 1];
-            if (arabicNumber >= 10 && arabicNumber < 20)
-                return "X" + oneToTenRomanCiphers[arabicNumber - 11];
-            if (arabicNumber >= 20 && arabicNumber < 30)
+
+            int arabicNumberFirstCipher = (int)Math.Floor((decimal)(arabicNumber / 10));
+            string numberOfXes = new string('X', arabicNumberFirstCipher);
+            if (arabicNumber >= 10 && arabicNumber < 40)
+                return numberOfXes + oneToTenRomanCiphers[arabicNumber - (arabicNumberFirstCipher * 10 + 1)];
+
+            if (arabicNumber == 40)
+                return "XL";
+            if (arabicNumber > 40 && arabicNumber < 50)
+                return "XL" + oneToTenRomanCiphers[arabicNumber - 41];
+
+          /*  if (arabicNumber >= 20 && arabicNumber < 30)
                 return "XX" + oneToTenRomanCiphers[arabicNumber - 21];
             if (arabicNumber >= 30 && arabicNumber < 40)
-                return "XXX" + oneToTenRomanCiphers[arabicNumber - 31];
+                return "X" + oneToTenRomanCiphers[arabicNumber - 31];*/
             return "";
         }
     }
