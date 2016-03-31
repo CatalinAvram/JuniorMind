@@ -27,37 +27,31 @@ namespace RomanCiphers
         {
             Assert.AreEqual("I", ConvertNumberFromArabicToRoman(1));
         }
-
         [TestMethod]
         public void CipherSeven()
         {
             Assert.AreEqual("VII", ConvertNumberFromArabicToRoman(7));
         }
-
         [TestMethod]
         public void RomanFourteen()
         {
             Assert.AreEqual("XIV", ConvertNumberFromArabicToRoman(14));    
         }
-
         [TestMethod]
         public void BetweenTwentyAndThirty()
         {
             Assert.AreEqual("XXV", ConvertNumberFromArabicToRoman(25));
         }
-
         [TestMethod]
         public void BetweenThirtyAndFourty()
         {
             Assert.AreEqual("XXXVII", ConvertNumberFromArabicToRoman(37));
         }
-
         [TestMethod]
         public void BetweenFourtyAndFifty()
         {
             Assert.AreEqual("XLV", ConvertNumberFromArabicToRoman(45));
-        }
-        
+        }       
         [TestMethod]
         public void BetweenFiftyAndEighty()
         {
@@ -68,48 +62,41 @@ namespace RomanCiphers
         {
             Assert.AreEqual("XCV", ConvertNumberFromArabicToRoman(95));
         }
+        [TestMethod]
+        public void OneHundred()
+        {
+            Assert.AreEqual("C", ConvertNumberFromArabicToRoman(100));
+        }
+        [TestMethod]
+        public void Tens()
+        {
+            Assert.AreEqual("XX", ConvertNumberFromArabicToRoman(20));
+        }
 
         string ConvertNumberFromArabicToRoman(int arabicNumber)
         {
-            string[] oneToTenRomanCiphers = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
+            string[] oneToNineRomanCiphers = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+            string[] tensNumbers = { "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC", "C" };
 
             if (arabicNumber < 10)
-                return oneToTenRomanCiphers[arabicNumber - 1];
+                return oneToNineRomanCiphers[arabicNumber - 1];
+            
             int arabicNumberFirstCipher = (int)Math.Floor((decimal)(arabicNumber / 10));
-            string numberOfXes = new string('X', arabicNumberFirstCipher);
-            if (arabicNumber == 10)
-                return numberOfXes;
-            if (arabicNumber == 20)
-                return numberOfXes;
-            if (arabicNumber == 30)
-                return numberOfXes;
+            if (arabicNumber % 10 == 0)
+                return tensNumbers[arabicNumberFirstCipher - 1];
+
+            string numberOfXesForTenToFourtyNumbersSet = new string('X', arabicNumberFirstCipher);
             if (arabicNumber > 10 && arabicNumber < 40)
-                return numberOfXes + oneToTenRomanCiphers[arabicNumber - (arabicNumberFirstCipher * 10 + 1)];
+                return numberOfXesForTenToFourtyNumbersSet + oneToNineRomanCiphers[arabicNumber - (arabicNumberFirstCipher * 10 + 1)];
 
-            if (arabicNumber == 40)
-                return "XL";
             if (arabicNumber > 40 && arabicNumber < 50)
-                return "XL" + oneToTenRomanCiphers[arabicNumber - 41];
+                return "XL" + oneToNineRomanCiphers[arabicNumber - 41];
 
-            string numberOfXesForSecondSetNumbers = new string('X', arabicNumberFirstCipher - 5);
-            if (arabicNumber == 50)
-                return "L";
-            if (arabicNumber == 60)
-                return "LX";
-            if (arabicNumber == 70)
-                return "LXX";
-            if (arabicNumber == 50)
-                return "LXXX";
+            string numberOfXesForFiftyToNinetyNumbersSet = new string('X', arabicNumberFirstCipher - 5);
             if (arabicNumber > 50 && arabicNumber < 90)
-                return "L" + numberOfXesForSecondSetNumbers + oneToTenRomanCiphers[arabicNumber - (arabicNumberFirstCipher * 10 + 1)];
+                return "L" + numberOfXesForFiftyToNinetyNumbersSet + oneToNineRomanCiphers[arabicNumber - (arabicNumberFirstCipher * 10 + 1)];
 
-            if (arabicNumber == 90)
-                return "XC";
-            if (arabicNumber == 100) 
-                return "C";
-            if (arabicNumber > 90 && arabicNumber < 100)
-                return "XC" + oneToTenRomanCiphers[arabicNumber - (arabicNumberFirstCipher * 10 + 1)];
-            return "";
+            return "XC" + oneToNineRomanCiphers[arabicNumber - (arabicNumberFirstCipher * 10 + 1)];
         }
     }
 }
