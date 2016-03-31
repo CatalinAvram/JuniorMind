@@ -57,16 +57,29 @@ namespace RomanCiphers
         {
             Assert.AreEqual("XLV", ConvertNumberFromArabicToRoman(45));
         }
+        
+        [TestMethod]
+        public void BetweenFiftyAndEighty()
+        {
+            Assert.AreEqual("LXXII", ConvertNumberFromArabicToRoman(72));
+        }
+
         string ConvertNumberFromArabicToRoman(int arabicNumber)
         {
-            string[] oneToTenRomanCiphers = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+            string[] oneToTenRomanCiphers = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
+
 
             if (arabicNumber < 10)
                 return oneToTenRomanCiphers[arabicNumber - 1];
-
             int arabicNumberFirstCipher = (int)Math.Floor((decimal)(arabicNumber / 10));
             string numberOfXes = new string('X', arabicNumberFirstCipher);
-            if (arabicNumber >= 10 && arabicNumber < 40)
+            if (arabicNumber == 10)
+                return numberOfXes;
+            if (arabicNumber == 20)
+                return numberOfXes;
+            if (arabicNumber == 30)
+                return numberOfXes;
+            if (arabicNumber > 10 && arabicNumber < 40)
                 return numberOfXes + oneToTenRomanCiphers[arabicNumber - (arabicNumberFirstCipher * 10 + 1)];
 
             if (arabicNumber == 40)
@@ -74,10 +87,18 @@ namespace RomanCiphers
             if (arabicNumber > 40 && arabicNumber < 50)
                 return "XL" + oneToTenRomanCiphers[arabicNumber - 41];
 
-          /*  if (arabicNumber >= 20 && arabicNumber < 30)
-                return "XX" + oneToTenRomanCiphers[arabicNumber - 21];
-            if (arabicNumber >= 30 && arabicNumber < 40)
-                return "X" + oneToTenRomanCiphers[arabicNumber - 31];*/
+            string numberOfXesForSecondSetNumbers = new string('X', arabicNumberFirstCipher - 5);
+            if (arabicNumber == 50)
+                return "L";
+            if (arabicNumber == 60)
+                return "LX";
+            if (arabicNumber == 70)
+                return "LXX";
+            if (arabicNumber == 50)
+                return "LXXX";
+            if (arabicNumber > 50 && arabicNumber < 80)
+                return "L" + numberOfXesForSecondSetNumbers + oneToTenRomanCiphers[arabicNumber - (arabicNumberFirstCipher * 10 )- 1];
+            
             return "";
         }
     }
