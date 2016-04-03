@@ -16,6 +16,11 @@ namespace CommonPrefixe
         {
             Assert.AreEqual("", FindCommonPrefix("aaba", "baba"));
         }
+        [TestMethod]
+        public void CommonPrefixOfMoreLetters()
+        {
+            Assert.AreEqual("aaa", FindCommonPrefix("aaab", "aaaabbaa"));
+        }
         string FindCommonPrefix(string firstString, string secondString)
         {
             string commonPrefix = "";
