@@ -4,12 +4,17 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CommonPrefixe
 {
     [TestClass]
-    public class PrefixesTests
+    public class PrefixTests
     {
         [TestMethod]
         public void OneCommonLetter()
         {
             Assert.AreEqual("a", FindCommonPrefix("abba", "acca"));
+        }
+        [TestMethod]
+        public void NoCommonPrefix()
+        {
+            Assert.AreEqual("", FindCommonPrefix("aaba", "baba"));
         }
         string FindCommonPrefix(string firstString, string secondString)
         {
