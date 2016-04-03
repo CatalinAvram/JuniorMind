@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiFare", "TaxiFare\TaxiFa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanCiphers", "RomanCiphers\RomanCiphers.csproj", "{9A6FC152-FA65-4A02-BEFB-D2162EA6B563}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessTable", "ChessTable\ChessTable.csproj", "{93035FF2-BBFF-41A9-8336-E9D8622AAB23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonPrefixe", "CommonPrefixe\CommonPrefixe.csproj", "{BAB231BE-8380-4212-9F08-B4CFC0E769BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +91,14 @@ Global
 		{9A6FC152-FA65-4A02-BEFB-D2162EA6B563}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A6FC152-FA65-4A02-BEFB-D2162EA6B563}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A6FC152-FA65-4A02-BEFB-D2162EA6B563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93035FF2-BBFF-41A9-8336-E9D8622AAB23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93035FF2-BBFF-41A9-8336-E9D8622AAB23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93035FF2-BBFF-41A9-8336-E9D8622AAB23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93035FF2-BBFF-41A9-8336-E9D8622AAB23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAB231BE-8380-4212-9F08-B4CFC0E769BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAB231BE-8380-4212-9F08-B4CFC0E769BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAB231BE-8380-4212-9F08-B4CFC0E769BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAB231BE-8380-4212-9F08-B4CFC0E769BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
