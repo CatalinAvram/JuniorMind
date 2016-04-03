@@ -17,16 +17,33 @@ namespace Panagram
             Assert.AreEqual(false, IsAPanagram("I like IT"));
         }
 
+        [TestMethod]
+        public void TextWhichIsAPanagram()
+        {
+            Assert.AreEqual(true, IsAPanagram("The quick brown fox jumps over the lazy dog"));
+        }
+
+        [TestMethod]
+        public void EnglishCharacter()
+        {
+            Assert.AreEqual(true, IsEnglishCharacter('A'));
+        }
+
         bool IsAPanagram(string phrase)
         {
             phrase.ToLower();
             string phraseLetters = "";
             for (int i = 0; i < phrase.Length; i++)
-                if (!phraseLetters.Contains(phrase[i].ToString()))
+                if (IsEnglishCharacter(phrase[i]) && !phraseLetters.Contains(phrase[i].ToString()))
                     phraseLetters = phraseLetters + phrase[i];
             if (phraseLetters.Length == 26)
                 return true;
             return false;
         } 
+
+        bool IsEnglishCharacter(char c)
+        {
+            return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+        }
     }
 }
