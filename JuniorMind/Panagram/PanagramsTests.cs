@@ -36,7 +36,7 @@ namespace Panagram
             for (int i = 0; i < phrase.Length; i++)
                 if (IsEnglishCharacter(phrase[i]) && !phraseLetters.Contains(phrase[i].ToString()))
                     phraseLetters = phraseLetters + phrase[i];
-            if (phraseLetters.Length == 26)
+            if (phraseLetters.Length - 1  == 26)
                 return true;
             return false;
         } 
