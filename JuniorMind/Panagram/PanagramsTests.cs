@@ -32,18 +32,24 @@ namespace Panagram
         bool IsAPanagram(string phrase)
         {
             phrase.ToLower();
-            string phraseLetters = "";
-            for (int i = 0; i < phrase.Length; i++)
-                if (IsEnglishCharacter(phrase[i]) && !phraseLetters.Contains(phrase[i].ToString()))
-                    phraseLetters = phraseLetters + phrase[i];
-            if (phraseLetters.Length - 1  == 26)
+            string phraseLetters = GetDistinctLetters(phrase);
+            if (phraseLetters.Length - 1 == 26)
                 return true;
             return false;
-        } 
+        }
 
         bool IsEnglishCharacter(char c)
         {
             return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
         }
+
+        private string GetDistinctLetters(string phrase)
+        {
+            string phraseLetters = "";
+            for (int i = 0; i < phrase.Length; i++)
+                if (IsEnglishCharacter(phrase[i]) && !phraseLetters.Contains(phrase[i].ToString()))
+                    phraseLetters = phraseLetters + phrase[i];
+            return phraseLetters;
+        }      
     }
 }
