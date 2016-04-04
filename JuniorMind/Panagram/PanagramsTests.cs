@@ -22,6 +22,11 @@ namespace Panagram
         {
             Assert.AreEqual(true, IsAPanagram("The quick brown fox jumps over the lazy dog"));
         }
+        [TestMethod]
+        public void PanagramWithSomeCapitalsAndRepetions()
+        {
+            Assert.AreEqual(true, IsAPanagram("TH The quick brown fox jumps over the lazy dog"));
+        }
 
         [TestMethod]
         public void EnglishCharacter()
@@ -31,9 +36,9 @@ namespace Panagram
 
         bool IsAPanagram(string phrase)
         {
-            phrase.ToLower();
+            phrase = phrase.ToLower();
             string phraseLetters = GetDistinctLetters(phrase);
-            if (phraseLetters.Length - 1 == 26)
+            if (phraseLetters.Length == 26)
                 return true;
             return false;
         }
