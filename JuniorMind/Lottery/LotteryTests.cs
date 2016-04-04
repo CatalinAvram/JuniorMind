@@ -18,7 +18,7 @@ namespace Lottery
         [TestMethod]
         public void SixCorrectNumbers()
         {
-            Assert.AreEqual(1 / 13983816, WinningProbability(6, 49));
+            Assert.AreEqual((double)1 / 13983816, WinningProbability(6, 49));
         }
 
         [TestMethod]
@@ -33,26 +33,27 @@ namespace Lottery
             Assert.AreEqual(35, ComputeNumberOfCombinations(7, 3));
         }
 
-        decimal WinningProbability(int correctNeededNumbers, int totalNumbers)
+        double WinningProbability(int correctNeededNumbers, int totalNumbers)
         {
-            return 1;
+            return 1 / ComputeNumberOfCombinations(totalNumbers, correctNeededNumbers); 
         }
 
-        int ComputeFactorialNumber(int number)
+        double ComputeFactorialNumber(int number)
         {
             if (number == 0)
                 return 1;
 
-            int factorial = 1;
+            double factorial = 1;
             for (int i = 2; i <= number; i++)
                 factorial *= i;
             return factorial;
         }
 
-        int ComputeNumberOfCombinations(int numberOfElements, int numberOfTakes)
+        double ComputeNumberOfCombinations(int numberOfElements, int numberOfTakes)
         {
-            int factorialNumberOfElements = ComputeFactorialNumber(numberOfElements);
-            int factorialNumberOfTakes = ComputeFactorialNumber(numberOfTakes);
+            double factorialNumberOfElements = ComputeFactorialNumber(numberOfElements);
+            double factorialNumberOfTakes = ComputeFactorialNumber(numberOfTakes);
+
             return factorialNumberOfElements / (ComputeFactorialNumber(numberOfElements - numberOfTakes) * factorialNumberOfTakes);
         }
     }
