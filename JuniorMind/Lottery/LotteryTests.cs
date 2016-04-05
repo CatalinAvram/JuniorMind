@@ -37,19 +37,19 @@ namespace Lottery
         [TestMethod]
         public void SecondCategory()
         {
-            Assert.AreEqual((double)1 / 1906884, WinningProbability(5, 49));
+            Assert.AreEqual((double)1 / 1906884, WinningProbability(5, 49), 0.000001);
         }
 
         [TestMethod]
         public void ThirdCategory()
         {
-            Assert.AreEqual((double)1 / 211876, WinningProbability(4, 49));
+            Assert.AreEqual((double)1 / 211876, WinningProbability(4, 49), 0.000001);
         }
 
         [TestMethod]
         public void FiveOutOfForty()
         {
-            Assert.AreEqual((double)1 / 658008, WinningProbability(5, 40));
+            Assert.AreEqual((double)1 / 658008, WinningProbability(5, 40), 0.000001);
         }
 
         double WinningProbability(int correctNeededNumbers, int totalNumbers)
