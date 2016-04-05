@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 /*Vrei să participi la jocul de noroc 6 din 49 cu o singură variantă (simplă).
 
 Calculează ce șanse ai să câștigi la categoria I (6 numere)?
@@ -31,6 +32,24 @@ namespace Lottery
         public void Combinations()
         {
             Assert.AreEqual(35, ComputeNumberOfCombinations(7, 3));
+        }
+
+        [TestMethod]
+        public void SecondCategory()
+        {
+            Assert.AreEqual((double)1 / 1906884, WinningProbability(5, 49));
+        }
+
+        [TestMethod]
+        public void ThirdCategory()
+        {
+            Assert.AreEqual((double)1 / 211876, WinningProbability(4, 49));
+        }
+
+        [TestMethod]
+        public void FiveOutOfForty()
+        {
+            Assert.AreEqual((double)1 / 658008, WinningProbability(5, 40));
         }
 
         double WinningProbability(int correctNeededNumbers, int totalNumbers)
