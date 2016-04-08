@@ -21,11 +21,16 @@ namespace ChessTable
         }
 
         [TestMethod]
-        public void MyTestMethod()
+        public void FourMultipliedByFourTable()
         {
             Assert.AreEqual(29, ComputeNumberOfSquares(4, 4));
         }
 
+        [TestMethod]
+        public void EightMultipliedByEightTable()
+        {
+            Assert.AreEqual(203, ComputeNumberOfSquares(8, 8));
+        }
         private int ComputeNumberOfSquares(int length, int width)
         {
             int numberOfSquares = 0;
