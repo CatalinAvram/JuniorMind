@@ -7,13 +7,14 @@ namespace ChessTable
     public class ChessTests
     {
         [TestMethod]
-        public void ()
+        public void FourSquares()
         {
-
+            Assert.AreEqual(4, ComputeNumberOfSquares(2, 2));
         }
-        decimal CalculateNumberOfSquares(int Length)
+
+        private int ComputeNumberOfSquares(int length, int width)
         {
-            return 0;
+            return length * width;
         }
     }
 }
