@@ -17,12 +17,18 @@ namespace ChessTable
         [TestMethod]
         public void ThreeMultipliedByThreeTable()
         {
-            Assert.AreEqual(13, ComputeNumberOfSquares(3,3));
+            Assert.AreEqual(13, ComputeNumberOfSquares(3, 3));
+        }
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            Assert.AreEqual(29, ComputeNumberOfSquares(4, 4));
         }
 
         private int ComputeNumberOfSquares(int length, int width)
         {
-            int numberOfSquares = 1;
+            int numberOfSquares = 0;
             while(length > 1)
             {
                 numberOfSquares += length * width;
@@ -30,7 +36,7 @@ namespace ChessTable
                 width--;
             }
 
-            return numberOfSquares - 1;
+            return numberOfSquares;
         }
     }
 }
