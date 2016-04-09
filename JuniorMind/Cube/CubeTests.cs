@@ -13,21 +13,38 @@ namespace Cube
         [TestMethod]
         public void FirstNumber()
         {
+            Assert.AreEqual(192, GiveKthNumberWithRequestedCubeEndingDigits(1));
         }
 
+        [TestMethod]
+        public void SecondNumber()
+        {
+            Assert.AreEqual(442, GiveKthNumberWithRequestedCubeEndingDigits(2));
+        }
+
+        private int GiveKthNumberWithRequestedCubeEndingDigits(int k)
         {
             
             int counter = 0;
-            int cube = 1;
-
+            int number = 191;
+           
             while(counter < k)
             {
-                number++;                   
-                cube = (int)Math.Pow(number, 3);
-                if (cube % 1000 == 888)
+                number++;
+                if (HasDesiredEnding(ComputeCube(number), 888))
                     counter++;
             }
             return number;
+        }
+
+        private static int ComputeCube(int number)
+        {
+            return (int)Math.Pow(number, 3);
+        }
+
+        private static bool HasDesiredEnding(int number, int desiredEnding)
+        {
+            return number % 1000 == desiredEnding;
         }
     }
 }
