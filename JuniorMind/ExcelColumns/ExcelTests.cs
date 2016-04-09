@@ -16,9 +16,23 @@ namespace ExcelColumns
         {
             Assert.AreEqual("C", GiveColumnCorrespondingString(3));
         }
-     
-        string GiveColumnCorrespondingString(int columnNumber)
+
+        [TestMethod]
+        public void TwoLettersName()
         {
+            Assert.AreEqual("AB", GiveColumnCorrespondingString(28));
+        }
+
+        string GiveColumnCorrespondingString(int columnNumber)
+        {          
+            string columnString = "";
+            while(columnNumber > 0)
+            {
+                columnNumber--;
+                columnString = (char)('A' + columnNumber % 26) + columnString;
+                columnNumber /= 26;
+            }
+            return columnString;
         }
     }
 }
