@@ -35,10 +35,15 @@ namespace ExcelColumns
             while(columnNumber > 0)
             {
                 columnNumber--;
-                columnString = (char)('A' + columnNumber % 26) + columnString;
+                columnString = GetChar(columnNumber % 26) + columnString;
                 columnNumber /= 26;
             }
             return columnString;
+        }
+
+        private static char GetChar(int number)
+        {
+            return (char)('A' + number);
         }
     }
 }
