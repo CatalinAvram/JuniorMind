@@ -23,6 +23,12 @@ namespace ExcelColumns
             Assert.AreEqual("AB", GiveColumnCorrespondingString(28));
         }
 
+        [TestMethod]
+        public void ThreeLettersName()
+        {
+            Assert.AreEqual("AAA", GiveColumnCorrespondingString(703));
+        }
+
         string GiveColumnCorrespondingString(int columnNumber)
         {          
             string columnString = "";
