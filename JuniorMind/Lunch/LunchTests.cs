@@ -21,22 +21,30 @@ namespace Lunch
         {
             Assert.AreEqual(24, ComputerNumberOfDaysBetweenTwoMeetings(4, 6, 2));
         }
-        
+
+        [TestMethod]
+        public void SmallestCommonMultiple()
+        {
+            Assert.AreEqual(12, CalculateSmallestCommonMultiple(4, 6));
+        }
+
         int ComputerNumberOfDaysBetweenTwoMeetings(int firstPersonFrequency, int secondPersonFrequency, int meetingNumber)
         {
-            int daysBetweenMeetings = secondPersonFrequency;
-
-            while(!IsMeeting(firstPersonFrequency, secondPersonFrequency, daysBetweenMeetings))
-            {
-                daysBetweenMeetings++;
-            }
-
+            int daysBetweenMeetings = CalculateSmallestCommonMultiple(firstPersonFrequency, secondPersonFrequency);
             return daysBetweenMeetings * meetingNumber;
         }
 
-        private bool IsMeeting(int firstPersonFrequency, int secondPersonFrequency, int daysBetweenMeetings)
+        private int CalculateSmallestCommonMultiple(int firstNumber, int secondNumber)
         {
-            return daysBetweenMeetings % firstPersonFrequency == 0 && daysBetweenMeetings % secondPersonFrequency == 0;
+            int product = firstNumber * secondNumber;
+            while(firstNumber != secondNumber)
+            {
+                if (firstNumber > secondNumber)
+                    firstNumber -= secondNumber;
+                else
+                    secondNumber -= firstNumber;
+            }
+            return product / firstNumber;
         }
     }
 }
