@@ -13,18 +13,25 @@ namespace Lunch
         [TestMethod]
         public void FirstMeeting()
         {
-            Assert.AreEqual(12, ComputerNumberOfDaysBetweenTwoMeetings(4, 6));
+            Assert.AreEqual(12, ComputerNumberOfDaysBetweenTwoMeetings(4, 6, 1));
+        }
+
+        [TestMethod]
+        public void SecondMeeting()
+        {
+            Assert.AreEqual(24, ComputerNumberOfDaysBetweenTwoMeetings(4, 6, 2));
         }
         
-        int ComputerNumberOfDaysBetweenTwoMeetings(int firstPersonFrequency, int secondPersonFrequency)
+        int ComputerNumberOfDaysBetweenTwoMeetings(int firstPersonFrequency, int secondPersonFrequency, int meetingNumber)
         {
             int daysBetweenMeetings = secondPersonFrequency;
+
             while(!IsMeeting(firstPersonFrequency, secondPersonFrequency, daysBetweenMeetings))
             {
                 daysBetweenMeetings++;
             }
 
-            return daysBetweenMeetings;
+            return daysBetweenMeetings * meetingNumber;
         }
 
         private bool IsMeeting(int firstPersonFrequency, int secondPersonFrequency, int daysBetweenMeetings)
