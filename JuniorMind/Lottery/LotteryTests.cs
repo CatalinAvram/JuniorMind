@@ -19,7 +19,7 @@ namespace Lottery
         [TestMethod]
         public void SixCorrectNumbers()
         {
-            Assert.AreEqual((double)1 / 13983816, WinningProbability(6, 49));
+            Assert.AreEqual((double)1 / 13983816, WinningProbability(6, 6, 49));
         }
 
         [TestMethod]
@@ -37,24 +37,24 @@ namespace Lottery
         [TestMethod]
         public void SecondCategory()
         {
-            Assert.AreEqual((double)1 / 1906884, WinningProbability(5, 49), 0.000001);
+            Assert.AreEqual(0.0000184, WinningProbability(6, 5, 49), 0.000001);
         }
 
         [TestMethod]
         public void ThirdCategory()
         {
-            Assert.AreEqual((double)1 / 211876, WinningProbability(4, 49), 0.000001);
+            Assert.AreEqual(0.000969, WinningProbability(6, 4, 49), 0.000001);
         }
 
         [TestMethod]
         public void FiveOutOfForty()
         {
-            Assert.AreEqual((double)1 / 658008, WinningProbability(5, 40), 0.000001);
+            Assert.AreEqual((double)1 / 658008, WinningProbability(5, 5, 40), 0.000001);
         }
 
-        double WinningProbability(int correctNeededNumbers, int totalNumbers)
+        double WinningProbability(int correctNeededNumbers, int guessedNumbers, int totalNumbers)
         {
-            return 1 / ComputeNumberOfCombinations(totalNumbers, correctNeededNumbers); 
+            return ComputeNumberOfCombinations(correctNeededNumbers, guessedNumbers) * ComputeNumberOfCombinations((totalNumbers - correctNeededNumbers), (correctNeededNumbers - guessedNumbers)) / ComputeNumberOfCombinations(totalNumbers, correctNeededNumbers); 
         }
 
         double ComputeFactorialNumber(int number)
