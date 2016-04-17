@@ -19,21 +19,50 @@ namespace BaseTwoOperations
         [TestMethod]
         public void ACipher()
         {
-            byte[] binaryArray = { 0, 0, 0, 0, 0, 1, 0, 0 };
+            byte[] binaryArray = { 1, 0, 0 };
             CollectionAssert.AreEqual(binaryArray, ConvertToBaseTwo(4));
         }
 
+        [TestMethod]
+        public void TestForTwelve()
+        {
+            byte[] binaryArray = {  1, 1, 0, 0 };
+            CollectionAssert.AreEqual(binaryArray, ConvertToBaseTwo(12));
+        }
+
+        [TestMethod]
+        public void NumberOfBinaryDigits()
+        {
+            Assert.AreEqual(4, GetNumberOfBinaryDigits(12));
+        }
+
+        
         byte[] ConvertToBaseTwo(int decimalNumber)
         {
-            byte[] binaryNumber = { 0, 0, 0, 0, 0, 0, 0, 0 };
-            int position = 7;
-            while(decimalNumber > 0)
+            int copy = decimalNumber;
+            int length = GetNumberOfBinaryDigits(copy);
+
+            byte[] binaryNumber = new byte[length];
+            int position = length;
+            while (decimalNumber > 0)
             {
                 binaryNumber[position] = (byte)(decimalNumber % 2);
                 decimalNumber = decimalNumber / 2;
                 position--;
             }
             return binaryNumber;
+        }
+
+        private static int GetNumberOfBinaryDigits(int number)
+        {
+            int length = 0;
+            while (number > 0)
+            {
+                number /= 2;
+                length++;
+            }
+
+            return length;
         }
     }
 }
