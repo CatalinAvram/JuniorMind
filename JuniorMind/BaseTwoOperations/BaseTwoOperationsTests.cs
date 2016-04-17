@@ -31,25 +31,30 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
+        public void FortyNine()
+        {
+            byte[] binaryArray = { 1, 1, 0, 0, 0, 1 };
+            CollectionAssert.AreEqual(binaryArray, ConvertToBaseTwo(49));
+        }
+
+        [TestMethod]
         public void NumberOfBinaryDigits()
         {
             Assert.AreEqual(4, GetNumberOfBinaryDigits(12));
         }
-
-        
+      
         byte[] ConvertToBaseTwo(int decimalNumber)
         {
-            int copy = decimalNumber;
-            int length = GetNumberOfBinaryDigits(copy);
+            int decimalNumberCopy = decimalNumber;
+            int length = GetNumberOfBinaryDigits(decimalNumberCopy);
 
             byte[] binaryNumber = new byte[length];
-            int position = length;
-            while (decimalNumber > 0)
+            for(int position = length - 1; position >= 0; position--)
             {
                 binaryNumber[position] = (byte)(decimalNumber % 2);
                 decimalNumber = decimalNumber / 2;
-                position--;
             }
+
             return binaryNumber;
         }
 
@@ -61,7 +66,6 @@ namespace BaseTwoOperations
                 number /= 2;
                 length++;
             }
-
             return length;
         }
     }
