@@ -42,6 +42,13 @@ namespace BaseTwoOperations
         {
             Assert.AreEqual("100", GetStringOfBinaryDigits(4));
         }
+
+        [TestMethod]
+        public void TestNotOperator()
+        {
+            byte[] binaryArray = { 0, 1, 1 };
+            CollectionAssert.AreEqual(binaryArray, ApplyNotOperator(4));
+        }
       
         byte[] ConvertToBaseTwo(int decimalNumber)
         {        
@@ -66,6 +73,19 @@ namespace BaseTwoOperations
                 number /= 2;
             }
             return binaryDigitsString;
+        }
+
+        byte[] ApplyNotOperator(int number)
+        {
+            byte[] binaryNumber = ConvertToBaseTwo(number); 
+            for(int i = 0; i < binaryNumber.Length; i++)
+            {
+                if (binaryNumber[i] == 0)
+                    binaryNumber[i] = 1;
+                else
+                    binaryNumber[i] = 0;
+            }
+            return binaryNumber;
         }
     }
 }
