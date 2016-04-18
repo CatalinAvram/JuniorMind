@@ -49,6 +49,13 @@ namespace BaseTwoOperations
             byte[] binaryArray = { 0, 1, 1 };
             CollectionAssert.AreEqual(binaryArray, ApplyNotOperator(4));
         }
+
+        [TestMethod]
+        public void AndForEqualLengthBinaryNumbers()
+        {
+            byte[] binaryArray = { 1, 0, 0 };
+            CollectionAssert.AreEqual(binaryArray, ApplyAndOperator(5, 4));
+        }
       
         byte[] ConvertToBaseTwo(int decimalNumber)
         {        
@@ -86,6 +93,21 @@ namespace BaseTwoOperations
                     binaryNumber[i] = 0;
             }
             return binaryNumber;
+        }
+
+        byte[] ApplyAndOperator(int number1, int number2)
+        {
+            byte[] binaryNumber1 = ConvertToBaseTwo(number1);
+            byte[] binaryNumber2 = ConvertToBaseTwo(number2);
+
+            for(int i = 0; i < binaryNumber1.Length; i++)
+            {
+                if (binaryNumber1[i] == 0 && binaryNumber2[i] == 0)
+                    binaryNumber1[i] = 0;
+                else
+                    binaryNumber1[i] =(byte)(binaryNumber1[i] + binaryNumber2[i] - 1);
+            }
+            return binaryNumber1;
         }
     }
 }
