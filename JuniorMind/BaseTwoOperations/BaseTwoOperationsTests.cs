@@ -38,35 +38,34 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
-        public void NumberOfBinaryDigits()
+        public void StringOfBinaryDigits()
         {
-            Assert.AreEqual(4, GetNumberOfBinaryDigits(12));
+            Assert.AreEqual("100", GetStringOfBinaryDigits(4));
         }
       
         byte[] ConvertToBaseTwo(int decimalNumber)
-        {
-            int decimalNumberCopy = decimalNumber;
-            int length = GetNumberOfBinaryDigits(decimalNumberCopy);
-
+        {        
+            string binaryString = GetStringOfBinaryDigits(decimalNumber);
+            int length = binaryString.Length;        
             byte[] binaryNumber = new byte[length];
-            for(int position = length - 1; position >= 0; position--)
-            {
-                binaryNumber[position] = (byte)(decimalNumber % 2);
-                decimalNumber = decimalNumber / 2;
-            }
 
+            for (int position = length - 1; position >= 0; position--)
+            {
+                binaryNumber[position] = byte.Parse(binaryString[position].ToString());               
+            }
+          
             return binaryNumber;
         }
 
-        private static int GetNumberOfBinaryDigits(int number)
+        private static string GetStringOfBinaryDigits(int number)
         {
-            int length = 0;
+            string binaryDigitsString = "";
             while (number > 0)
             {
+                binaryDigitsString = number % 2 + binaryDigitsString;
                 number /= 2;
-                length++;
             }
-            return length;
+            return binaryDigitsString;
         }
     }
 }
