@@ -38,76 +38,86 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
-        public void StringOfBinaryDigits()
+        public void NumberOfBinaryDigits()
         {
-            Assert.AreEqual("100", GetStringOfBinaryDigits(4));
+            Assert.AreEqual(3, GetNumberOfBinaryDigits(4));
         }
 
         [TestMethod]
-        public void TestNotOperator()
+        public void TestNOTOperator()
         {
             byte[] binaryArray = { 0, 1, 1 };
-            CollectionAssert.AreEqual(binaryArray, ApplyNotOperator(4));
+            CollectionAssert.AreEqual(binaryArray, ApplyNotOperator(ConvertToBaseTwo(4)));
         }
 
         [TestMethod]
-        public void AndForEqualLengthBinaryNumbers()
-        {
-            byte[] binaryArray = { 1, 0, 0 };
-            CollectionAssert.AreEqual(binaryArray, ApplyAndOperator(5, 4));
+        public void ANDForEqualLengthBinaryNumbers()
+        {         
+            CollectionAssert.AreEqual(ConvertToBaseTwo(5 & 4), ApplyAndOperator(ConvertToBaseTwo(5), ConvertToBaseTwo(4)));
         }
-      
-        byte[] ConvertToBaseTwo(int decimalNumber)
-        {        
-            string binaryString = GetStringOfBinaryDigits(decimalNumber);
-            int length = binaryString.Length;        
-            byte[] binaryNumber = new byte[length];
 
+        [TestMethod]
+        public void ANDForDifferentLengthBinaryNumbers()
+        {
+            CollectionAssert.AreEqual(ConvertToBaseTwo(5 & 3), ApplyAndOperator(ConvertToBaseTwo(5), ConvertToBaseTwo(3)));
+        }
+        
+        byte[] ConvertToBaseTwo(int decimalNumber)
+        {
+            int decimalNumberCopy = decimalNumber;
+            int length = GetNumberOfBinaryDigits(decimalNumberCopy);
+
+            byte[] binaryNumber = new byte[length];        
             for (int position = length - 1; position >= 0; position--)
             {
-                binaryNumber[position] = byte.Parse(binaryString[position].ToString());               
+                binaryNumber[position] = (byte)(decimalNumber % 2);
+                decimalNumber = decimalNumber / 2;      
             }
-          
             return binaryNumber;
         }
 
-        private static string GetStringOfBinaryDigits(int number)
+        private static int GetNumberOfBinaryDigits(int number)
         {
-            string binaryDigitsString = "";
+            int length = 0;
             while (number > 0)
-            {
-                binaryDigitsString = number % 2 + binaryDigitsString;
+            { 
                 number /= 2;
+                length++;
             }
-            return binaryDigitsString;
+            return length;
         }
 
-        byte[] ApplyNotOperator(int number)
+        byte[] ApplyNotOperator(byte[] binaryArray)
         {
-            byte[] binaryNumber = ConvertToBaseTwo(number); 
-            for(int i = 0; i < binaryNumber.Length; i++)
+             
+            for(int i = 0; i < binaryArray.Length; i++)
             {
-                if (binaryNumber[i] == 0)
-                    binaryNumber[i] = 1;
+                if (binaryArray[i] == 0)
+                    binaryArray[i] = 1;
                 else
-                    binaryNumber[i] = 0;
+                    binaryArray[i] = 0;
             }
-            return binaryNumber;
+            return binaryArray;
         }
 
-        byte[] ApplyAndOperator(int number1, int number2)
+        byte[] ApplyAndOperator(byte[] binaryArray1, byte[] binaryArray2)
         {
-            byte[] binaryNumber1 = ConvertToBaseTwo(number1);
-            byte[] binaryNumber2 = ConvertToBaseTwo(number2);
+            int k = Math.Min(binaryArray1.Length, binaryArray2.Length);
+            byte[] binaryArray = new byte[k];           
+            int i = binaryArray1.Length;
+            int j = binaryArray2.Length;
 
-            for(int i = 0; i < binaryNumber1.Length; i++)
+            while(k > 0)
             {
-                if (binaryNumber1[i] == 0 && binaryNumber2[i] == 0)
-                    binaryNumber1[i] = 0;
+                k--;
+                i--;
+                j--;
+                if (binaryArray1[i] == 0 && binaryArray2[j] == 0)
+                    binaryArray[k] = 0;
                 else
-                    binaryNumber1[i] =(byte)(binaryNumber1[i] + binaryNumber2[i] - 1);
+                    binaryArray[k] = (byte)(binaryArray1[i] + binaryArray2[j] - 1);               
             }
-            return binaryNumber1;
+            return binaryArray;
         }
     }
 }
