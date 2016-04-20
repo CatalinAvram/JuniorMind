@@ -61,13 +61,19 @@ namespace BaseTwoOperations
         {          
             CollectionAssert.AreEqual(ConvertToBaseTwo(5 & 3), ApplyAndOperator(ConvertToBaseTwo(5), ConvertToBaseTwo(3)));
         }
+      
+        [TestMethod]
+        public void ElementFromGivenPosition()
+        {
+            byte[] array = { 1, 2, 3 };
+            Assert.AreEqual(3, GetElementFromGivenPosition(array, 0));
+        }
 
         [TestMethod]
-        public void ArrayExtension()
+        public void PositionNotInTheArray()
         {
-            byte[] initialArray = { 1, 1 };
-            byte[] extendedArray = { 1, 1, 0 };
-            CollectionAssert.AreEqual(extendedArray, ExtendArray(initialArray, 3));
+            byte[] array = { 1, 2, 3 };
+            Assert.AreEqual(0, GetElementFromGivenPosition(array, 4));
         }
 
         byte[] ConvertToBaseTwo(int decimalNumber)
@@ -123,17 +129,14 @@ namespace BaseTwoOperations
             return binaryArray;
         }
 
-        byte[] ExtendArray(byte[] initialArray, int desiredLength)
+        byte GetElementFromGivenPosition(byte[] binaryArray, int position)
         {
-            byte[] extendedArray = new byte[desiredLength];
-            for(int i = 0; i < desiredLength; i++)
-            {
-                if(i < initialArray.Length)
-                    extendedArray[i] = initialArray[i];                
-                else
-                    extendedArray[i] = 0;
-            }
-            return extendedArray;
-        }
+            if(position < binaryArray.Length)
+                return binaryArray[binaryArray.Length - position - 1];
+            return 0;
+        } 
+
+
+      
     }
 }
