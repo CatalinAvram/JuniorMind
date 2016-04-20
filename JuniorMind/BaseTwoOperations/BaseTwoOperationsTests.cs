@@ -58,10 +58,18 @@ namespace BaseTwoOperations
 
         [TestMethod]
         public void ANDForDifferentLengthBinaryNumbers()
-        {
+        {          
             CollectionAssert.AreEqual(ConvertToBaseTwo(5 & 3), ApplyAndOperator(ConvertToBaseTwo(5), ConvertToBaseTwo(3)));
         }
-        
+
+        [TestMethod]
+        public void ArrayExtension()
+        {
+            byte[] initialArray = { 1, 1 };
+            byte[] extendedArray = { 1, 1, 0 };
+            CollectionAssert.AreEqual(extendedArray, ExtendArray(initialArray, 3));
+        }
+
         byte[] ConvertToBaseTwo(int decimalNumber)
         {
             int decimalNumberCopy = decimalNumber;
@@ -88,8 +96,7 @@ namespace BaseTwoOperations
         }
 
         byte[] ApplyNotOperator(byte[] binaryArray)
-        {
-             
+        {          
             for(int i = 0; i < binaryArray.Length; i++)
             {
                 if (binaryArray[i] == 0)
@@ -103,21 +110,30 @@ namespace BaseTwoOperations
         byte[] ApplyAndOperator(byte[] binaryArray1, byte[] binaryArray2)
         {
             int k = Math.Min(binaryArray1.Length, binaryArray2.Length);
-            byte[] binaryArray = new byte[k];           
-            int i = binaryArray1.Length;
-            int j = binaryArray2.Length;
 
+            byte[] binaryArray = new byte[k];                       
             while(k > 0)
             {
                 k--;
-                i--;
-                j--;
-                if (binaryArray1[i] == 0 && binaryArray2[j] == 0)
-                    binaryArray[k] = 0;
+                if (binaryArray1[k] == 1 && binaryArray2[k] == 1)
+                    binaryArray[k] = 1;                              
                 else
-                    binaryArray[k] = (byte)(binaryArray1[i] + binaryArray2[j] - 1);               
-            }
+                    binaryArray[k] = 0;               
+            }         
             return binaryArray;
+        }
+
+        byte[] ExtendArray(byte[] initialArray, int desiredLength)
+        {
+            byte[] extendedArray = new byte[desiredLength];
+            for(int i = 0; i < desiredLength; i++)
+            {
+                if(i < initialArray.Length)
+                    extendedArray[i] = initialArray[i];                
+                else
+                    extendedArray[i] = 0;
+            }
+            return extendedArray;
         }
     }
 }
