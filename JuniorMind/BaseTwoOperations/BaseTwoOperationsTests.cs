@@ -88,6 +88,12 @@ namespace BaseTwoOperations
             Assert.AreEqual(0, CountZeroes(ToBinary(0)));
         }
 
+        [TestMethod]
+        public void ANDOnlyZeroes()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0 }, And(ToBinary(4), ToBinary(3)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             int decimalNumberCopy = decimalNumber;
@@ -116,12 +122,9 @@ namespace BaseTwoOperations
         byte[] Not(byte[] binaryArray)
         {          
             for(int i = 0; i < binaryArray.Length; i++)
-            {
-                if (binaryArray[i] == 0)
-                    binaryArray[i] = 1;
-                else
-                    binaryArray[i] = 0;
-            }
+            {               
+               binaryArray[i] = (byte)(binaryArray[i] == 0 ? 1 : 0);
+            }        
             return binaryArray;
         }
 
@@ -135,6 +138,8 @@ namespace BaseTwoOperations
                 else
                     number[i] = 0;
             }
+            if (CountZeroes(number) == 0)
+                return new byte[] { 0 };
             Array.Resize(ref number, number.Length - CountZeroes(number));
             Array.Reverse(number);
             return number;
