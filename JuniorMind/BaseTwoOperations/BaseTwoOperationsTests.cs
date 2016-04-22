@@ -49,19 +49,7 @@ namespace BaseTwoOperations
             byte[] binaryArray = { 0, 1, 1 };
             CollectionAssert.AreEqual(binaryArray, Not(ToBinary(4)));
         }
-
-        [TestMethod]
-        public void ANDForEqualLengthBinaryNumbers()
-        {         
-            CollectionAssert.AreEqual(ToBinary(5 & 4), And(ToBinary(5), ToBinary(4)));
-        }
-
-        [TestMethod]
-        public void ANDForDifferentLengthBinaryNumbers()
-        {          
-            CollectionAssert.AreEqual(ToBinary(5 & 9), And(ToBinary(5), ToBinary(9)));
-        }
-      
+          
         [TestMethod]
         public void ElementFromGivenPosition()
         {
@@ -85,13 +73,25 @@ namespace BaseTwoOperations
         [TestMethod]
         public void OnlyZeroes()
         {
-            Assert.AreEqual(0, CountZeroes(ToBinary(0)));
+            Assert.AreEqual(1, CountZeroes(ToBinary(0)));
         }
 
         [TestMethod]
         public void ANDOnlyZeroes()
         {
             CollectionAssert.AreEqual(new byte[] { 0 }, And(ToBinary(4), ToBinary(3)));
+        }
+
+        [TestMethod]
+        public void ANDForEqualLengthBinaryNumbers()
+        {
+            CollectionAssert.AreEqual(ToBinary(5 & 4), And(ToBinary(5), ToBinary(4)));
+        }
+
+        [TestMethod]
+        public void ANDForDifferentLengthBinaryNumbers()
+        {
+            CollectionAssert.AreEqual(ToBinary(5 & 9), And(ToBinary(5), ToBinary(9)));
         }
 
         byte[] ToBinary(int decimalNumber)
@@ -131,15 +131,21 @@ namespace BaseTwoOperations
         byte[] And(byte[] first, byte[] second)
         {
             byte[] number = new byte[Math.Max(first.Length, second.Length)];
-            for(int i = Math.Max(first.Length, second.Length) - 1; i >= 0; i--)
+            for (int i = Math.Max(first.Length, second.Length) - 1; i >= 0; i--)
             {
                 if (GetAt(first, i) == 1 && GetAt(second, i) == 1)
-                    number[i] = 1;                                  
+                    number[i] = 1;
                 else
                     number[i] = 0;
             }
-            if (CountZeroes(number) == 0)
+            if (CountZeroes(number) == 1)
                 return new byte[] { 0 };
+            
+            return RemoveTrailingZeroes(number); ;
+        }
+
+        private byte[] RemoveTrailingZeroes(byte[] number)
+        {
             Array.Resize(ref number, number.Length - CountZeroes(number));
             Array.Reverse(number);
             return number;
@@ -159,7 +165,7 @@ namespace BaseTwoOperations
                 if (number[i] != 0)
                     return number.Length - i - 1;
             }
-            return 0;
+            return 1;
         }                    
     }
 }
