@@ -95,6 +95,11 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
+        public void OrForDifferentLegth()
+        {
+            CollectionAssert.AreEqual(ToBinary(5 | 9), Or(ToBinary(5), ToBinary(9)));
+        }
+        [TestMethod]
         public void OrForEqualLength()
         {
             CollectionAssert.AreEqual(ToBinary(5 | 4), Or(ToBinary(5), ToBinary(4)));
