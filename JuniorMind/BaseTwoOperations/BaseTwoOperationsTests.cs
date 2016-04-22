@@ -20,21 +20,21 @@ namespace BaseTwoOperations
         public void ACipher()
         {
             byte[] binaryArray = { 1, 0, 0 };
-            CollectionAssert.AreEqual(binaryArray, ConvertToBaseTwo(4));
+            CollectionAssert.AreEqual(binaryArray, ToBinary(4));
         }
 
         [TestMethod]
         public void TestForTwelve()
         {
             byte[] binaryArray = {  1, 1, 0, 0 };
-            CollectionAssert.AreEqual(binaryArray, ConvertToBaseTwo(12));
+            CollectionAssert.AreEqual(binaryArray, ToBinary(12));
         }
 
         [TestMethod]
         public void FortyNine()
         {
             byte[] binaryArray = { 1, 1, 0, 0, 0, 1 };
-            CollectionAssert.AreEqual(binaryArray, ConvertToBaseTwo(49));
+            CollectionAssert.AreEqual(binaryArray, ToBinary(49));
         }
 
         [TestMethod]
@@ -47,36 +47,48 @@ namespace BaseTwoOperations
         public void TestNOTOperator()
         {
             byte[] binaryArray = { 0, 1, 1 };
-            CollectionAssert.AreEqual(binaryArray, ApplyNotOperator(ConvertToBaseTwo(4)));
+            CollectionAssert.AreEqual(binaryArray, Not(ToBinary(4)));
         }
 
         [TestMethod]
         public void ANDForEqualLengthBinaryNumbers()
         {         
-            CollectionAssert.AreEqual(ConvertToBaseTwo(5 & 4), ApplyAndOperator(ConvertToBaseTwo(5), ConvertToBaseTwo(4)));
+            CollectionAssert.AreEqual(ToBinary(5 & 4), And(ToBinary(5), ToBinary(4)));
         }
 
         [TestMethod]
         public void ANDForDifferentLengthBinaryNumbers()
         {          
-            CollectionAssert.AreEqual(ConvertToBaseTwo(5 & 3), ApplyAndOperator(ConvertToBaseTwo(5), ConvertToBaseTwo(3)));
+            CollectionAssert.AreEqual(ToBinary(5 & 9), And(ToBinary(5), ToBinary(9)));
         }
       
         [TestMethod]
         public void ElementFromGivenPosition()
         {
             byte[] array = { 1, 2, 3 };
-            Assert.AreEqual(3, GetElementFromGivenPosition(array, 0));
+            Assert.AreEqual(3, GetAt(array, 0));
         }
 
         [TestMethod]
         public void PositionNotInTheArray()
         {
             byte[] array = { 1, 2, 3 };
-            Assert.AreEqual(0, GetElementFromGivenPosition(array, 4));
+            Assert.AreEqual(0, GetAt(array, 4));
         }
 
-        byte[] ConvertToBaseTwo(int decimalNumber)
+        [TestMethod]
+        public void NumberOfZeroes()
+        {
+            Assert.AreEqual(3, CountZeroes(ToBinary(8)));
+        }
+
+        [TestMethod]
+        public void OnlyZeroes()
+        {
+            Assert.AreEqual(0, CountZeroes(ToBinary(0)));
+        }
+
+        byte[] ToBinary(int decimalNumber)
         {
             int decimalNumberCopy = decimalNumber;
             int length = GetNumberOfBinaryDigits(decimalNumberCopy);
@@ -101,7 +113,7 @@ namespace BaseTwoOperations
             return length;
         }
 
-        byte[] ApplyNotOperator(byte[] binaryArray)
+        byte[] Not(byte[] binaryArray)
         {          
             for(int i = 0; i < binaryArray.Length; i++)
             {
@@ -113,30 +125,36 @@ namespace BaseTwoOperations
             return binaryArray;
         }
 
-        byte[] ApplyAndOperator(byte[] binaryArray1, byte[] binaryArray2)
+        byte[] And(byte[] first, byte[] second)
         {
-            int k = Math.Min(binaryArray1.Length, binaryArray2.Length);
-
-            byte[] binaryArray = new byte[k];                       
-            while(k > 0)
+            byte[] number = new byte[Math.Max(first.Length, second.Length)];
+            for(int i = Math.Max(first.Length, second.Length) - 1; i >= 0; i--)
             {
-                k--;
-                if (binaryArray1[k] == 1 && binaryArray2[k] == 1)
-                    binaryArray[k] = 1;                              
+                if (GetAt(first, i) == 1 && GetAt(second, i) == 1)
+                    number[i] = 1;                                  
                 else
-                    binaryArray[k] = 0;               
-            }         
-            return binaryArray;
+                    number[i] = 0;
+            }
+            Array.Resize(ref number, number.Length - CountZeroes(number));
+            Array.Reverse(number);
+            return number;
         }
 
-        byte GetElementFromGivenPosition(byte[] binaryArray, int position)
+        byte GetAt(byte[] binaryArray, int position)
         {
             if(position < binaryArray.Length)
                 return binaryArray[binaryArray.Length - position - 1];
             return 0;
-        } 
-
-
-      
+        }  
+        
+        int CountZeroes(byte[] number)
+        {
+            for(int i = number.Length - 1; i >= 0; i--)
+            {
+                if (number[i] != 0)
+                    return number.Length - i - 1;
+            }
+            return 0;
+        }                    
     }
 }
