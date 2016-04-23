@@ -28,6 +28,7 @@ namespace BaseTwoOperations
         {
             CollectionAssert.AreEqual(new byte[] { 0 }, ToBinary(0));
         }
+
         [TestMethod]
         public void TestForTwelve()
         {
@@ -152,6 +153,13 @@ namespace BaseTwoOperations
         {
             CollectionAssert.AreEqual(ToBinary(8 >> 3), RightHandShift(ToBinary(8), 3));
         }
+
+        [TestMethod]
+        public void PositionsBiggerThanLength()
+        {
+            CollectionAssert.AreEqual(ToBinary(3 >> 5), RightHandShift(ToBinary(3), 5));
+        }
+       
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -265,6 +273,8 @@ namespace BaseTwoOperations
 
         byte[] RightHandShift(byte[] number, int numberOfPositions)
         {
+            if (numberOfPositions >= number.Length)
+                return new byte[] { 0 };
             byte[] result = new byte[number.Length - numberOfPositions]; 
             for(int i = 0; i < number.Length - numberOfPositions; i++)
             {
