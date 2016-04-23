@@ -24,6 +24,11 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
+        public void ZeroToBinary()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0 }, ToBinary(0));
+        }
+        [TestMethod]
         public void TestForTwelve()
         {
             byte[] binaryArray = { 1, 1, 0, 0 };
@@ -144,9 +149,11 @@ namespace BaseTwoOperations
        
         byte[] ToBinary(int decimalNumber)
         {
+            if (decimalNumber == 0)
+                return new byte[] { 0 };
+
             int decimalNumberCopy = decimalNumber;
             int length = GetNumberOfBinaryDigits(decimalNumberCopy);
-
             byte[] binaryNumber = new byte[length];
             for (int position = length - 1; position >= 0; position--)
             {
@@ -227,8 +234,8 @@ namespace BaseTwoOperations
 
         private byte[] RemoveTrailingZeroes(byte[] number)
         {
-            if (CountZeroes(number) == 1)
-                return new byte[] { 0 };
+            if (CountZeroes(number) == 1 || CountZeroes(number) == number.Length)
+                return new byte[] { 0 };         
             Array.Resize(ref number, number.Length - CountZeroes(number));
             Array.Reverse(number);
             return number;
@@ -242,13 +249,13 @@ namespace BaseTwoOperations
         }
 
         int CountZeroes(byte[] number)
-        {            
+        {                                   
             for (int i = number.Length - 1; i >= 0; i--)
             {
                 if (number[i] != 0)
                     return number.Length - i - 1;
             }
-            return 1;
+            return number.Length;
         }    
     }
 }
