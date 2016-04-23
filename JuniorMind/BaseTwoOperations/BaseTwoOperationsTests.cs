@@ -146,7 +146,12 @@ namespace BaseTwoOperations
         {
             Assert.AreEqual(0, SelectLogicOperation(1, 1, "XOR"));
         }
-       
+
+        [TestMethod]
+        public void RightShift()
+        {
+            CollectionAssert.AreEqual(ToBinary(8 >> 3), RightHandShift(ToBinary(8), 3));
+        }
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -257,5 +262,15 @@ namespace BaseTwoOperations
             }
             return number.Length;
         }    
-    }
+
+        byte[] RightHandShift(byte[] number, int numberOfPositions)
+        {
+            byte[] result = new byte[number.Length - numberOfPositions]; 
+            for(int i = 0; i < number.Length - numberOfPositions; i++)
+            {
+                result[i] = number[i];
+            }
+            return result;
+        }
+    } 
 }
