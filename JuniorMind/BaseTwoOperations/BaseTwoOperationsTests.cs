@@ -141,6 +141,7 @@ namespace BaseTwoOperations
         {
             Assert.AreEqual(0, SelectLogicOperation(1, 1, "XOR"));
         }
+       
         byte[] ToBinary(int decimalNumber)
         {
             int decimalNumberCopy = decimalNumber;
@@ -185,10 +186,7 @@ namespace BaseTwoOperations
                 firstBit = GetAt(first, i);
                 secondBit = GetAt(second, i);
                 resultedNumber[i] = SelectLogicOperation(firstBit, secondBit, operation);
-            }
-
-            if (CountZeroes(resultedNumber) == 1)
-                return new byte[] { 0 };
+            }          
             return RemoveTrailingZeroes(resultedNumber);
         }
 
@@ -229,6 +227,8 @@ namespace BaseTwoOperations
 
         private byte[] RemoveTrailingZeroes(byte[] number)
         {
+            if (CountZeroes(number) == 1)
+                return new byte[] { 0 };
             Array.Resize(ref number, number.Length - CountZeroes(number));
             Array.Reverse(number);
             return number;
@@ -242,7 +242,7 @@ namespace BaseTwoOperations
         }
 
         int CountZeroes(byte[] number)
-        {
+        {            
             for (int i = number.Length - 1; i >= 0; i--)
             {
                 if (number[i] != 0)
