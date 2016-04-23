@@ -26,7 +26,7 @@ namespace BaseTwoOperations
         [TestMethod]
         public void TestForTwelve()
         {
-            byte[] binaryArray = {  1, 1, 0, 0 };
+            byte[] binaryArray = { 1, 1, 0, 0 };
             CollectionAssert.AreEqual(binaryArray, ToBinary(12));
         }
 
@@ -49,7 +49,7 @@ namespace BaseTwoOperations
             byte[] binaryArray = { 0, 1, 1 };
             CollectionAssert.AreEqual(binaryArray, Not(ToBinary(4)));
         }
-          
+
         [TestMethod]
         public void ElementFromGivenPosition()
         {
@@ -79,41 +79,73 @@ namespace BaseTwoOperations
         [TestMethod]
         public void ANDOnlyZeroes()
         {
-            CollectionAssert.AreEqual(new byte[] { 0 }, And(ToBinary(4), ToBinary(3)));
+            CollectionAssert.AreEqual(new byte[] { 0 }, LogicOperations(ToBinary(4), ToBinary(3), "AND"));
         }
 
         [TestMethod]
         public void ANDForEqualLengthBinaryNumbers()
         {
-            CollectionAssert.AreEqual(ToBinary(5 & 4), And(ToBinary(5), ToBinary(4)));
+            CollectionAssert.AreEqual(ToBinary(5 & 4), LogicOperations(ToBinary(5), ToBinary(4), "AND"));
         }
 
         [TestMethod]
         public void ANDForDifferentLengthBinaryNumbers()
         {
-            CollectionAssert.AreEqual(ToBinary(5 & 9), And(ToBinary(5), ToBinary(9)));
+            CollectionAssert.AreEqual(ToBinary(5 & 9), LogicOperations(ToBinary(5), ToBinary(9), "AND"));
         }
 
         [TestMethod]
-        public void OrForDifferentLegth()
+        public void ORForDifferentLegth()
         {
-            CollectionAssert.AreEqual(ToBinary(5 | 9), Or(ToBinary(5), ToBinary(9)));
+            CollectionAssert.AreEqual(ToBinary(5 | 9), LogicOperations(ToBinary(5), ToBinary(9), "OR"));
         }
+
         [TestMethod]
-        public void OrForEqualLength()
+        public void ORForEqualLength()
         {
-            CollectionAssert.AreEqual(ToBinary(5 | 4), Or(ToBinary(5), ToBinary(4)));
+            CollectionAssert.AreEqual(ToBinary(5 | 4), LogicOperations(ToBinary(5), ToBinary(4), "OR"));
         }
+
+        [TestMethod]
+        public void XORForEqualLength()
+        {
+            CollectionAssert.AreEqual(ToBinary(5 ^ 4), LogicOperations(ToBinary(5), ToBinary(4), "XOR"));
+        }
+
+        [TestMethod]
+        public void XORForDifferentLegth()
+        {
+            CollectionAssert.AreEqual(ToBinary(5 ^ 9), LogicOperations(ToBinary(5), ToBinary(9), "XOR"));
+        }
+
+        [TestMethod]
+        public void And()
+        {
+            Assert.AreEqual(0, And(0, 1));
+        }
+
+        [TestMethod]
+        public void Or()
+        {
+            Assert.AreEqual(1, Or(1, 0));
+        }
+
+        [TestMethod]
+        public void Xor()
+        {
+            Assert.AreEqual(0, Xor(1, 1));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             int decimalNumberCopy = decimalNumber;
             int length = GetNumberOfBinaryDigits(decimalNumberCopy);
 
-            byte[] binaryNumber = new byte[length];        
+            byte[] binaryNumber = new byte[length];
             for (int position = length - 1; position >= 0; position--)
             {
                 binaryNumber[position] = (byte)(decimalNumber % 2);
-                decimalNumber = decimalNumber / 2;      
+                decimalNumber = decimalNumber / 2;
             }
             return binaryNumber;
         }
@@ -122,7 +154,7 @@ namespace BaseTwoOperations
         {
             int length = 0;
             while (number > 0)
-            { 
+            {
                 number /= 2;
                 length++;
             }
@@ -130,27 +162,55 @@ namespace BaseTwoOperations
         }
 
         byte[] Not(byte[] binaryArray)
-        {          
-            for(int i = 0; i < binaryArray.Length; i++)
-            {               
-               binaryArray[i] = (byte)(binaryArray[i] == 0 ? 1 : 0);
-            }        
+        {
+            for (int i = 0; i < binaryArray.Length; i++)
+            {
+                binaryArray[i] = (byte)(binaryArray[i] == 0 ? 1 : 0);
+            }
             return binaryArray;
         }
 
-        byte[] And(byte[] first, byte[] second)
+        byte[] LogicOperations(byte[] first, byte[] second, string operation)
         {
-            byte[] number = new byte[Math.Max(first.Length, second.Length)];
+            byte[] resultedNumber = new byte[Math.Max(first.Length, second.Length)];
+            byte firstBit = 0;
+            byte secondBit = 0;
             for (int i = Math.Max(first.Length, second.Length) - 1; i >= 0; i--)
             {
-                if (GetAt(first, i) == 1 && GetAt(second, i) == 1)
-                    number[i] = 1;
-                else
-                    number[i] = 0;
+                firstBit = GetAt(first, i);
+                secondBit = GetAt(second, i);
+                if (operation == "AND")
+                    resultedNumber[i] = And(firstBit, secondBit);
+                if (operation == "OR")
+                    resultedNumber[i] = Or(firstBit, secondBit);
+                if (operation == "XOR")
+                    resultedNumber[i] = Xor(firstBit, secondBit);
             }
-            if (CountZeroes(number) == 1)
-                return new byte[] { 0 };            
-            return RemoveTrailingZeroes(number); ;
+
+            if (CountZeroes(resultedNumber) == 1)
+                return new byte[] { 0 };
+            return RemoveTrailingZeroes(resultedNumber);
+        }
+
+        byte And(byte firstBit, byte secondBit)
+        {
+            if (firstBit == 1 && secondBit == 1)
+                return 1;
+            return 0;
+        }
+
+        byte Or(byte firstBit, byte secondBit)
+        {
+            if (firstBit == 1 || secondBit == 1)
+                return 1;
+            return 0;
+        }
+
+        byte Xor(byte firstBit, byte secondBit)
+        {
+            if (firstBit != secondBit)
+                return 1;
+            return 0;
         }
 
         private byte[] RemoveTrailingZeroes(byte[] number)
@@ -162,34 +222,19 @@ namespace BaseTwoOperations
 
         byte GetAt(byte[] binaryArray, int position)
         {
-            if(position < binaryArray.Length)
+            if (position < binaryArray.Length)
                 return binaryArray[binaryArray.Length - position - 1];
             return 0;
-        }  
-        
+        }
+
         int CountZeroes(byte[] number)
         {
-            for(int i = number.Length - 1; i >= 0; i--)
+            for (int i = number.Length - 1; i >= 0; i--)
             {
                 if (number[i] != 0)
                     return number.Length - i - 1;
             }
             return 1;
-        }                    
-
-        byte[] Or(byte[] first, byte[] second)
-        {
-            byte[] number = new byte[Math.Max(first.Length, second.Length)];
-            for (int i = Math.Max(first.Length, second.Length) - 1; i >= 0; i--)
-            {
-                if (GetAt(first, i) == 1 || GetAt(second, i) == 1)
-                    number[i] = 1;
-                else
-                    number[i] = 0;
-            }
-            if (CountZeroes(number) == 1)
-                return new byte[] { 0 };
-            return RemoveTrailingZeroes(number); ;
-        }
+        }    
     }
 }

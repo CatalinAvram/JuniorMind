@@ -281,3 +281,4 @@ $RECYCLE.BIN/
 *.lnk
 JuniorMind/ChessTable/ChessTable.csproj
 JuniorMind/ChessTable/ChessTests.cs
+JuniorMind/Goats/GoatsTests.cs
