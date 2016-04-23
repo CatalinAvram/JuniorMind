@@ -9,8 +9,8 @@ namespace Goats
         [TestMethod]
         public void NumberOfKilogramsForSecondFlock()
         {
-            decimal secondFlockKilograms = FindNumberOfKilograms(3, 6, 9, 2, 4);
-            Assert.AreEqual(4, secondFlockKilograms);
+            decimal secondFlockKilograms = FindNumberOfKilograms(1, 1, 3, 2, 1);
+            Assert.AreEqual(6, secondFlockKilograms);
         }
         decimal FindNumberOfKilograms(int firstFlockNumberOfDays, int firstFlockNumberOfGoats, int firstFlockEatenKilograms, int secondFlockNumberOfDays, int secondFlockNumberOfGoats)
         {

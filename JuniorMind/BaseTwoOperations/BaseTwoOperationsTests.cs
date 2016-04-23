@@ -136,6 +136,11 @@ namespace BaseTwoOperations
             Assert.AreEqual(0, Xor(1, 1));
         }
 
+        [TestMethod]
+        public void LogicOperationSelection()
+        {
+            Assert.AreEqual(0, SelectLogicOperation(1, 1, "XOR"));
+        }
         byte[] ToBinary(int decimalNumber)
         {
             int decimalNumberCopy = decimalNumber;
@@ -190,6 +195,22 @@ namespace BaseTwoOperations
             if (CountZeroes(resultedNumber) == 1)
                 return new byte[] { 0 };
             return RemoveTrailingZeroes(resultedNumber);
+        }
+
+        byte SelectLogicOperation(byte firstBit, byte secondBit, string operation)
+        {
+            switch (operation)
+            {
+                case "AND":
+                    return And(firstBit, secondBit);
+                case "OR":
+                    return Or(firstBit, secondBit);
+                case "XOR":
+                    return Xor(firstBit, secondBit);
+                default:
+                    break;
+            }
+            return 0;
         }
 
         byte And(byte firstBit, byte secondBit)
