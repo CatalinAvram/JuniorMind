@@ -184,12 +184,7 @@ namespace BaseTwoOperations
             {
                 firstBit = GetAt(first, i);
                 secondBit = GetAt(second, i);
-                if (operation == "AND")
-                    resultedNumber[i] = And(firstBit, secondBit);
-                if (operation == "OR")
-                    resultedNumber[i] = Or(firstBit, secondBit);
-                if (operation == "XOR")
-                    resultedNumber[i] = Xor(firstBit, secondBit);
+                resultedNumber[i] = SelectLogicOperation(firstBit, secondBit, operation);
             }
 
             if (CountZeroes(resultedNumber) == 1)
@@ -206,9 +201,7 @@ namespace BaseTwoOperations
                 case "OR":
                     return Or(firstBit, secondBit);
                 case "XOR":
-                    return Xor(firstBit, secondBit);
-                default:
-                    break;
+                    return Xor(firstBit, secondBit);              
             }
             return 0;
         }
