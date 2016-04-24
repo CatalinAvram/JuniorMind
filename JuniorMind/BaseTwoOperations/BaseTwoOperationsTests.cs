@@ -208,6 +208,12 @@ namespace BaseTwoOperations
             Assert.AreEqual(true, Equal(ToBinary(5), ToBinary(5)));
         }
 
+        [TestMethod]
+        public void NotEqualOpeator()
+        {
+            Assert.AreEqual(true, NotEqual(ToBinary(5), ToBinary(6)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -356,6 +362,12 @@ namespace BaseTwoOperations
         bool Equal(byte[] first, byte[] second)
         {
             if (first.Length == second.Length && CountZeroes(first) == CountZeroes(second))
+                return true;
+            return false;
+        }
+        
+        bool NotEqual(byte[] first, byte[] second) {
+            if (!Equal(first, second))
                 return true;
             return false;
         }
