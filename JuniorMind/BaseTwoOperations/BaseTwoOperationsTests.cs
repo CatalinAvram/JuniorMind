@@ -172,6 +172,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(ToBinary(5 << 2), LeftHandShift(ToBinary(5), 2));
         }
 
+        [TestMethod]
+        public void LeftShiftForZero()
+        {
+            CollectionAssert.AreEqual(ToBinary(0 << 5), LeftHandShift(ToBinary(0), 5));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -293,6 +299,8 @@ namespace BaseTwoOperations
         
         byte[] LeftHandShift(byte[] number, int numberOfPositions)
         {
+            if (number.Length == 1 && number[0] == 0)
+                return new byte[] { 0 };
             byte[] result = new byte[number.Length + numberOfPositions];
             for(int i = 0; i < number.Length + numberOfPositions; i++)
             {
