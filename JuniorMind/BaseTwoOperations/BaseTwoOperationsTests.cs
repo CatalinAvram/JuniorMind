@@ -214,6 +214,12 @@ namespace BaseTwoOperations
             Assert.AreEqual(true, NotEqual(ToBinary(5), ToBinary(6)));
         }
 
+        [TestMethod]
+        public void SumWithoutExtraBit()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1 }, Sum(ToBinary(3), ToBinary(4)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -370,6 +376,18 @@ namespace BaseTwoOperations
             if (!Equal(first, second))
                 return true;
             return false;
+        }
+
+        byte[] Sum(byte[] first, byte[] second)
+        {
+            byte[] result = new byte[Math.Max(first.Length, second.Length)];
+            int position = 0;
+            for(int i = Math.Max(first.Length, second.Length) - 1; i >= 0 ; i--)
+            {
+                result[i] = (byte)(GetAt(first, position) + GetAt(second, position));
+                position++;
+            }
+            return result;
         }
     } 
 }
