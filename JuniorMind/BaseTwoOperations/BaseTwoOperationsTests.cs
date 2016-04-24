@@ -184,6 +184,12 @@ namespace BaseTwoOperations
             Assert.AreEqual(true, LessThan(ToBinary(4), ToBinary(8)));
         }
 
+        [TestMethod]
+        public void LessThanEqualLengths()
+        {
+            Assert.AreEqual(true, LessThan(ToBinary(4), ToBinary(5)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -317,8 +323,8 @@ namespace BaseTwoOperations
 
         bool LessThan(byte[] first, byte[] second)
         {
-            if (first.Length < second.Length)
-                return true;
+            if (first.Length < second.Length || CountZeroes(first) > CountZeroes(second))
+                return true;          
             return false;
         }
     } 
