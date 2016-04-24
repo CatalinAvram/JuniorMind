@@ -272,7 +272,6 @@ namespace BaseTwoOperations
             return number;
         }
 
-
         int CountZeroes(byte[] number)
         {                                   
             for (int i = number.Length - 1; i >= 0; i--)
@@ -287,12 +286,8 @@ namespace BaseTwoOperations
         {
             if (numberOfPositions >= number.Length)
                 return new byte[] { 0 };
-            byte[] result = new byte[number.Length - numberOfPositions]; 
-            for(int i = 0; i < number.Length - numberOfPositions; i++)
-            {
-                result[i] = number[i];
-            }
-            return result;
+            Array.Resize(ref number, number.Length - numberOfPositions);           
+            return number;
         }
         
         byte[] LeftHandShift(byte[] result, int numberOfPositions)
