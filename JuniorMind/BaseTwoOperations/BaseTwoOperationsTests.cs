@@ -197,9 +197,15 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
-        public void GreaterThanTest()
+        public void GreaterThanCheck()
         {
             Assert.AreEqual(true, GreaterThan(ToBinary(5), ToBinary(4)));
+        }
+
+        [TestMethod]
+        public void EqualOperator()
+        {
+            Assert.AreEqual(true, Equal(ToBinary(5), ToBinary(5)));
         }
 
         byte[] ToBinary(int decimalNumber)
@@ -342,7 +348,14 @@ namespace BaseTwoOperations
 
         bool GreaterThan(byte[] first, byte[] second)
         {
-            if (!LessThan(first, second))
+            if (!LessThan(first, second) && !Equal(first, second))
+                return true;
+            return false;
+        }
+
+        bool Equal(byte[] first, byte[] second)
+        {
+            if (first.Length == second.Length && CountZeroes(first) == CountZeroes(second))
                 return true;
             return false;
         }
