@@ -13,7 +13,7 @@ Poți generaliza transformarea și operațiile de la 3-6 pentru o bază aleatoar
 
 namespace BaseTwoOperations
 {
-    [TestClass]
+    [TestClass]                                                                            
     public class BaseTwoOperationsTests
     {
         [TestMethod]
@@ -87,6 +87,7 @@ namespace BaseTwoOperations
         {
             CollectionAssert.AreEqual(new byte[] { 1, 1 }, RemoveTrailingZeroes(new byte[] { 1, 1, 0 }));
         }
+
         [TestMethod]
         public void ANDOnlyZeroes()
         {
@@ -156,7 +157,7 @@ namespace BaseTwoOperations
         [TestMethod]
         public void RightShift()
         {
-            CollectionAssert.AreEqual(ToBinary(8 >> 3), RightHandShift(ToBinary(8), 3));
+            CollectionAssert.AreEqual(ToBinary(5 >> 3), RightHandShift(ToBinary(5), 3));
         }
 
         [TestMethod]
@@ -168,7 +169,7 @@ namespace BaseTwoOperations
         [TestMethod]
         public void LeftShift()
         {
-            CollectionAssert.AreEqual(ToBinary(5 << 1), LeftHandShift(ToBinary(5), 1));
+            CollectionAssert.AreEqual(ToBinary(5 << 2), LeftHandShift(ToBinary(5), 2));
         }
 
         byte[] ToBinary(int decimalNumber)
@@ -258,7 +259,7 @@ namespace BaseTwoOperations
 
         byte GetAt(byte[] binaryArray, int position)
         {
-            if (position < binaryArray.Length)
+            if (position >= 0 && position < binaryArray.Length)
                 return binaryArray[binaryArray.Length - position - 1];
             return 0;
         }
@@ -290,9 +291,14 @@ namespace BaseTwoOperations
             return number;
         }
         
-        byte[] LeftHandShift(byte[] result, int numberOfPositions)
+        byte[] LeftHandShift(byte[] number, int numberOfPositions)
         {
-            return new byte[] { 0 };
+            byte[] result = new byte[number.Length + numberOfPositions];
+            for(int i = 0; i < number.Length + numberOfPositions; i++)
+            {
+                result[i] = GetAt(number, numberOfPositions - i);
+            }
+            return result;
         }
     } 
 }
