@@ -83,6 +83,11 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
+        public void TrailingZero()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1 }, RemoveTrailingZeroes(new byte[] { 1, 1, 0 }));
+        }
+        [TestMethod]
         public void ANDOnlyZeroes()
         {
             CollectionAssert.AreEqual(new byte[] { 0 }, LogicOperations(ToBinary(4), ToBinary(3), "AND"));
@@ -159,7 +164,13 @@ namespace BaseTwoOperations
         {
             CollectionAssert.AreEqual(ToBinary(3 >> 5), RightHandShift(ToBinary(3), 5));
         }
-       
+
+        [TestMethod]
+        public void LeftShift()
+        {
+            CollectionAssert.AreEqual(ToBinary(5 << 1), LeftHandShift(ToBinary(5), 1));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -245,21 +256,22 @@ namespace BaseTwoOperations
             return 0;
         }
 
-        private byte[] RemoveTrailingZeroes(byte[] number)
-        {
-            if (CountZeroes(number) == 1 || CountZeroes(number) == number.Length)
-                return new byte[] { 0 };         
-            Array.Resize(ref number, number.Length - CountZeroes(number));
-            Array.Reverse(number);
-            return number;
-        }
-
         byte GetAt(byte[] binaryArray, int position)
         {
             if (position < binaryArray.Length)
                 return binaryArray[binaryArray.Length - position - 1];
             return 0;
         }
+
+        private byte[] RemoveTrailingZeroes(byte[] number)
+        {
+            if (CountZeroes(number) == number.Length)
+                return new byte[] { 0 };         
+            Array.Resize(ref number, number.Length - CountZeroes(number));
+            Array.Reverse(number);
+            return number;
+        }
+
 
         int CountZeroes(byte[] number)
         {                                   
@@ -281,6 +293,11 @@ namespace BaseTwoOperations
                 result[i] = number[i];
             }
             return result;
+        }
+        
+        byte[] LeftHandShift(byte[] result, int numberOfPositions)
+        {
+            return new byte[] { 0 };
         }
     } 
 }
