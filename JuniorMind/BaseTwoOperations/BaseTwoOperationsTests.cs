@@ -7,7 +7,7 @@ Pentru un număr transformat implementează operațiile:
     LessThan
     Adunare și scădere
     Înmulțire și împărțire
-    Folosește-te de LessThan pentru a implementa și alți operatori de comparare (GraterThan, Equal, NotEqual)
+    Folosește-te de LessThan pentru a implementa și alți operatori de comparare (GreaterThan, Equal, NotEqual)
 Doar pentru numere pozitive.
 Poți generaliza transformarea și operațiile de la 3-6 pentru o bază aleatoare (baza fiind între 2 și 255)?*/
 
@@ -196,6 +196,12 @@ namespace BaseTwoOperations
             Assert.AreEqual(false, LessThan(ToBinary(5), ToBinary(5)));
         }
 
+        [TestMethod]
+        public void GreaterThanTest()
+        {
+            Assert.AreEqual(true, GreaterThan(ToBinary(5), ToBinary(4)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -331,6 +337,13 @@ namespace BaseTwoOperations
         {
             if (first.Length < second.Length || CountZeroes(first) > CountZeroes(second))
                 return true;          
+            return false;
+        }
+
+        bool GreaterThan(byte[] first, byte[] second)
+        {
+            if (!LessThan(first, second))
+                return true;
             return false;
         }
     } 
