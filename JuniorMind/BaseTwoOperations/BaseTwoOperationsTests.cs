@@ -178,6 +178,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(ToBinary(0 << 5), LeftHandShift(ToBinary(0), 5));
         }
 
+        [TestMethod]
+        public void LessThanCheck()
+        {
+            Assert.AreEqual(true, LessThan(ToBinary(4), ToBinary(8)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -307,6 +313,13 @@ namespace BaseTwoOperations
                 result[i] = GetAt(number, numberOfPositions - i);
             }
             return result;
+        }
+
+        bool LessThan(byte[] first, byte[] second)
+        {
+            if (first.Length < second.Length)
+                return true;
+            return false;
         }
     } 
 }
