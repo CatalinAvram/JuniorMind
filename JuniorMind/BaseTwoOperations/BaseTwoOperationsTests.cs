@@ -190,6 +190,12 @@ namespace BaseTwoOperations
             Assert.AreEqual(true, LessThan(ToBinary(4), ToBinary(5)));
         }
 
+        [TestMethod]
+        public void LessThanForEqualNumbers()
+        {
+            Assert.AreEqual(false, LessThan(ToBinary(5), ToBinary(5)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
