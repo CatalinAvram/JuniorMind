@@ -232,6 +232,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, Difference(ToBinary(7), ToBinary(1)));
         }
 
+        [TestMethod]
+        public void DifferenceBetweenSixAndThree()
+        {
+            CollectionAssert.AreEqual(new byte[] {0, 1, 1 }, Difference(ToBinary(6), ToBinary(3)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -427,7 +433,18 @@ namespace BaseTwoOperations
         {
             byte[] result = new byte[Math.Max(first.Length, second.Length)];
             for (int i = 0; i < Math.Max(first.Length, second.Length); i++)
-                result[i] = (byte)(GetAt(first, i) - GetAt(second, i));
+            {
+                if (GetAt(first, i) == GetAt(second, i))
+                    result[i] = (byte)(GetAt(first, i) - GetAt(second, i));
+                else
+                {
+                    if (GetAt(first, i) == 0)
+                    {
+                        result[i] = (byte)(2 - GetAt(second, i));
+                        first[first.Length - i - 2] = 0;
+                    }
+                }               
+            }
             Array.Reverse(result);
             return result;
         }
