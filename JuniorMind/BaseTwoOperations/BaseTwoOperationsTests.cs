@@ -220,6 +220,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 1, 1, 1 }, Sum(ToBinary(3), ToBinary(4)));
         }
 
+        [TestMethod]
+        public void SumWithExtraBitNeeded()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0 }, Sum(ToBinary(3), ToBinary(5)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -342,13 +348,9 @@ namespace BaseTwoOperations
         byte[] LeftHandShift(byte[] number, int numberOfPositions)
         {
             if (number.Length == 1 && number[0] == 0)
-                return new byte[] { 0 };
-            byte[] result = new byte[number.Length + numberOfPositions];
-            for(int i = 0; i < number.Length + numberOfPositions; i++)
-            {
-                result[i] = GetAt(number, numberOfPositions - i);
-            }
-            return result;
+                return new byte[] { 0 };          
+            Array.Resize(ref number, number.Length + numberOfPositions);
+            return number;
         }
 
         bool LessThan(byte[] first, byte[] second)
