@@ -181,7 +181,7 @@ namespace BaseTwoOperations
         [TestMethod]
         public void LessThanCheck()
         {
-            Assert.AreEqual(true, LessThan(ToBinary(4), ToBinary(8)));
+            Assert.AreEqual(false, LessThan(ToBinary(8), ToBinary(4)));
         }
 
         [TestMethod]
@@ -355,8 +355,14 @@ namespace BaseTwoOperations
 
         bool LessThan(byte[] first, byte[] second)
         {
-            if (first.Length < second.Length || CountZeroes(first) > CountZeroes(second))
-                return true;          
+            for (int i = Math.Max(first.Length, second.Length) - 1; i >= 0; i--)
+            {
+                if (GetAt(first, i) != GetAt(second, i))
+                    if (GetAt(first, i) < GetAt(second, i))
+                        return true;
+                    else
+                        return false;
+            }                             
             return false;
         }
 
