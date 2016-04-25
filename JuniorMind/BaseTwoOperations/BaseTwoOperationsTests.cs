@@ -390,12 +390,33 @@ namespace BaseTwoOperations
         {
             byte[] result = new byte[Math.Max(first.Length, second.Length)];
             int position = 0;
+            int transport = 0;
             for(int i = Math.Max(first.Length, second.Length) - 1; i >= 0 ; i--)
             {
-                result[i] = (byte)(GetAt(first, position) + GetAt(second, position));
+                if ((byte)(GetAt(first, position) + GetAt(second, position)) + transport > 1)
+                {
+                    result[i] = 0;
+                    transport = 1;
+                }
+                else
+                    result[i] = (byte)(GetAt(first, position) + GetAt(second, position));
                 position++;
             }
+
+            if (transport == 1)
+            {
+                return PutExtraBit(result, transport);
+            }
             return result;
+        }
+
+        private static byte[] PutExtraBit(byte[] result, int transport)
+        {
+            byte[] extraBitResult = new byte[result.Length + 1];
+            extraBitResult[0] = (byte)transport;
+            Array.Copy(result, 0, extraBitResult, 1, result.Length);
+
+            return extraBitResult;
         }
     } 
 }
