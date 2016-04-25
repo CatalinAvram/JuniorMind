@@ -412,9 +412,10 @@ namespace BaseTwoOperations
 
         private static byte[] PutExtraBit(byte[] result, int transport)
         {
-            byte[] extraBitResult = new byte[result.Length + 1];
-            extraBitResult[0] = (byte)transport;
-            Array.Copy(result, 0, extraBitResult, 1, result.Length);
+            Array.Reverse(result);
+            Array.Resize(ref result, result.Length + 1);
+            Array.Reverse(result);
+            result[0] = (byte)transport;
 
             return result;
         }
