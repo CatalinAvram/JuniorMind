@@ -405,7 +405,10 @@ namespace BaseTwoOperations
 
             if (transport == 1)
             {
-                return PutExtraBit(result, transport);
+                Array.Reverse(result);
+                Array.Resize(ref result, result.Length + 1);
+                Array.Reverse(result);
+                result[0] = (byte)transport;               
             }
             return result;
         }
