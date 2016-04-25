@@ -226,6 +226,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0 }, Sum(ToBinary(3), ToBinary(5)));
         }
 
+        [TestMethod]
+        public void DifferenceWithoutZeroInFront()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, Difference(ToBinary(7), ToBinary(1)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -358,10 +364,7 @@ namespace BaseTwoOperations
             for (int i = Math.Max(first.Length, second.Length) - 1; i >= 0; i--)
             {
                 if (GetAt(first, i) != GetAt(second, i))
-                    if (GetAt(first, i) < GetAt(second, i))
-                        return true;
-                    else
-                        return false;
+                    return GetAt(first, i) < GetAt(second, i);
             }                             
             return false;
         }
@@ -417,6 +420,15 @@ namespace BaseTwoOperations
             Array.Reverse(result);
             result[0] = (byte)transport;
 
+            return result;
+        }
+
+        byte[] Difference(byte[] first, byte[] second)
+        {
+            byte[] result = new byte[Math.Max(first.Length, second.Length)];
+            for (int i = 0; i < Math.Max(first.Length, second.Length); i++)
+                result[i] = (byte)(GetAt(first, i) - GetAt(second, i));
+            Array.Reverse(result);
             return result;
         }
     } 
