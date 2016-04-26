@@ -403,63 +403,44 @@ namespace BaseTwoOperations
 
         byte[] Sum(byte[] first, byte[] second)
         {
-            byte[] result = new byte[Math.Max(first.Length, second.Length)];
-            int position = 0;
+            var result = new byte[Math.Max(first.Length, second.Length)];
             int transport = 0;
-            for(int i = Math.Max(first.Length, second.Length) - 1; i >= 0 ; i--)
+            for (int i = 0; i < result.Length; i++)
             {
-                if ((byte)(GetAt(first, position) + GetAt(second, position)) + transport > 1)
-                {
-                    result[i] = 0;
-                    transport = 1;
-                }
-                else
-                    result[i] = (byte)(GetAt(first, position) + GetAt(second, position));
-                position++;
+                var sum = GetAt(first, i) + GetAt(second, i) + transport;
+                result[i] = (byte)(sum % 2);
+                transport = sum / 2;
             }
 
-            if (transport == 1)
-            {
-                result = PutExtraBit(result, transport);
-            }
+            result = PutExtraBit(result, transport);
+            Array.Reverse(result);
             return result;
         }
 
         private static byte[] PutExtraBit(byte[] result, int transport)
         {
-            Array.Reverse(result);
+            if (transport == 0)
+                return result;
             Array.Resize(ref result, result.Length + 1);
-            Array.Reverse(result);
-            result[0] = (byte)transport;
-
+            result[result.Length - 1] = (byte)transport;
             return result;
         }
-
+      
         byte[] Difference(byte[] first, byte[] second)
         {
+           
             byte[] result = new byte[Math.Max(first.Length, second.Length)];
-            for (int i = 0; i < Math.Max(first.Length, second.Length); i++)
+            int transport = 0;
+            for (int i = 0; i < result.Length; i++)
             {
-                if (GetAt(first, i) == GetAt(second, i) || (GetAt(first, i) == 1))
-                    result[i] = (byte)(GetAt(first, i) - GetAt(second, i));
-                else
-                {
-                    if (GetAt(first, i) == 0)
-                    {
-                        result[i] = (byte)(2 - GetAt(second, i));
-                        first[first.Length - i - 2]--;
-                    }
-                    else
-                        if( GetAt(first, i) > 1)//255
-                        {
-                            result[i] = 0;
-                            first[first.Length - i - 2]--;
-                        }
-                }               
+                var difference = 2 + GetAt(first, i) - GetAt(second, i) - transport;
+                result[i] = (byte)(difference % 2);
+                if (difference < 2)
+                    transport = 1;             
             }
-            Array.Reverse(result);    
+            Array.Reverse(result);
             return result;
         }
 
-    } 
+    }
 }
