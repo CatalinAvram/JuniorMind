@@ -435,10 +435,7 @@ namespace BaseTwoOperations
             {
                 var difference = 2 + GetAt(first, i) - GetAt(second, i) - transport;
                 result[i] = (byte)(difference % 2);
-                if (difference < 2)
-                    transport = 1;
-                else
-                    transport = 0;             
+                transport = (difference < 2 ? 1 : 0);                             
             }
             Array.Reverse(result);
             return result;
