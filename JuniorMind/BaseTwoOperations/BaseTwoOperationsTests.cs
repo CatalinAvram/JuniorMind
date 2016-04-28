@@ -256,6 +256,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0, 1 }, Multiplication(ToBinary(7), ToBinary(3)));
         }
 
+        [TestMethod]
+        public void DivisionWithOne()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1}, Division(ToBinary(7), ToBinary(1)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -462,5 +468,13 @@ namespace BaseTwoOperations
             }
             return result;
         }      
+
+        byte[] Division(byte[] first, byte[] second)
+        {
+            if (Equal(second, new byte[] { 1 }))
+                return first;
+            else
+                return new byte[] { 0 };
+        }
     }
 }
