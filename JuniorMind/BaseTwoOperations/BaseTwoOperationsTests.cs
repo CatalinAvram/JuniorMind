@@ -235,13 +235,13 @@ namespace BaseTwoOperations
         [TestMethod]
         public void DifferenceBetweenSixAndThree()
         {
-            CollectionAssert.AreEqual(new byte[] {0, 1, 1 }, Difference(ToBinary(6), ToBinary(3)));
+            CollectionAssert.AreEqual(new byte[] { 1, 1 }, Difference(ToBinary(6), ToBinary(3)));
         }
 
         [TestMethod]
         public void DifferenceWithMultipleZeroesInFront()
         {
-            CollectionAssert.AreEqual(new byte[] { 0, 0, 0, 1, 1, 1, 0, 1 }, Difference(ToBinary(142), ToBinary(113)));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0, 1 }, Difference(ToBinary(142), ToBinary(113)));
         }
 
         [TestMethod]
@@ -449,16 +449,13 @@ namespace BaseTwoOperations
                 result[i] = (byte)(difference % 2);
                 transport = (difference < 2 ? 1 : 0);                             
             }
-            Array.Reverse(result);
-            return result;
+             return RemoveTrailingZeroes(result);
         }
       
         byte[] Multiplication(byte[] first, byte[] second)
         {
-            byte[] result = new byte[Math.Max(first.Length, second.Length)];
-            byte[] zeroesArray = new byte[first.Length];
-
-            while(NotEqual(first, zeroesArray))
+            byte[] result = new byte[Math.Max(first.Length, second.Length)];        
+            while(NotEqual(first, new byte[] { 0 }))
             {
                 result = Sum(result, second);
                 first = Difference(first, new byte[] { 1 });
