@@ -262,6 +262,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 1, 1, 1}, Division(ToBinary(7), ToBinary(1)));
         }
 
+        [TestMethod]
+        public void DivisionSevenWithThee()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0 }, Division(ToBinary(7), ToBinary(3)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -430,7 +436,7 @@ namespace BaseTwoOperations
                 transport = sum / 2;
             }
 
-            result = PutExtraBit(result, transport);
+            result = PutExtraBit(result, transport);            
             Array.Reverse(result);
             return result;
         }
@@ -471,10 +477,13 @@ namespace BaseTwoOperations
 
         byte[] Division(byte[] first, byte[] second)
         {
-            if (Equal(second, new byte[] { 1 }))
-                return first;
-            else
-                return new byte[] { 0 };
+            byte[] result = new byte[Math.Min(first.Length, second.Length)];
+            while (GreaterThan(first, second) || Equal(first, second))
+            {
+                first = Difference(first, second);
+                result = Sum(result, new byte[] { 1 });
+            }
+            return result;
         }
     }
 }
