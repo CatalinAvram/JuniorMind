@@ -268,6 +268,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 1, 0 }, Division(ToBinary(7), ToBinary(3)));
         }
 
+        [TestMethod]
+        public void DivisionWihtZero()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0 }, Division(ToBinary(7), ToBinary(0)));
+        }
+
         byte[] ToBinary(int decimalNumber)
         {
             if (decimalNumber == 0)
@@ -477,6 +483,8 @@ namespace BaseTwoOperations
 
         byte[] Division(byte[] first, byte[] second)
         {
+            if (second.Length == 1 && second[0] == 0)
+                return new byte[] { 0 };
             byte[] result = new byte[Math.Min(first.Length, second.Length)];
             while (GreaterThan(first, second) || Equal(first, second))
             {
