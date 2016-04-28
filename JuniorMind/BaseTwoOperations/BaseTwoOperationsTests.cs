@@ -274,20 +274,17 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 0 }, Division(ToBinary(7), ToBinary(0)));
         }
 
-        byte[] ToBinary(int decimalNumber)
+        byte[] ToBinary(int number)
         {
-            if (decimalNumber == 0)
+            if (number == 0)
                 return new byte[] { 0 };
-
-            int decimalNumberCopy = decimalNumber;
-            int length = GetNumberOfBinaryDigits(decimalNumberCopy);
-            byte[] binaryNumber = new byte[length];
-            for (int position = length - 1; position >= 0; position--)
+            byte[] result = new byte[GetNumberOfBinaryDigits(number)];          
+            for(int i = result.Length - 1; i >=0; i--)
             {
-                binaryNumber[position] = (byte)(decimalNumber % 2);
-                decimalNumber = decimalNumber / 2;
-            }
-            return binaryNumber;
+                result[i] = (byte)(number % 2);
+                number = number / 2;
+            }            
+            return result;
         }
 
         private static int GetNumberOfBinaryDigits(int number)
@@ -300,7 +297,7 @@ namespace BaseTwoOperations
             }
             return length;
         }
-
+     
         byte[] Not(byte[] binaryArray)
         {
             for (int i = 0; i < binaryArray.Length; i++)
