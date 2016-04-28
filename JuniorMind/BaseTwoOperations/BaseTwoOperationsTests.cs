@@ -247,7 +247,13 @@ namespace BaseTwoOperations
         [TestMethod]
         public void MultplicationOfSevenWithTwo()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 1 }, Multiplication(ToBinary(7), ToBinary(2)));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0}, Multiplication(ToBinary(7), ToBinary(2)));
+        }
+
+        [TestMethod]
+        public void MultiplicationOfSevenWithThree()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0, 1 }, Multiplication(ToBinary(7), ToBinary(3)));
         }
 
         byte[] ToBinary(int decimalNumber)
@@ -407,8 +413,21 @@ namespace BaseTwoOperations
             return false;
         }
 
+        byte[] Sum(byte[] first, byte[] second)
+        {
+            var result = new byte[Math.Max(first.Length, second.Length)];
+            int transport = 0;
+            for (int i = 0; i < result.Length; i++)
+            {
+                var sum = GetAt(first, i) + GetAt(second, i) + transport;
+                result[i] = (byte)(sum % 2);
+                transport = sum / 2;
+            }
 
-
+            result = PutExtraBit(result, transport);
+            Array.Reverse(result);
+            return result;
+        }
 
         private static byte[] PutExtraBit(byte[] result, int transport)
         {
@@ -433,42 +452,18 @@ namespace BaseTwoOperations
             Array.Reverse(result);
             return result;
         }
-
-        byte[] Sum(byte[] first, byte[] second)
-        {
-            var result = new byte[Math.Max(first.Length, second.Length)];
-            int transport = 0;
-            for (int i = 0; i < result.Length; i++)
-            {
-                var sum = GetAt(first, i) + GetAt(second, i) + transport;
-                result[i] = (byte)(sum % 2);
-                transport = sum / 2;
-            }
-
-            result = PutExtraBit(result, transport);
-            Array.Reverse(result);
-            return result;
-        }
-
+      
         byte[] Multiplication(byte[] first, byte[] second)
         {
             byte[] result = new byte[Math.Max(first.Length, second.Length)];
+            byte[] zeroesArray = new byte[first.Length];
 
-            byte[] intermediaryArray = new byte[first.Length];
-            int k = 0;
-            for (int i = 0; i < Math.Max(first.Length, second.Length); i++)           
+            while(NotEqual(first, zeroesArray))
             {
-                while (k < first.Length)
-                {
-                    intermediaryArray[k] = (byte)(GetAt(second, i) * GetAt(first, k));
-                    k++;
-                }
-                k = 0;
-                Array.Reverse(intermediaryArray);
-                result = Sum(result, intermediaryArray);
-                LeftHandShift(result, 1);
+                result = Sum(result, second);
+                first = Difference(first, new byte[] { 1 });
             }
             return result;
-        }
+        }      
     }
 }
