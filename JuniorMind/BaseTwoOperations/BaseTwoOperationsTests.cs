@@ -247,13 +247,13 @@ namespace BaseTwoOperations
         [TestMethod]
         public void MultplicationOfSevenWithTwo()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0}, Multiplication(ToBinary(7), ToBinary(2)));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0}, Multiplication(ToBinary(7), ToBinary(2), 2));
         }
 
         [TestMethod]
         public void MultiplicationOfSevenWithThree()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0, 1 }, Multiplication(ToBinary(7), ToBinary(3)));
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 1, 0, 1 }, Multiplication(ToBinary(7), ToBinary(3), 2));
         }
 
         [TestMethod]
@@ -310,6 +310,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 2 }, Difference(ConvertToAnyBase(20, 16), ConvertToAnyBase(18, 16), 16));
         }
 
+        [TestMethod]
+        public void MultiplicationForOtherBases()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 6, 8 }, Multiplication(ConvertToAnyBase(20, 16), ConvertToAnyBase(18, 16), 16));
+        }
+
         byte[] ToBinary(int number)
         {
             if (number == 0)
@@ -334,7 +340,7 @@ namespace BaseTwoOperations
             return length;
         }
 
-        byte[] ConvertToAnyBase(int number, int conversionBase)
+        byte[] ConvertToAnyBase(int number, byte conversionBase)
         {
             if (number == 0)
                 return new byte[] { 0 };
@@ -347,7 +353,7 @@ namespace BaseTwoOperations
             return result;
         }
 
-        private static int GetNumberOfDigits(int number, int conversionBase)
+        private static int GetNumberOfDigits(int number, byte conversionBase)
         {
             int length = 0;
             while (number > 0)
@@ -522,18 +528,18 @@ namespace BaseTwoOperations
             {
                 var difference = baseValue + GetAt(first, i) - GetAt(second, i) - transport;
                 result[i] = (byte)(difference % baseValue);
-                transport = (difference < baseValue ? baseValue - 1 : 0);                             
+                transport = (difference < baseValue ? 1 : 0);                             
             }
              return RemoveTrailingZeroes(result);
         }
       
-        byte[] Multiplication(byte[] first, byte[] second)
+        byte[] Multiplication(byte[] first, byte[] second, byte baseValue)
         {
             byte[] result = new byte[Math.Max(first.Length, second.Length)];        
             while(NotEqual(first, new byte[] { 0 }))
             {
-                result = Sum(result, second, 2);
-                first = Difference(first, new byte[] { 1 }, 2);
+                result = Sum(result, second, baseValue);
+                first = Difference(first, new byte[] { 1 }, baseValue);
             }
             return result;
         }      
