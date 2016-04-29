@@ -229,19 +229,19 @@ namespace BaseTwoOperations
         [TestMethod]
         public void DifferenceWithoutZeroInFront()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, Difference(ToBinary(7), ToBinary(1)));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, Difference(ToBinary(7), ToBinary(1), 2));
         }
 
         [TestMethod]
         public void DifferenceBetweenSixAndThree()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1 }, Difference(ToBinary(6), ToBinary(3)));
+            CollectionAssert.AreEqual(new byte[] { 1, 1 }, Difference(ToBinary(6), ToBinary(3), 2));
         }
 
         [TestMethod]
         public void DifferenceWithMultipleZeroesInFront()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0, 1 }, Difference(ToBinary(142), ToBinary(113)));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 0, 1 }, Difference(ToBinary(142), ToBinary(113), 2));
         }
 
         [TestMethod]
@@ -302,6 +302,12 @@ namespace BaseTwoOperations
         public void SumForOtherBases()
         {
             CollectionAssert.AreEqual(new byte[] { 4, 7 }, Sum(ConvertToAnyBase(16, 8), ConvertToAnyBase(23, 8), 8));
+        }
+
+        [TestMethod]
+        public void DifferenceForOtherBases()
+        {
+            CollectionAssert.AreEqual(new byte[] { 2 }, Difference(ConvertToAnyBase(20, 16), ConvertToAnyBase(18, 16), 16));
         }
 
         byte[] ToBinary(int number)
@@ -507,16 +513,16 @@ namespace BaseTwoOperations
             return result;
         }
       
-        byte[] Difference(byte[] first, byte[] second)
+        byte[] Difference(byte[] first, byte[] second, byte baseValue)
         {
            
             byte[] result = new byte[Math.Max(first.Length, second.Length)];
             int transport = 0;
             for (int i = 0; i < result.Length; i++)
             {
-                var difference = 2 + GetAt(first, i) - GetAt(second, i) - transport;
-                result[i] = (byte)(difference % 2);
-                transport = (difference < 2 ? 1 : 0);                             
+                var difference = baseValue + GetAt(first, i) - GetAt(second, i) - transport;
+                result[i] = (byte)(difference % baseValue);
+                transport = (difference < baseValue ? baseValue - 1 : 0);                             
             }
              return RemoveTrailingZeroes(result);
         }
@@ -527,7 +533,7 @@ namespace BaseTwoOperations
             while(NotEqual(first, new byte[] { 0 }))
             {
                 result = Sum(result, second, 2);
-                first = Difference(first, new byte[] { 1 });
+                first = Difference(first, new byte[] { 1 }, 2);
             }
             return result;
         }      
@@ -539,7 +545,7 @@ namespace BaseTwoOperations
             byte[] result = new byte[Math.Min(first.Length, second.Length)];
             while (GreaterThan(first, second) || Equal(first, second))
             {
-                first = Difference(first, second);
+                first = Difference(first, second, 2);
                 result = Sum(result, new byte[] { 1 }, 2);
             }
             return result;
