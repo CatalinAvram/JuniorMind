@@ -287,10 +287,17 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
+        public void ConversionInABiggerBase()
+        {
+            CollectionAssert.AreEqual(new byte[] { 12 }, ConvertToAnyBase(12, 16));
+        }
+
+        [TestMethod]
         public void LessThanBaseEight()
         {
             Assert.AreEqual(true, LessThan(ConvertToAnyBase(16, 8), ConvertToAnyBase(23, 8)));
         }
+
         byte[] ToBinary(int number)
         {
             if (number == 0)
