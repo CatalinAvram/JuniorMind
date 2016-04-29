@@ -274,6 +274,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 0 }, Division(ToBinary(7), ToBinary(0)));
         }
 
+        [TestMethod]
+        public void ConvertToBaseThree()
+        {
+            CollectionAssert.AreEqual(new byte[] { 2, 1 }, ConvertToAnyBase(7, 3));
+        }
+
         byte[] ToBinary(int number)
         {
             if (number == 0)
@@ -297,7 +303,30 @@ namespace BaseTwoOperations
             }
             return length;
         }
-     
+
+        byte[] ConvertToAnyBase(int number, int conversionBase)
+        {
+            if (number == 0)
+                return new byte[] { 0 };
+            byte[] result = new byte[GetNumberOfDigits(number, conversionBase)];
+            for (int i = result.Length - 1; i >= 0; i--)
+            {
+                result[i] = (byte)(number % conversionBase);
+                number = number / conversionBase;
+            }
+            return result;
+        }
+        private static int GetNumberOfDigits(int number, int conversionBase)
+        {
+            int length = 0;
+            while (number > 0)
+            {
+                number /= conversionBase;
+                length++;
+            }
+            return length;
+        }
+
         byte[] Not(byte[] binaryArray)
         {
             for (int i = 0; i < binaryArray.Length; i++)
