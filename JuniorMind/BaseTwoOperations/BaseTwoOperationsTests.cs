@@ -275,11 +275,22 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
-        public void ConvertToBaseThree()
+        public void ConversionToBaseThree()
         {
             CollectionAssert.AreEqual(new byte[] { 2, 1 }, ConvertToAnyBase(7, 3));
         }
 
+        [TestMethod]
+        public void ConversionToBaseSixteen()
+        {
+            CollectionAssert.AreEqual(new byte[] {2, 0}, ConvertToAnyBase(32, 16));
+        }
+
+        [TestMethod]
+        public void LessThanBaseEight()
+        {
+            Assert.AreEqual(true, LessThan(ConvertToAnyBase(16, 8), ConvertToAnyBase(23, 8)));
+        }
         byte[] ToBinary(int number)
         {
             if (number == 0)
@@ -316,6 +327,7 @@ namespace BaseTwoOperations
             }
             return result;
         }
+
         private static int GetNumberOfDigits(int number, int conversionBase)
         {
             int length = 0;
