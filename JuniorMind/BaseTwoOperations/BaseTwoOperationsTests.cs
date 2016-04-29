@@ -217,13 +217,13 @@ namespace BaseTwoOperations
         [TestMethod]
         public void SumWithoutExtraBit()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 1 }, Sum(ToBinary(3), ToBinary(4)));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1 }, Sum(ToBinary(3), ToBinary(4), 2));
         }
 
         [TestMethod]
         public void SumWithExtraBitNeeded()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0 }, Sum(ToBinary(3), ToBinary(5)));
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 0 }, Sum(ToBinary(3), ToBinary(5), 2));
         }
 
         [TestMethod]
@@ -293,9 +293,15 @@ namespace BaseTwoOperations
         }
 
         [TestMethod]
-        public void LessThanBaseEight()
+        public void LessThanForBaseEight()
         {
             Assert.AreEqual(true, LessThan(ConvertToAnyBase(16, 8), ConvertToAnyBase(23, 8)));
+        }
+
+        [TestMethod]
+        public void SumForOtherBases()
+        {
+            CollectionAssert.AreEqual(new byte[] { 4, 7 }, Sum(ConvertToAnyBase(16, 8), ConvertToAnyBase(23, 8), 8));
         }
 
         byte[] ToBinary(int number)
@@ -476,15 +482,15 @@ namespace BaseTwoOperations
             return false;
         }
 
-        byte[] Sum(byte[] first, byte[] second)
+        byte[] Sum(byte[] first, byte[] second, byte baseValue)
         {
             var result = new byte[Math.Max(first.Length, second.Length)];
             int transport = 0;
             for (int i = 0; i < result.Length; i++)
             {
                 var sum = GetAt(first, i) + GetAt(second, i) + transport;
-                result[i] = (byte)(sum % 2);
-                transport = sum / 2;
+                result[i] = (byte)(sum % baseValue);
+                transport = sum / baseValue;
             }
 
             result = PutExtraBit(result, transport);            
@@ -520,7 +526,7 @@ namespace BaseTwoOperations
             byte[] result = new byte[Math.Max(first.Length, second.Length)];        
             while(NotEqual(first, new byte[] { 0 }))
             {
-                result = Sum(result, second);
+                result = Sum(result, second, 2);
                 first = Difference(first, new byte[] { 1 });
             }
             return result;
@@ -534,7 +540,7 @@ namespace BaseTwoOperations
             while (GreaterThan(first, second) || Equal(first, second))
             {
                 first = Difference(first, second);
-                result = Sum(result, new byte[] { 1 });
+                result = Sum(result, new byte[] { 1 }, 2);
             }
             return result;
         }
