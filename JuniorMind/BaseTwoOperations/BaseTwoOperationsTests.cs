@@ -259,19 +259,19 @@ namespace BaseTwoOperations
         [TestMethod]
         public void DivisionWithOne()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 1}, Division(ToBinary(7), ToBinary(1)));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1}, Division(ToBinary(7), ToBinary(1), 2));
         }
 
         [TestMethod]
         public void DivisionSevenWithThee()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 0 }, Division(ToBinary(7), ToBinary(3)));
+            CollectionAssert.AreEqual(new byte[] { 1, 0 }, Division(ToBinary(7), ToBinary(3), 2));
         }
 
         [TestMethod]
         public void DivisionWihtZero()
         {
-            CollectionAssert.AreEqual(new byte[] { 0 }, Division(ToBinary(7), ToBinary(0)));
+            CollectionAssert.AreEqual(new byte[] { 0 }, Division(ToBinary(7), ToBinary(0), 2));
         }
 
         [TestMethod]
@@ -283,7 +283,7 @@ namespace BaseTwoOperations
         [TestMethod]
         public void ConversionToBaseSixteen()
         {
-            CollectionAssert.AreEqual(new byte[] {2, 0}, ConvertToAnyBase(32, 16));
+            CollectionAssert.AreEqual(new byte[] {4, 0}, ConvertToAnyBase(64, 16));
         }
 
         [TestMethod]
@@ -314,6 +314,12 @@ namespace BaseTwoOperations
         public void MultiplicationForOtherBases()
         {
             CollectionAssert.AreEqual(new byte[] { 1, 6, 8 }, Multiplication(ConvertToAnyBase(20, 16), ConvertToAnyBase(18, 16), 16));
+        }
+
+        [TestMethod]
+        public void DivisionForOtherBases()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1 }, Division(ConvertToAnyBase(20, 16), ConvertToAnyBase(18, 16), 16));
         }
 
         byte[] ToBinary(int number)
@@ -544,16 +550,24 @@ namespace BaseTwoOperations
             return result;
         }      
 
-        byte[] Division(byte[] first, byte[] second)
+        byte[] Division(byte[] first, byte[] second, byte baseValue)
         {
             if (second.Length == 1 && second[0] == 0)
                 return new byte[] { 0 };
             byte[] result = new byte[Math.Min(first.Length, second.Length)];
+            int length = 0;
             while (GreaterThan(first, second) || Equal(first, second))
             {
-                first = Difference(first, second, 2);
-                result = Sum(result, new byte[] { 1 }, 2);
+                first = Difference(first, second, baseValue);
+                result = Sum(result, new byte[] { 1 }, baseValue);
+                length++;
             }
+
+            if (length < Math.Max(first.Length, second.Length))
+            {
+                Array.Reverse(result);
+                return RemoveTrailingZeroes(result);
+            }                        
             return result;
         }
     }
