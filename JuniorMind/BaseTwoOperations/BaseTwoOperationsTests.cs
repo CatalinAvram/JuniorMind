@@ -325,25 +325,25 @@ namespace BaseTwoOperations
         [TestMethod]
         public void Factorial()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0, 0 }, ComputeFactorial(4, 2));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0, 0 }, ComputeFactorial(ConvertToAnyBase(4, 2), 2));
         }
 
         [TestMethod]
         public void FiveFactorial()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1, 0, 0, 0 }, ComputeFactorial(5, 2));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1, 0, 0, 0 }, ComputeFactorial(ConvertToAnyBase(5, 2), 2));
         }
      
         [TestMethod]
         public void DivisionOfFactorials()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0 }, Division(ComputeFactorial(12, 2), ComputeFactorial(11, 2), 2));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0 }, Division(ComputeFactorial(ConvertToAnyBase(12, 2), 2), ComputeFactorial(ConvertToAnyBase(11, 2), 2), 2));
         }
         
         [TestMethod]
         public void DivisionOfFactorialsFortyNine()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0, 0, 1 }, Division(ComputeFactorial(49, 2), ComputeFactorial(48, 2), 2));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0, 0, 1 }, Division(ComputeFactorial(ConvertToAnyBase(49, 2), 2), ComputeFactorial(ConvertToAnyBase(48, 2), 2), 2));
         }
 
         byte[] ToBinary(int number)
@@ -595,11 +595,11 @@ namespace BaseTwoOperations
             return result;
         }
 
-        byte[] ComputeFactorial(int number, byte baseValue)
+        byte[] ComputeFactorial(byte[] number, byte baseValue)
         {            
             byte[] factorial = new byte[] { 1 };            
-            for(int i = 2; i <= number; i++)
-                factorial = Multiplication(factorial, ConvertToAnyBase(i, baseValue), baseValue);                           
+            for(byte[] i = new byte[] { 1, 0 }; LessThan(i, number) || Equal(i, number); i = Sum(i, new byte[] { 1 }, baseValue))           
+                factorial = Multiplication(factorial, i, baseValue);                           
             return factorial;
         }
     }
