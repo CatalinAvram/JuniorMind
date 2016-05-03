@@ -333,13 +333,7 @@ namespace BaseTwoOperations
         {
             CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1, 0, 0, 0 }, ComputeFactorial(5, 2));
         }
-
-        [TestMethod]
-        public void ElevenFactorial()
-        {
-            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, ComputeFactorial(11, 2));
-        }
-
+     
         [TestMethod]
         public void DivisionOfFactorials()
         {
@@ -572,10 +566,10 @@ namespace BaseTwoOperations
         byte[] Multiplication(byte[] first, byte[] second, byte baseValue)
         {
             byte[] result = new byte[Math.Max(first.Length, second.Length)];        
-            while(NotEqual(first, new byte[] { 0 }))
+            while(NotEqual(second, new byte[] { 0 }))
             {
-                result = Sum(result, second, baseValue);
-                first = Difference(first, new byte[] { 1 }, baseValue);
+                result = Sum(result, first, baseValue);
+                second = Difference(second, new byte[] { 1 }, baseValue);
             }
             return result;
         }      
