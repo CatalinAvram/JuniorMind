@@ -322,6 +322,12 @@ namespace BaseTwoOperations
             CollectionAssert.AreEqual(new byte[] { 1 }, Division(ConvertToAnyBase(20, 16), ConvertToAnyBase(18, 16), 16));
         }
 
+        [TestMethod]
+        public void Factorial()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, ComputeFactorial(ConvertToAnyBase(3, 2), 2));
+        }
+
         byte[] ToBinary(int number)
         {
             if (number == 0)
@@ -569,6 +575,14 @@ namespace BaseTwoOperations
                 return RemoveTrailingZeroes(result);
             }                        
             return result;
+        }
+
+        byte[] ComputeFactorial(byte[] number, byte baseValue)
+        {            
+            byte[] factorial = new byte[] { 1 };
+            for (int i = 2; i <= number.Length + 1; i++)
+                factorial = Multiplication(factorial, ConvertToAnyBase(i, baseValue), baseValue);
+            return factorial;
         }
     }
 }
