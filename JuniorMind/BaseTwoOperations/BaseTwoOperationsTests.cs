@@ -343,9 +343,15 @@ namespace BaseTwoOperations
         [TestMethod]
         public void DivisionOfFactorials()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0 }, Division(ComputeFactorial(12, 2), ComputeFactorial(11, 2), 2)); 
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0 }, Division(ComputeFactorial(12, 2), ComputeFactorial(11, 2), 2));
         }
-    
+        
+        [TestMethod]
+        public void DivisionOfFactorialsFortyNine()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0, 0, 1 }, Division(ComputeFactorial(49, 2), ComputeFactorial(48, 2), 2));
+        }
+
         byte[] ToBinary(int number)
         {
             if (number == 0)
