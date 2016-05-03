@@ -325,9 +325,27 @@ namespace BaseTwoOperations
         [TestMethod]
         public void Factorial()
         {
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 0 }, ComputeFactorial(ConvertToAnyBase(3, 2), 2));
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0, 0 }, ComputeFactorial(4, 2));
         }
 
+        [TestMethod]
+        public void FiveFactorial()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 1, 1, 0, 0, 0 }, ComputeFactorial(5, 2));
+        }
+
+        [TestMethod]
+        public void ElevenFactorial()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, ComputeFactorial(11, 2));
+        }
+
+        [TestMethod]
+        public void DivisionOfFactorials()
+        {
+            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0 }, Division(ComputeFactorial(12, 2), ComputeFactorial(11, 2), 2)); 
+        }
+    
         byte[] ToBinary(int number)
         {
             if (number == 0)
@@ -577,11 +595,11 @@ namespace BaseTwoOperations
             return result;
         }
 
-        byte[] ComputeFactorial(byte[] number, byte baseValue)
+        byte[] ComputeFactorial(int number, byte baseValue)
         {            
-            byte[] factorial = new byte[] { 1 };
-            for (int i = 2; i <= number.Length + 1; i++)
-                factorial = Multiplication(factorial, ConvertToAnyBase(i, baseValue), baseValue);
+            byte[] factorial = new byte[] { 1 };            
+            for(int i = 2; i <= number; i++)
+                factorial = Multiplication(factorial, ConvertToAnyBase(i, baseValue), baseValue);                           
             return factorial;
         }
     }
