@@ -29,13 +29,25 @@ namespace Basket
             var products = new Product[] { new Product("Meat", 3), new Product("Bread", 5) };
             Assert.AreEqual(8, CalculateTotalPrice(products));
         }
-
         [TestMethod]
         public void CheapestProduct()
         {
             var products = new Product[] { new Product("Meat", 3), new Product("Bread", 5), new Product("Potatoes", 2) };
             Product cheapestProduct = new Product("Potatoes", 2);
             Assert.AreEqual(cheapestProduct, FindCheapestProduct(products));
+        }
+        [TestMethod]
+        public void ReduceCosts()
+        {
+            var products = new Product[] { new Product("Meat", 3), new Product("Bread", 5), new Product("Potatoes", 2) };
+            var reducedBasket = new Product[] { new Product("Meat", 3), new Product("Potatoes", 2) };
+            CollectionAssert.AreEqual(reducedBasket, EliminateMostExpensiveProduct(products));
+        }
+        [TestMethod]
+        public void HighestPriceProductPosition()
+        {
+            var products = new Product[] { new Product("Meat", 3), new Product("Bread", 5), new Product("Potatoes", 2) };
+            Assert.AreEqual(1, FindMostExpensiveProductPosition(products));
         }
 
         double CalculateTotalPrice(Product[] products)
@@ -49,10 +61,32 @@ namespace Basket
         Product FindCheapestProduct(Product[] products)
         {
             Product cheapestProduct = products[0];
-            for (int i = 0; i < products.Length; i++)
+            for (int i = 1; i < products.Length; i++)
                 if (products[i].price < cheapestProduct.price)
                     cheapestProduct = products[i];
             return cheapestProduct;         
+        }
+
+        int FindMostExpensiveProductPosition(Product[] products)
+        {
+            Product mostExpensiveProduct = products[0];
+            int position = 0;
+            for (int i = 1; i < products.Length; i++)
+                if (products[i].price > mostExpensiveProduct.price)
+                {
+                    mostExpensiveProduct = products[i];
+                    position = i;
+                }
+            return position;
+        }
+
+        Product[] EliminateMostExpensiveProduct(Product[] products)
+        {
+            int mostExpensiveProductPosition = FindMostExpensiveProductPosition(products);
+            for (int i = mostExpensiveProductPosition; i < products.Length - 1; i++)
+                products[i] = products[i + 1];
+            Array.Resize(ref products, products.Length - 1);
+            return products;
         }
     }
 }
