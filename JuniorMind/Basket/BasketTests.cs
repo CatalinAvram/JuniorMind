@@ -29,6 +29,7 @@ namespace Basket
             var products = new Product[] { new Product("Meat", 3), new Product("Bread", 5) };
             Assert.AreEqual(8, CalculateTotalPrice(products));
         }
+
         [TestMethod]
         public void CheapestProduct()
         {
@@ -36,6 +37,7 @@ namespace Basket
             Product cheapestProduct = new Product("Potatoes", 2);
             Assert.AreEqual(cheapestProduct, FindCheapestProduct(products));
         }
+
         [TestMethod]
         public void ReduceCosts()
         {
@@ -43,11 +45,20 @@ namespace Basket
             var reducedBasket = new Product[] { new Product("Meat", 3), new Product("Potatoes", 2) };
             CollectionAssert.AreEqual(reducedBasket, EliminateMostExpensiveProduct(products));
         }
+
         [TestMethod]
         public void HighestPriceProductPosition()
         {
             var products = new Product[] { new Product("Meat", 3), new Product("Bread", 5), new Product("Potatoes", 2) };
             Assert.AreEqual(1, FindMostExpensiveProductPosition(products));
+        }
+
+        [TestMethod]
+        public void NewProductAdded()
+        {
+            var initialBasket = new Product[] { new Product("Meat", 3), new Product("Bread", 5), new Product("Potatoes", 2) };
+            var increasedBasket = new Product[] { new Product("Meat", 3), new Product("Bread", 5), new Product("Potatoes", 2), new Product("Toothpaste", 7) };
+            CollectionAssert.AreEqual(increasedBasket, AddNewProduct(initialBasket, increasedBasket[increasedBasket.Length - 1]));
         }
 
         double CalculateTotalPrice(Product[] products)
@@ -86,6 +97,13 @@ namespace Basket
             for (int i = mostExpensiveProductPosition; i < products.Length - 1; i++)
                 products[i] = products[i + 1];
             Array.Resize(ref products, products.Length - 1);
+            return products;
+        }
+
+        Product[] AddNewProduct(Product[] products, Product newProduct)
+        {
+            Array.Resize(ref products, products.Length + 1);
+            products[products.Length - 1] = newProduct;
             return products;
         }
     }
