@@ -61,6 +61,13 @@ namespace Basket
             CollectionAssert.AreEqual(increasedBasket, AddNewProduct(initialBasket, increasedBasket[increasedBasket.Length - 1]));
         }
 
+        [TestMethod]
+        public void AveragePrice()
+        {
+            var products = new Product[] { new Product("Meat", 3), new Product("Bread", 5), new Product("Potatoes", 2) };
+            Assert.AreEqual(3.33, ComputeAveragePrice(products), 0.01);
+        }
+
         double CalculateTotalPrice(Product[] products)
         {
             double totalPrice = 0;
@@ -105,6 +112,11 @@ namespace Basket
             Array.Resize(ref products, products.Length + 1);
             products[products.Length - 1] = newProduct;
             return products;
+        }
+
+        double ComputeAveragePrice(Product[] products)
+        {
+            return CalculateTotalPrice(products) / products.Length;
         }
     }
 }
