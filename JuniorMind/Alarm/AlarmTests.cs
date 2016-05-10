@@ -29,6 +29,7 @@ namespace Alarm
             this.hour = hour;
         }
     }
+
     [TestClass]
     public class AlarmTests
     {
@@ -38,6 +39,14 @@ namespace Alarm
             Alarm requestedAlarm = new Alarm(WeekDays.Sunday, 6);
             Alarm[] setAlarms = new Alarm[] { new Alarm(WeekDays.Sunday, 6), new Alarm(WeekDays.Monday, 8) };
             Assert.AreEqual(true, CheckIfAlarmIsSet(requestedAlarm, setAlarms));        
+        }
+
+        [TestMethod]
+        public void AlarmNotSet()
+        {
+            Alarm requestedAlarm = new Alarm(WeekDays.Tuesday, 3);
+            Alarm[] setAlarms = new Alarm[] { new Alarm(WeekDays.Sunday, 6), new Alarm(WeekDays.Monday, 8), new Alarm(WeekDays.Tuesday, 4) };
+            Assert.AreEqual(false, CheckIfAlarmIsSet(requestedAlarm, setAlarms));
         }
 
         bool CheckIfAlarmIsSet(Alarm requestedAlarm, Alarm[] setAlarms)
