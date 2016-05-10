@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseTwoOperations", "BaseTw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket", "Basket\Basket.csproj", "{91661AC7-745E-40FB-A854-A5832B297BDE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alarm", "Alarm\Alarm.csproj", "{F6EF337B-8086-47B8-98A0-2AAD77D05C5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,10 @@ Global
 		{91661AC7-745E-40FB-A854-A5832B297BDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91661AC7-745E-40FB-A854-A5832B297BDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91661AC7-745E-40FB-A854-A5832B297BDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6EF337B-8086-47B8-98A0-2AAD77D05C5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6EF337B-8086-47B8-98A0-2AAD77D05C5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6EF337B-8086-47B8-98A0-2AAD77D05C5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6EF337B-8086-47B8-98A0-2AAD77D05C5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
