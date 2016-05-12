@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket", "Basket\Basket.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alarm", "Alarm\Alarm.csproj", "{F6EF337B-8086-47B8-98A0-2AAD77D05C5B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intersection", "Intersection\Intersection.csproj", "{41C4A79B-0CFA-4D44-A25E-C8EC44F933B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{F6EF337B-8086-47B8-98A0-2AAD77D05C5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6EF337B-8086-47B8-98A0-2AAD77D05C5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6EF337B-8086-47B8-98A0-2AAD77D05C5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41C4A79B-0CFA-4D44-A25E-C8EC44F933B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41C4A79B-0CFA-4D44-A25E-C8EC44F933B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41C4A79B-0CFA-4D44-A25E-C8EC44F933B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41C4A79B-0CFA-4D44-A25E-C8EC44F933B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
