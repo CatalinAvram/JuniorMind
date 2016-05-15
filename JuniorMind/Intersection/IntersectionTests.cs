@@ -27,34 +27,55 @@ namespace Intersection
     public class IntersectionTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void Intersection()
         {
             Directions[] directions = new Directions[] { Directions.Right, Directions.Down, Directions.Left, Directions.Up };
             Assert.AreEqual(new Point(0, 0), FindIntersectionPoint(directions, 1));
         }
 
+        [TestMethod]
+        public void NoIntersection()
+        {
+            Directions[] directions = new Directions[] { Directions.Right, Directions.Down, Directions.Right };
+            Assert.AreEqual(new Point(2, -1), FindIntersectionPoint(directions, 1));
+        }
+
+
         private Point FindIntersectionPoint(Directions[] directions, int dimension)
         {
-            Point[] passingPoints = new Point[directions.Length];
-            Point currentPoint = new Point();
-
+            Point[] passingPoints = new Point[1];
+            Point currentPoint = new Point();               
             for(int i = 1; i <= directions.Length; i++)
             {
-                if (directions[i - 1] == Directions.Right)                   
-                    currentPoint = new Point(passingPoints[i - 1].x + dimension, passingPoints[i - 1].y);
-                if (directions[i - 1] == Directions.Down)
-                    currentPoint = new Point(passingPoints[i - 1].x, passingPoints[i - 1].y - dimension);
-                if (directions[i - 1] == Directions.Left)
-                    currentPoint = new Point(passingPoints[i - 1].x - dimension, passingPoints[i - 1].y);
-                if (directions[i - 1] == Directions.Up)
-                    currentPoint = new Point(passingPoints[i - 1].x, passingPoints[i - 1].y + dimension);
-
-                for (int j = 0; j < i; j++)
-                    if (passingPoints[j].x == currentPoint.x && passingPoints[j].y == currentPoint.y)
-                        return currentPoint;
-                passingPoints[i] = currentPoint;                               
+                switch (directions[i - 1])
+                {
+                    case Directions.Right:
+                        currentPoint = new Point(passingPoints[i - 1].x + dimension, passingPoints[i - 1].y);
+                        break;
+                    case Directions.Left:
+                        currentPoint = new Point(passingPoints[i - 1].x - dimension, passingPoints[i - 1].y);
+                        break;
+                    case Directions.Up:
+                        currentPoint = new Point(passingPoints[i - 1].x, passingPoints[i - 1].y + dimension);
+                        break;
+                    case Directions.Down:
+                        currentPoint = new Point(passingPoints[i - 1].x, passingPoints[i - 1].y - dimension);
+                        break;
+                }                
+                if (IsInArray(passingPoints, currentPoint))
+                        return currentPoint;                    
+                Array.Resize(ref passingPoints, passingPoints.Length + 1);
+                passingPoints[passingPoints.Length - 1] = currentPoint;       
             }
-            return new Point(9, 9);
+            return passingPoints[passingPoints.Length - 1];
+        }
+
+        bool IsInArray(Point[] points, Point currentPoint)
+        {
+            for (int j = 0; j < points.Length; j++)
+                if (points[j].x == currentPoint.x && points[j].y == currentPoint.y)
+                    return true;
+            return false;
         }
     }
 }
