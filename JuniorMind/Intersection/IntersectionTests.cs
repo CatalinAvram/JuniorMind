@@ -40,34 +40,45 @@ namespace Intersection
             Assert.AreEqual(new Point(2, -1), FindIntersectionPoint(directions, 1));
         }
 
-
         private Point FindIntersectionPoint(Directions[] directions, int dimension)
         {
             Point[] passingPoints = new Point[1];
             Point currentPoint = new Point();               
             for(int i = 1; i <= directions.Length; i++)
             {
-                switch (directions[i - 1])
-                {
-                    case Directions.Right:
-                        currentPoint = new Point(passingPoints[i - 1].x + dimension, passingPoints[i - 1].y);
-                        break;
-                    case Directions.Left:
-                        currentPoint = new Point(passingPoints[i - 1].x - dimension, passingPoints[i - 1].y);
-                        break;
-                    case Directions.Up:
-                        currentPoint = new Point(passingPoints[i - 1].x, passingPoints[i - 1].y + dimension);
-                        break;
-                    case Directions.Down:
-                        currentPoint = new Point(passingPoints[i - 1].x, passingPoints[i - 1].y - dimension);
-                        break;
-                }                
+                currentPoint = CheckDirections(directions, dimension, passingPoints, currentPoint, i);
                 if (IsInArray(passingPoints, currentPoint))
-                        return currentPoint;                    
-                Array.Resize(ref passingPoints, passingPoints.Length + 1);
-                passingPoints[passingPoints.Length - 1] = currentPoint;       
+                    return currentPoint;
+                passingPoints = AddIntoArray(passingPoints, currentPoint);
             }
             return passingPoints[passingPoints.Length - 1];
+        }
+
+        private static Point CheckDirections(Directions[] directions, int dimension, Point[] passingPoints, Point currentPoint, int i)
+        {
+            switch (directions[i - 1])
+            {
+                case Directions.Right:
+                    currentPoint = new Point(passingPoints[i - 1].x + dimension, passingPoints[i - 1].y);
+                    break;
+                case Directions.Left:
+                    currentPoint = new Point(passingPoints[i - 1].x - dimension, passingPoints[i - 1].y);
+                    break;
+                case Directions.Up:
+                    currentPoint = new Point(passingPoints[i - 1].x, passingPoints[i - 1].y + dimension);
+                    break;
+                case Directions.Down:
+                    currentPoint = new Point(passingPoints[i - 1].x, passingPoints[i - 1].y - dimension);
+                    break;
+            }
+            return currentPoint;
+        }
+
+        private static Point[] AddIntoArray(Point[] passingPoints, Point currentPoint)
+        {
+            Array.Resize(ref passingPoints, passingPoints.Length + 1);
+            passingPoints[passingPoints.Length - 1] = currentPoint;
+            return passingPoints;
         }
 
         bool IsInArray(Point[] points, Point currentPoint)
