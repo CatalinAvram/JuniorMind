@@ -46,7 +46,7 @@ namespace Intersection
             Point currentPoint = new Point();               
             for(int i = 1; i <= directions.Length; i++)
             {
-                currentPoint = CheckDirections(directions, dimension, passingPoints, currentPoint, i);
+                currentPoint = CheckDirections(directions, dimension, passingPoints, i);
                 if (IsInArray(passingPoints, currentPoint))
                     return currentPoint;
                 passingPoints = AddIntoArray(passingPoints, currentPoint);
@@ -54,24 +54,20 @@ namespace Intersection
             return passingPoints[passingPoints.Length - 1];
         }
 
-        private static Point CheckDirections(Directions[] directions, int dimension, Point[] passingPoints, Point currentPoint, int i)
+        private static Point CheckDirections(Directions[] directions, int dimension, Point[] passingPoints, int i)
         {
             switch (directions[i - 1])
             {
                 case Directions.Right:
-                    currentPoint = new Point(passingPoints[i - 1].x + dimension, passingPoints[i - 1].y);
-                    break;
+                    return new Point(passingPoints[i - 1].x + dimension, passingPoints[i - 1].y);                   
                 case Directions.Left:
-                    currentPoint = new Point(passingPoints[i - 1].x - dimension, passingPoints[i - 1].y);
-                    break;
+                    return new Point(passingPoints[i - 1].x - dimension, passingPoints[i - 1].y);
                 case Directions.Up:
-                    currentPoint = new Point(passingPoints[i - 1].x, passingPoints[i - 1].y + dimension);
-                    break;
+                    return new Point(passingPoints[i - 1].x, passingPoints[i - 1].y + dimension);                   
                 case Directions.Down:
-                    currentPoint = new Point(passingPoints[i - 1].x, passingPoints[i - 1].y - dimension);
-                    break;
+                    return new Point(passingPoints[i - 1].x, passingPoints[i - 1].y - dimension);                   
             }
-            return currentPoint;
+            return new Point(0, 0);
         }
 
         private static Point[] AddIntoArray(Point[] passingPoints, Point currentPoint)
