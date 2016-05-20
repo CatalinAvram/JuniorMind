@@ -46,7 +46,7 @@ namespace Intersection
             Point currentPoint = new Point();               
             for(int i = 1; i <= directions.Length; i++)
             {
-                currentPoint = CheckDirections(directions, dimension, passingPoints, i);
+                currentPoint = CheckDirections(directions[i - 1], passingPoints[i - 1], dimension);
                 if (IsInArray(passingPoints, currentPoint))
                     return currentPoint;
                 passingPoints = AddIntoArray(passingPoints, currentPoint);
@@ -54,20 +54,19 @@ namespace Intersection
             return passingPoints[passingPoints.Length - 1];
         }
 
-        private static Point CheckDirections(Directions[] directions, int dimension, Point[] passingPoints, int i)
+        private static Point CheckDirections(Directions direction,  Point passingPoint, int dimension)
         {
-            switch (directions[i - 1])
+            switch (direction)
             {
                 case Directions.Right:
-                    return new Point(passingPoints[i - 1].x + dimension, passingPoints[i - 1].y);                   
+                    return new Point(passingPoint.x + dimension, passingPoint.y);                   
                 case Directions.Left:
-                    return new Point(passingPoints[i - 1].x - dimension, passingPoints[i - 1].y);
+                    return new Point(passingPoint.x - dimension, passingPoint.y);
                 case Directions.Up:
-                    return new Point(passingPoints[i - 1].x, passingPoints[i - 1].y + dimension);                   
-                case Directions.Down:
-                    return new Point(passingPoints[i - 1].x, passingPoints[i - 1].y - dimension);                   
-            }
-            return new Point(0, 0);
+                    return new Point(passingPoint.x, passingPoint.y + dimension);
+                default:
+                    return new Point(passingPoint.x, passingPoint.y - dimension);                   
+            }        
         }
 
         private static Point[] AddIntoArray(Point[] passingPoints, Point currentPoint)
