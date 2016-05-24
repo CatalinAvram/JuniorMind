@@ -65,6 +65,14 @@ namespace Password
             Assert.AreEqual(true, CheckPassword(password));
         }
 
+        [TestMethod]
+        public void SmallLettersCapitalsCiphersAndSymbols()
+        {
+            Password password = new Password(8, 2, 3, 1, 2, "");
+            password.passwordArray = GeneratePassword(password);
+            Assert.AreEqual(true, CheckPassword(password));
+        }
+
         string GeneratePassword(Password password)
         {
             password.passwordArray = AddChars(password, CharType.SmallLetters, password.nrOfSmallLetters) + 
