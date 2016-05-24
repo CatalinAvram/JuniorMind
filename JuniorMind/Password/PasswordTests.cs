@@ -102,11 +102,13 @@ namespace Password
        
         string AddChars(Password password, CharType charType, int nrOfChars)
         {                    
-            int i = 0;          
+            int i = 0;
             while (i < nrOfChars)
             {
-                password.passwordArray += GetRandomChar(charType);
-                i++;
+                {                                 
+                    password.passwordArray += GetRandomChar(charType);
+                    i++;
+                }
             }
             return password.passwordArray;
         }
