@@ -75,9 +75,9 @@ namespace Password
 
         string GeneratePassword(Password password)
         {
-            password.passwordArray = AddChars(password, CharType.SmallLetters, password.nrOfSmallLetters) + 
-                                     AddChars(password, CharType.CapitalLetters, password.nrOfCapitalLetters) + 
-                                     AddChars(password, CharType.Ciphers, password.nrOfCiphers) + GenerateSymbols(password);
+            password.passwordArray = AddChars(CharType.SmallLetters, password.nrOfSmallLetters) + 
+                                     AddChars(CharType.CapitalLetters, password.nrOfCapitalLetters) + 
+                                     AddChars(CharType.Ciphers, password.nrOfCiphers) + GenerateSymbols(password.nrOfSymbols);
             return password.passwordArray;
         }
 
@@ -100,31 +100,32 @@ namespace Password
             return  (char)(index);
         }
        
-        string AddChars(Password password, CharType charType, int nrOfChars)
-        {                    
-            int i = 0;
+        string AddChars( CharType charType, int nrOfChars)
+        {                               
             string similarChars = "l1Io0O";
-            while (i < nrOfChars)
+            string passwordChars = "";
+            while (nrOfChars > 0)
             {
                 if (!similarChars.Contains(GetRandomChar(charType).ToString()))
                 {                                 
-                    password.passwordArray += GetRandomChar(charType);
-                    i++;
+                    passwordChars += GetRandomChar(charType);
+                    nrOfChars--;
                 }
             }
-            return password.passwordArray;
+            return passwordChars;
         }
 
-        string GenerateSymbols(Password password)
-        {
-            string symbols = "~`!@#$%^&*()-=_+[{}];:'<,>.?/";
+        string GenerateSymbols(int nrOfSymbols)
+        {           
+            string symbols = "!@#$%^&*-=_+:<>?";
+            string passwordSymbols = "";                                  
             Random random = new Random();
-            while (password.nrOfSymbols > 0)
-            {
-                password.passwordArray += symbols[random.Next(0, symbols.Length - 1)];
-                password.nrOfSymbols--;
+            while (nrOfSymbols > 0)
+            {               
+                    passwordSymbols += symbols[random.Next(0, symbols.Length - 1)];
+                    nrOfSymbols--;                
             }
-            return password.passwordArray;
+            return passwordSymbols;
         }
 
         bool CheckPassword(Password password)
@@ -141,7 +142,7 @@ namespace Password
                     capitalLetters++;
                 if (password.passwordArray[i] >= '0' && password.passwordArray[i] <= '9')
                     ciphers++;
-                if("~`!@#$%^&*()-=_+[{}];:'<,>.?/".Contains(password.passwordArray[i].ToString()))
+                if("!@#$%^&*-=_+:<>?".Contains(password.passwordArray[i].ToString()))
                     symbols++;
             }
             if (smallLetters == password.nrOfSmallLetters && capitalLetters == password.nrOfCapitalLetters && 
