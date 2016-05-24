@@ -103,8 +103,10 @@ namespace Password
         string AddChars(Password password, CharType charType, int nrOfChars)
         {                    
             int i = 0;
+            string similarChars = "l1Io0O";
             while (i < nrOfChars)
             {
+                if (!similarChars.Contains(GetRandomChar(charType).ToString()))
                 {                                 
                     password.passwordArray += GetRandomChar(charType);
                     i++;
