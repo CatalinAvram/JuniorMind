@@ -13,23 +13,22 @@ Funcția oferă ca și opțiuni:
 */
 namespace Password
 {
-    public struct Password
+    public struct PasswordParameters
     {
         public int passwordLength;
         public int nrOfSmallLetters;
         public int nrOfCapitalLetters;
         public int nrOfCiphers;
-        public int nrOfSymbols;
-        public string passwordArray;
-
-        public Password(int passwordLength, int nrOfSmallLetters, int nrOfCapitalLetters, int nrOfCiphers, int nrOfSymbols,string passwordArray)
+        public int nrOfSymbols;        
+               
+        public PasswordParameters(int passwordLength, int nrOfSmallLetters, int nrOfCapitalLetters, 
+                        int nrOfCiphers, int nrOfSymbols)
         {
             this.passwordLength = passwordLength;
             this.nrOfSmallLetters = nrOfSmallLetters;
             this.nrOfCapitalLetters = nrOfCapitalLetters;
             this.nrOfCiphers = nrOfCiphers;
-            this.nrOfSymbols = nrOfSymbols;
-            this.passwordArray = passwordArray;
+            this.nrOfSymbols = nrOfSymbols;           
         }
     }
 
@@ -44,41 +43,40 @@ namespace Password
         [TestMethod]
         public void SmallAndCapitalLetters()
         {
-            Password password = new Password(3, 2, 1, 0, 0, "");
-            password.passwordArray = GeneratePassword(password);      
-            Assert.AreEqual(true, CheckPassword(password));
+            PasswordParameters passwordParameters = new PasswordParameters(3, 2, 1, 0, 0);
+            string password = GeneratePassword(passwordParameters);      
+            Assert.AreEqual(true, CheckPassword(password, passwordParameters));
         }
-
+        
         [TestMethod]
         public void SmallCapitalAndCipher()
-        {
-            Password password = new Password(5, 2, 1, 2, 0, "");
-            password.passwordArray = GeneratePassword(password);
-            Assert.AreEqual(true, CheckPassword(password));
+        {                        
+            PasswordParameters passwordParameters = new PasswordParameters(5, 2, 1, 2, 0);
+            string password = GeneratePassword(passwordParameters);
+            Assert.AreEqual(true, CheckPassword(password, passwordParameters));
         }
 
         [TestMethod]
         public void Symbols()
-        {
-            Password password = new Password(3, 0, 0, 0, 2,"");
-            password.passwordArray = GeneratePassword(password);
-            Assert.AreEqual(true, CheckPassword(password));
+        {                
+            PasswordParameters passwordParameters = new PasswordParameters(3, 0, 0, 0, 2);
+            string password = GeneratePassword(passwordParameters);
+            Assert.AreEqual(true, CheckPassword(password, passwordParameters));
         }
 
         [TestMethod]
         public void SmallLettersCapitalsCiphersAndSymbols()
-        {
-            Password password = new Password(8, 2, 3, 1, 2, "");
-            password.passwordArray = GeneratePassword(password);
-            Assert.AreEqual(true, CheckPassword(password));
+        {                       
+            PasswordParameters passwordParameters = new PasswordParameters(8, 2, 3, 1, 2);
+            string password = GeneratePassword(passwordParameters);
+            Assert.AreEqual(true, CheckPassword(password, passwordParameters));
         }
-
-        string GeneratePassword(Password password)
+        
+        string GeneratePassword(PasswordParameters password)
         {
-            password.passwordArray = AddChars(CharType.SmallLetters, password.nrOfSmallLetters) + 
-                                     AddChars(CharType.CapitalLetters, password.nrOfCapitalLetters) + 
-                                     AddChars(CharType.Ciphers, password.nrOfCiphers) + GenerateSymbols(password.nrOfSymbols);
-            return password.passwordArray;
+            return AddChars(CharType.SmallLetters, password.nrOfSmallLetters) + 
+                   AddChars(CharType.CapitalLetters, password.nrOfCapitalLetters) + 
+                   AddChars(CharType.Ciphers, password.nrOfCiphers) + GenerateSymbols(password.nrOfSymbols);          
         }
 
         char GetRandomChar(CharType charType)
@@ -100,13 +98,13 @@ namespace Password
             return  (char)(index);
         }
        
-        string AddChars( CharType charType, int nrOfChars)
+        string AddChars(CharType charType, int nrOfChars)
         {                               
-            string similarChars = "l1Io0O";
             string passwordChars = "";
+            string similar = "l1Io0O";
             while (nrOfChars > 0)
             {
-                if (!similarChars.Contains(GetRandomChar(charType).ToString()))
+                if (!similar.Contains(GetRandomChar(charType).ToString()))
                 {                                 
                     passwordChars += GetRandomChar(charType);
                     nrOfChars--;
@@ -128,25 +126,21 @@ namespace Password
             return passwordSymbols;
         }
 
-        bool CheckPassword(Password password)
-        {            
-            int smallLetters = 0;
-            int capitalLetters = 0;
-            int ciphers = 0;
-            int symbols = 0;
-            for(int i = 0; i < password.passwordArray.Length; i++)
-            {
-                if (password.passwordArray[i] >= 'a' && password.passwordArray[i] <= 'z')
-                    smallLetters++;                
-                if (password.passwordArray[i] >= 'A' && password.passwordArray[i] <= 'Z')
-                    capitalLetters++;
-                if (password.passwordArray[i] >= '0' && password.passwordArray[i] <= '9')
-                    ciphers++;
-                if("!@#$%^&*-=_+:<>?".Contains(password.passwordArray[i].ToString()))
-                    symbols++;
+        bool CheckPassword(string password, PasswordParameters passwordParameters)
+        {                     
+            for(int i = 0; i < password.Length; i++)
+            {             
+                if (password[i] >= 'a' && password[i] <= 'z')
+                    passwordParameters.nrOfSmallLetters--;                                                               
+                if (password[i] >= 'A' && password[i] <= 'Z')
+                    passwordParameters.nrOfCapitalLetters--;
+                if (password[i] >= '0' && password[i] <= '9')
+                    passwordParameters.nrOfCiphers--;
+                if ("!@#$%^&*-=_+:<>?".Contains(password[i].ToString()))
+                    passwordParameters.nrOfSymbols--;
             }
-            if (smallLetters == password.nrOfSmallLetters && capitalLetters == password.nrOfCapitalLetters && 
-                ciphers == password.nrOfCiphers && symbols == password.nrOfSymbols)
+            if (passwordParameters.nrOfSmallLetters + passwordParameters.nrOfCapitalLetters + 
+                passwordParameters.nrOfCiphers + passwordParameters.nrOfSymbols == 0)
                 return true;
             return false;
         }                
