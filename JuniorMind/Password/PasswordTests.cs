@@ -19,22 +19,21 @@ namespace Password
         public int nrOfSmallLetters;
         public int nrOfCapitalLetters;
         public int nrOfCiphers;
-        public int nrOfSymbols;        
-               
+        public int nrOfSymbols;
+        public bool similar;
+        public bool ambiguous;
+                         
         public PasswordParameters(int passwordLength, int nrOfSmallLetters, int nrOfCapitalLetters, 
-                        int nrOfCiphers, int nrOfSymbols)
+                        int nrOfCiphers, int nrOfSymbols, bool similar, bool ambiguous)
         {
             this.passwordLength = passwordLength;
             this.nrOfSmallLetters = nrOfSmallLetters;
             this.nrOfCapitalLetters = nrOfCapitalLetters;
             this.nrOfCiphers = nrOfCiphers;
-            this.nrOfSymbols = nrOfSymbols;           
+            this.nrOfSymbols = nrOfSymbols;
+            this.similar = similar;
+            this.ambiguous = ambiguous;         
         }
-    }
-
-    public enum CharType
-    {
-        SmallLetters, CapitalLetters, Ciphers
     }
 
     [TestClass]
@@ -43,12 +42,13 @@ namespace Password
         [TestMethod]
         public void SmallAndCapitalLetters()
         {
-            PasswordParameters passwordParameters = new PasswordParameters(3, 2, 1, 0, 0);
-            string password = GeneratePassword(passwordParameters);      
-            Assert.AreEqual(true, CheckPassword(password, passwordParameters));
+            PasswordParameters passwordParameters = new PasswordParameters(3, 2, 1, 0, 0, true, false);
+            string password = GeneratePassword(passwordParameters);
+            Assert.AreEqual(2, CountCharacters(password, 'a', 'z'));
+            Assert.AreEqual(1, CountCharacters(password, 'A', 'Z'));                     
         }
-        
-        [TestMethod]
+               
+       /* [TestMethod]
         public void SmallCapitalAndCipher()
         {                        
             PasswordParameters passwordParameters = new PasswordParameters(5, 2, 1, 2, 0);
@@ -70,45 +70,41 @@ namespace Password
             PasswordParameters passwordParameters = new PasswordParameters(8, 2, 3, 1, 2);
             string password = GeneratePassword(passwordParameters);
             Assert.AreEqual(true, CheckPassword(password, passwordParameters));
-        }
-        
+        }*/
+               
+        Random random = new Random();
+
         string GeneratePassword(PasswordParameters password)
         {
-            return AddChars(CharType.SmallLetters, password.nrOfSmallLetters) + 
-                   AddChars(CharType.CapitalLetters, password.nrOfCapitalLetters) + 
-                   AddChars(CharType.Ciphers, password.nrOfCiphers) + GenerateSymbols(password.nrOfSymbols);          
+            return AddChars(password.nrOfSmallLetters, 'a', 'z', password.similar) + 
+                   AddChars(password.nrOfCapitalLetters, 'A', 'Z', password.similar) + 
+                   AddChars(password.nrOfCiphers, '0', '9', password.similar) + GenerateSymbols(password.nrOfSymbols);          
         }
 
-        char GetRandomChar(CharType charType)
-        {
-            Random random = new Random();
-            int index = 0;
-            switch (charType)
-            {
-                case CharType.SmallLetters:
-                    index = random.Next('a', 'z');
-                    break;
-                case CharType.CapitalLetters:
-                    index = random.Next('A', 'Z');
-                    break;
-                case CharType.Ciphers:
-                    index = random.Next('0', '9');
-                    break;
-            }                   
-            return  (char)(index);
+        char GetRandomChar(char start, char end)
+        {                    
+            return (char)(random.Next(start, end + 1));          
         }
        
-        string AddChars(CharType charType, int nrOfChars)
-        {                               
+        string AddChars(int nrOfChars, char start, char end, bool similarAccepted)
+        {
+            string similarChars = "l1Io0O";
+            //char[] similarChars = { 'l', '1', 'I', 'o', '0', 'O' };
             string passwordChars = "";
-            string similar = "l1Io0O";
-            while (nrOfChars > 0)
-            {
-                if (!similar.Contains(GetRandomChar(charType).ToString()))
-                {                                 
-                    passwordChars += GetRandomChar(charType);
-                    nrOfChars--;
+            if(similarAccepted)
+                while (nrOfChars > 0)
+                {
+                    passwordChars += GetRandomChar(start, end);
+                    nrOfChars--;                                   
                 }
+            else
+            while (nrOfChars > 0)
+            {                              
+                if (!similarChars.Contains(GetRandomChar(start, end).ToString()))                    
+                    {
+                        passwordChars += GetRandomChar(start, end);
+                        nrOfChars--;
+                    }
             }
             return passwordChars;
         }
@@ -117,7 +113,6 @@ namespace Password
         {           
             string symbols = "!@#$%^&*-=_+:<>?";
             string passwordSymbols = "";                                  
-            Random random = new Random();
             while (nrOfSymbols > 0)
             {               
                     passwordSymbols += symbols[random.Next(0, symbols.Length - 1)];
@@ -126,7 +121,16 @@ namespace Password
             return passwordSymbols;
         }
 
-        bool CheckPassword(string password, PasswordParameters passwordParameters)
+        int CountCharacters(string word, char start, char end)
+        {
+            int counter = 0;
+            foreach (char c in word)
+                if (start <= c && c <= end)
+                    counter++;
+            return counter;
+        }
+
+        /*bool CheckPassword(string password, PasswordParameters passwordParameters)
         {                     
             for(int i = 0; i < password.Length; i++)
             {             
@@ -141,8 +145,9 @@ namespace Password
             }
             if (passwordParameters.nrOfSmallLetters + passwordParameters.nrOfCapitalLetters + 
                 passwordParameters.nrOfCiphers + passwordParameters.nrOfSymbols == 0)
+            if(passwordParameters.nrOfSmallLetters == CountCharacters(password, 'a', 'z'))
                 return true;
             return false;
-        }                
+        }       */         
     }
 }

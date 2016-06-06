@@ -282,3 +282,4 @@ $RECYCLE.BIN/
 JuniorMind/ChessTable/ChessTable.csproj
 JuniorMind/ChessTable/ChessTests.cs
 JuniorMind/Goats/GoatsTests.cs
+JuniorMind/Password/PasswordTests.cs
