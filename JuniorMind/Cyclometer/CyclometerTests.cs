@@ -16,7 +16,7 @@ namespace Cyclometer
         public void TotalDistanceOfOneCyclist()
         {
             Cyclist cyclist = new Cyclist("Radu", 10, new Performances[] { new Performances(1, 1), new Performances(2, 3) });
-            Assert.AreEqual(125.6, IndividualDistance(cyclist), 0.1);
+            Assert.AreEqual(125.6, GetIndividualDistance(cyclist), 0.1);
         }
 
         [TestMethod]
@@ -34,6 +34,22 @@ namespace Cyclometer
                                                  new Cyclist("Vasile", 10, new Performances[] { new Performances(1, 1), new Performances(2, 6), new Performances(3, 5) }),
                                                  new Cyclist("Marius", 10, new Performances[] { new Performances(1, 2), new Performances(2, 5) }) };
             Assert.AreEqual(new NameSecond("Vasile", 2), FindNameOfFastestCyclist(cyclists));            
+        }
+
+        [TestMethod]
+        public void IndividualTime()
+        {
+            Cyclist cyclist = new Cyclist("Radu", 10, new Performances[] { new Performances(1, 1), new Performances(2, 3) });
+            Assert.AreEqual(2, GetIndividualTime(cyclist));
+        }
+
+        [TestMethod]
+        public void BestAverageSpeed()
+        {
+            Cyclist[] cyclists = new Cyclist[] { new Cyclist("Radu", 10, new Performances[] { new Performances(1, 1), new Performances(2, 3) }),
+                                                 new Cyclist("Vasile", 10, new Performances[] { new Performances(1, 1), new Performances(2, 6), new Performances(3, 5) }),
+                                                 new Cyclist("Marius", 20, new Performances[] { new Performances(1, 2), new Performances(2, 5) }) };
+            Assert.AreEqual("Marius", ComputeBestAverageSpeed(cyclists));
         }
 
         public struct Cyclist
@@ -78,7 +94,7 @@ namespace Cyclometer
             return cyclist.wheelDiameter * 3.14;
         }
 
-        double IndividualDistance(Cyclist cyclist)
+        double GetIndividualDistance(Cyclist cyclist)
         {
             double individualDistance = 0;
             double wheelCircumference = ComputeWheelCircumference(cyclist);
@@ -94,7 +110,7 @@ namespace Cyclometer
             double totalDistance = 0;
             for(int i = 0; i < cyclists.Length; i++)
             {
-                totalDistance += IndividualDistance(cyclists[i]);
+                totalDistance += GetIndividualDistance(cyclists[i]);
             }
             return totalDistance;
         }
@@ -102,7 +118,7 @@ namespace Cyclometer
         private NameSecond FindNameOfFastestCyclist(Cyclist[] cyclists)
         {
             NameSecond nameSecond = new NameSecond("", 0);
-            int maxNumberOfRotations = cyclists[0].performances[0].second;
+            int maxNumberOfRotations = cyclists[0].performances[0].rotations;
 
             for (int i = 0; i < cyclists.Length; i++)
                 for (int j = 0; j < cyclists[i].performances.Length; j++)
@@ -116,6 +132,29 @@ namespace Cyclometer
                 }
             return nameSecond;
         }                   
+
+        string ComputeBestAverageSpeed(Cyclist[] cyclists)
+        {
+            double maxAverageSpeed = GetIndividualDistance(cyclists[0]) / GetIndividualTime(cyclists[0]);
+            double cyclistSpeed = 0;
+            string name = cyclists[0].cyclistName;
+
+            for (int i = 1; i < cyclists.Length; i++)
+            {
+                cyclistSpeed = GetIndividualDistance(cyclists[i]) / GetIndividualTime(cyclists[i]);
+                if (cyclistSpeed > maxAverageSpeed)
+                {
+                    maxAverageSpeed = cyclistSpeed;
+                    name = cyclists[i].cyclistName;
+                }
+            }
+            return name; 
+        }
+
+        private int GetIndividualTime(Cyclist cyclist)
+        {
+            return cyclist.performances[cyclist.performances.Length - 1].second;
+        }
     }
 }
 
