@@ -9,7 +9,6 @@ Funcția oferă ca și opțiuni:
     simboluri și numărul lor
     să nu includă caracterele similare: l, 1, I, o, 0, O
     să nu includă caractere ambigue: {}[]()/\'"~,;.<>
-
 */
 namespace Password
 {
@@ -45,32 +44,47 @@ namespace Password
             PasswordParameters passwordParameters = new PasswordParameters(3, 2, 1, 0, 0, true, false);
             string password = GeneratePassword(passwordParameters);
             Assert.AreEqual(2, CountCharacters(password, 'a', 'z'));
-            Assert.AreEqual(1, CountCharacters(password, 'A', 'Z'));                     
+            Assert.AreEqual(1, CountCharacters(password, 'A', 'Z'));
+            Assert.AreEqual(0, CountCharacters(password, '0', '9'));
         }
                
-       /* [TestMethod]
+       [TestMethod]
         public void SmallCapitalAndCipher()
         {                        
-            PasswordParameters passwordParameters = new PasswordParameters(5, 2, 1, 2, 0);
+            PasswordParameters passwordParameters = new PasswordParameters(5, 2, 1, 2, 0, false, false);
             string password = GeneratePassword(passwordParameters);
-            Assert.AreEqual(true, CheckPassword(password, passwordParameters));
+            Assert.AreEqual(2, CountCharacters(password, 'a', 'z'));
+            Assert.AreEqual(1, CountCharacters(password, 'A', 'Z'));
+            Assert.AreEqual(2, CountCharacters(password, '0', '9'));            
         }
 
         [TestMethod]
         public void Symbols()
         {                
-            PasswordParameters passwordParameters = new PasswordParameters(3, 0, 0, 0, 2);
+            PasswordParameters passwordParameters = new PasswordParameters(3, 0, 0, 0, 2, false, false);
             string password = GeneratePassword(passwordParameters);
-            Assert.AreEqual(true, CheckPassword(password, passwordParameters));
+            Assert.AreEqual(0, CountCharacters(password, 'a', 'z'));
+            Assert.AreEqual(0, CountCharacters(password, 'A', 'Z'));
+            Assert.AreEqual(0, CountCharacters(password, '0', '9'));
         }
 
         [TestMethod]
         public void SmallLettersCapitalsCiphersAndSymbols()
         {                       
-            PasswordParameters passwordParameters = new PasswordParameters(8, 2, 3, 1, 2);
+            PasswordParameters passwordParameters = new PasswordParameters(8, 2, 3, 1, 2, false, false);
             string password = GeneratePassword(passwordParameters);
-            Assert.AreEqual(true, CheckPassword(password, passwordParameters));
-        }*/
+            Assert.AreEqual(2, CountCharacters(password, 'a', 'z'));
+            Assert.AreEqual(3, CountCharacters(password, 'A', 'Z'));
+            Assert.AreEqual(1, CountCharacters(password, '0', '9'));
+        }
+
+        [TestMethod]
+        public void PasswordWithAmbiguousSymbols()
+        {
+            PasswordParameters passwordParameters = new PasswordParameters(8, 2, 3, 1, 2, false, true);
+            string password = GeneratePassword(passwordParameters);
+            Assert.AreEqual(2, CountSymbols(password));
+        }
                
         Random random = new Random();
 
@@ -78,7 +92,7 @@ namespace Password
         {
             return AddChars(password.nrOfSmallLetters, 'a', 'z', password.similar) + 
                    AddChars(password.nrOfCapitalLetters, 'A', 'Z', password.similar) + 
-                   AddChars(password.nrOfCiphers, '0', '9', password.similar) + GenerateSymbols(password.nrOfSymbols);          
+                   AddChars(password.nrOfCiphers, '0', '9', password.similar) + GenerateSymbols(password.nrOfSymbols, password.ambiguous);          
         }
 
         char GetRandomChar(char start, char end)
@@ -89,8 +103,8 @@ namespace Password
         string AddChars(int nrOfChars, char start, char end, bool similarAccepted)
         {
             string similarChars = "l1Io0O";
-            //char[] similarChars = { 'l', '1', 'I', 'o', '0', 'O' };
             string passwordChars = "";
+            
             if(similarAccepted)
                 while (nrOfChars > 0)
                 {
@@ -109,15 +123,25 @@ namespace Password
             return passwordChars;
         }
 
-        string GenerateSymbols(int nrOfSymbols)
-        {           
+        string GenerateSymbols(int nrOfSymbols, bool ambiguousAccepted)
+        {
+
+            string ambiguousIncluded = "!@#$%^&*-=_+:<>?{}[]()/\'~,;.<>";
             string symbols = "!@#$%^&*-=_+:<>?";
-            string passwordSymbols = "";                                  
-            while (nrOfSymbols > 0)
-            {               
-                    passwordSymbols += symbols[random.Next(0, symbols.Length - 1)];
-                    nrOfSymbols--;                
-            }
+            string passwordSymbols = "";     
+
+            if(ambiguousAccepted)                            
+                while (nrOfSymbols > 0)
+                {               
+                        passwordSymbols += symbols[random.Next(0, symbols.Length - 1)];
+                        nrOfSymbols--;                
+                }
+            else
+                while (nrOfSymbols > 0)
+                {
+                    passwordSymbols += ambiguousIncluded[random.Next(0, symbols.Length - 1)];
+                    nrOfSymbols--;
+                }
             return passwordSymbols;
         }
 
@@ -128,26 +152,16 @@ namespace Password
                 if (start <= c && c <= end)
                     counter++;
             return counter;
-        }
+        }               
 
-        /*bool CheckPassword(string password, PasswordParameters passwordParameters)
-        {                     
-            for(int i = 0; i < password.Length; i++)
-            {             
-                if (password[i] >= 'a' && password[i] <= 'z')
-                    passwordParameters.nrOfSmallLetters--;                                                               
-                if (password[i] >= 'A' && password[i] <= 'Z')
-                    passwordParameters.nrOfCapitalLetters--;
-                if (password[i] >= '0' && password[i] <= '9')
-                    passwordParameters.nrOfCiphers--;
-                if ("!@#$%^&*-=_+:<>?".Contains(password[i].ToString()))
-                    passwordParameters.nrOfSymbols--;
-            }
-            if (passwordParameters.nrOfSmallLetters + passwordParameters.nrOfCapitalLetters + 
-                passwordParameters.nrOfCiphers + passwordParameters.nrOfSymbols == 0)
-            if(passwordParameters.nrOfSmallLetters == CountCharacters(password, 'a', 'z'))
-                return true;
-            return false;
-        }       */         
+        int CountSymbols(string word)
+        {
+            int counter = 0;
+            string ambiguous = "!@#$%^&*-=_+:<>?{}[]()/\'~,;.<>";
+            for (int i = 0; i < word.Length; i++)
+                if (ambiguous.Contains(word[i].ToString()))
+                    counter++;
+            return counter;
+        }
     }
 }
