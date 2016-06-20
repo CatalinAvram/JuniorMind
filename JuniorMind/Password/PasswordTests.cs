@@ -85,7 +85,7 @@ namespace Password
             string password = GeneratePassword(passwordParameters);
             Assert.AreEqual(2, CountSymbols(password));
         }
-               
+                       
         Random random = new Random();
 
         string GeneratePassword(PasswordParameters password)
@@ -124,25 +124,23 @@ namespace Password
         }
 
         string GenerateSymbols(int nrOfSymbols, bool ambiguousAccepted)
-        {
-
-            string ambiguousIncluded = "!@#$%^&*-=_+:<>?{}[]()/\'~,;.<>";
-            string symbols = "!@#$%^&*-=_+:<>?";
-            string passwordSymbols = "";     
-
-            if(ambiguousAccepted)                            
-                while (nrOfSymbols > 0)
-                {               
-                        passwordSymbols += symbols[random.Next(0, symbols.Length - 1)];
-                        nrOfSymbols--;                
-                }
-            else
-                while (nrOfSymbols > 0)
-                {
-                    passwordSymbols += ambiguousIncluded[random.Next(0, symbols.Length - 1)];
-                    nrOfSymbols--;
-                }
+        {           
+            string passwordSymbols = "";                                                   
+            while (nrOfSymbols > 0)
+            {
+                passwordSymbols += GetRandomSymbol(ambiguousAccepted);
+                    nrOfSymbols--;                
+            }          
             return passwordSymbols;
+        }
+
+        char GetRandomSymbol(bool ambiguousAccepted)
+        {
+            string ambiguousIncluded = "!@#$%^&*-=_+:<>?{}[]()/\'~,;.<>";
+            string clearSymbols = "!@#$%^&*-=_+:<>?";
+            if(ambiguousAccepted)
+                return ambiguousIncluded[random.Next(0, ambiguousIncluded.Length - 1)];
+            return clearSymbols[random.Next(0, clearSymbols.Length - 1)];
         }
 
         int CountCharacters(string word, char start, char end)
@@ -158,8 +156,8 @@ namespace Password
         {
             int counter = 0;
             string ambiguous = "!@#$%^&*-=_+:<>?{}[]()/\'~,;.<>";
-            for (int i = 0; i < word.Length; i++)
-                if (ambiguous.Contains(word[i].ToString()))
+            foreach (char c in word)
+                if (ambiguous.Contains(c.ToString()))
                     counter++;
             return counter;
         }
