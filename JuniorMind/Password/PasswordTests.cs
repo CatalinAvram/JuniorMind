@@ -99,30 +99,27 @@ namespace Password
         {                    
             return (char)(random.Next(start, end + 1));          
         }
-       
+
         string AddChars(int nrOfChars, char start, char end, bool similarAccepted)
         {
             string similarChars = "l1Io0O";
             string passwordChars = "";
-            
-            if(similarAccepted)
-                while (nrOfChars > 0)
-                {
-                    passwordChars += GetRandomChar(start, end);
-                    nrOfChars--;                                   
-                }
-            else
-            while (nrOfChars > 0)
-            {                              
-                if (!similarChars.Contains(GetRandomChar(start, end).ToString()))                    
-                    {
-                        passwordChars += GetRandomChar(start, end);
-                        nrOfChars--;
-                    }
+            char c;
+
+            for (int i = 0; i < nrOfChars; i++)
+            {
+                c = GetRandomChar(start, end);
+                if (similarAccepted)
+                    passwordChars += c;
+                else
+                if (!similarChars.Contains(c.ToString()))
+                    passwordChars += c;
+                else
+                    i--;
             }
             return passwordChars;
         }
-
+         
         string GenerateSymbols(int nrOfSymbols, bool ambiguousAccepted)
         {           
             string passwordSymbols = "";                                                   
