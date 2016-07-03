@@ -109,17 +109,23 @@ namespace Password
             for (int i = 0; i < nrOfChars; i++)
             {
                 c = GetRandomChar(start, end);
-                if (similarAccepted)
-                    passwordChars += c;
-                else
-                if (!similarChars.Contains(c.ToString()))
-                    passwordChars += c;
+                if (similarAccepted || !similarChars.Contains(c.ToString()))
+                    passwordChars += c;                
                 else
                     i--;
             }
             return passwordChars;
         }
-         
+
+        char GetRandomSymbol(bool ambiguousAccepted)
+        {
+            string ambiguousIncluded = "!@#$%^&*-=_+:<>?{}[]()/\'~,;.<>";
+            string clearSymbols = "!@#$%^&*-=_+:<>?";
+            if (ambiguousAccepted)
+                return ambiguousIncluded[random.Next(0, ambiguousIncluded.Length - 1)];
+            return clearSymbols[random.Next(0, clearSymbols.Length - 1)];
+        }
+
         string GenerateSymbols(int nrOfSymbols, bool ambiguousAccepted)
         {           
             string passwordSymbols = "";                                                   
@@ -130,16 +136,7 @@ namespace Password
             }          
             return passwordSymbols;
         }
-
-        char GetRandomSymbol(bool ambiguousAccepted)
-        {
-            string ambiguousIncluded = "!@#$%^&*-=_+:<>?{}[]()/\'~,;.<>";
-            string clearSymbols = "!@#$%^&*-=_+:<>?";
-            if(ambiguousAccepted)
-                return ambiguousIncluded[random.Next(0, ambiguousIncluded.Length - 1)];
-            return clearSymbols[random.Next(0, clearSymbols.Length - 1)];
-        }
-
+    
         int CountCharacters(string word, char start, char end)
         {
             int counter = 0;
