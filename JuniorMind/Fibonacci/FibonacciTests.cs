@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Fibonacci
 {
     [TestClass]
-    public class UnitTest1
+    public class FibonacciTests
     {
         [TestMethod]
         public void FirstElement()
@@ -20,11 +20,25 @@ namespace Fibonacci
             Assert.AreEqual(1, GiveFibonacciElement(2));
         }
 
+        [TestMethod]
+        public void FifthElement()
+        {
+            Assert.AreEqual(5, GiveFibonacciElement(5));
+        }
+
         int GiveFibonacciElement(int k)
+        {
+            int previous = 0;
+            return GiveFibonacciElement(k, ref previous);
+        }
+
+        int GiveFibonacciElement(int k, ref int previous)
         {
             if (k < 2)
                 return k;
-            return GiveFibonacciElement(k - 1) + GiveFibonacciElement(k - 2);
+            int beforePrevious = 0;
+            previous = GiveFibonacciElement(k - 1, ref beforePrevious);
+            return previous + beforePrevious;
         }
     }
 }
