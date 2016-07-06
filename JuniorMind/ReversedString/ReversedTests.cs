@@ -25,6 +25,7 @@ namespace ReversedString
         {
             Assert.AreEqual("fedcba", Reverse("abcdef"));
         }       
+
         string Reverse(string toBeReversed)
         {
             if (toBeReversed.Length <= 1)
