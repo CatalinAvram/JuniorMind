@@ -13,12 +13,23 @@ namespace Replace
             Assert.AreEqual("xyz", Replace("a", 'a', "xyz"));
         }
 
-        string Replace(string given, char toBeReplaced, string toInsert)
+        [TestMethod]
+        public void NoReplacement()
         {
-            if (!given.Contains(toBeReplaced.ToString()))
-                return given;
-            
-            return  Replace(given.Substring(1, given.Length - 1) , toBeReplaced, toInsert) + toInsert;
+            Assert.AreEqual("abc", Replace("abc", 'd', "xyz"));
+        }
+
+        [TestMethod]
+        public void TwoDistinctCharacters()
+        {
+            Assert.AreEqual("axyz", Replace("ab", 'b', "xyz"));
+        }
+
+        string Replace(string initial, char toBeReplaced, string toInsert)
+        {
+            if (!initial.Contains(toBeReplaced.ToString()))
+                return initial;          
+            return  Replace(initial.Substring(0, initial.Length - 1) , toBeReplaced, toInsert) + toInsert;
         }
     }
 }
