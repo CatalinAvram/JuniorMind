@@ -11,19 +11,26 @@ namespace ReversedString
         [TestMethod]
         public void OneLetter()
         {
-            Assert.AreEqual("a", ReverseString("a"));
+            Assert.AreEqual("a", Reverse("a"));
         }
 
         [TestMethod]
         public void ShortString()
         {
-            Assert.AreEqual("ea", ReverseString("ae"));
+            Assert.AreEqual("ea", Reverse("ae"));
         }
-        string ReverseString(string toBeReversed)
+
+        [TestMethod]
+        public void LongString()
+        {
+            Assert.AreEqual("fedcba", Reverse("abcdef"));
+        }       
+        string Reverse(string toBeReversed)
         {
             if (toBeReversed.Length <= 1)
                 return toBeReversed;
-            return ReverseString(toBeReversed[toBeReversed.Length - 1].ToString()) + ReverseString(toBeReversed[toBeReversed.Length - 2].ToString());                   
+            char ch = toBeReversed[0];
+            return Reverse(toBeReversed.Substring(1, toBeReversed.Length - 1)) + ch;
         }
     }
 }
