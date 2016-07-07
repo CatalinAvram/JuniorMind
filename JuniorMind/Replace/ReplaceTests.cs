@@ -22,14 +22,22 @@ namespace Replace
         [TestMethod]
         public void TwoDistinctCharacters()
         {
-            Assert.AreEqual("axyz", Replace("ab", 'b', "xyz"));
+            Assert.AreEqual("aX", Replace("ad", 'd', "X"));
+        }
+
+        [TestMethod]
+        public void MoreCharatersToBeRepplace()
+        {
         }
 
         string Replace(string initial, char toBeReplaced, string toInsert)
         {
-            if (!initial.Contains(toBeReplaced.ToString()))
-                return initial;          
-            return  Replace(initial.Substring(0, initial.Length - 1) , toBeReplaced, toInsert) + toInsert;
+            if (initial == "")
+                return initial;
+            if (initial[initial.Length - 1] == toBeReplaced)
+                return Replace(initial.Substring(0, initial.Length - 1), toBeReplaced, toInsert) + toInsert;
+            else
+                return Replace(initial.Substring(0, initial.Length - 1), toBeReplaced, toInsert) + initial[initial.Length - 1];              
         }
     }
 }
