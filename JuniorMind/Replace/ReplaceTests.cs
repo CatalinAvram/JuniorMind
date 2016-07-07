@@ -28,16 +28,15 @@ namespace Replace
         [TestMethod]
         public void MoreCharatersToBeRepplace()
         {
+            Assert.AreEqual("XacXfgX", Replace("dacdfgd", 'd', "X"));
         }
 
         string Replace(string initial, char toBeReplaced, string toInsert)
         {
             if (initial == "")
                 return initial;
-            if (initial[initial.Length - 1] == toBeReplaced)
-                return Replace(initial.Substring(0, initial.Length - 1), toBeReplaced, toInsert) + toInsert;
-            else
-                return Replace(initial.Substring(0, initial.Length - 1), toBeReplaced, toInsert) + initial[initial.Length - 1];              
+            string lastCharacterRemoved = Replace(initial.Substring(0, initial.Length - 1), toBeReplaced, toInsert);
+            return initial[initial.Length - 1] == toBeReplaced ? lastCharacterRemoved + toInsert : lastCharacterRemoved + initial[initial.Length - 1];              
         }
     }
 }
