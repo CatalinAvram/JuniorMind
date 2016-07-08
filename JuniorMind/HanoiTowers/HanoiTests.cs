@@ -6,6 +6,7 @@ Cele 64 de discuri au dimensiuni diferite.Iar călugării trebuie să respecte d
     un singur disc poate fi mutat la un moment dat
     un disc mai mare nu poate fi mutat peste un disc mai mic
 Notă: e o problemă clasică de recursivitate, dar care pentru 64 de discuri deja poate cauza probleme de performanță (2^64 - 1 mutări).*/
+
 namespace HanoiTowers
 {
     [TestClass]
@@ -17,13 +18,25 @@ namespace HanoiTowers
             Assert.AreEqual(3, HanoiTowers(2, 'S', 'A', 'D'));
         }
 
+        [TestMethod]
+        public void ThreeDisks()
+        {
+            Assert.AreEqual(7, HanoiTowers(3, 'S', 'A', 'D'));
+        }
+
+        [TestMethod]
+        public void MoreDisks()
+        {
+            Assert.AreEqual(1023, HanoiTowers(10, 'S', 'A', 'D'));
+
+        }
         int HanoiTowers(int nrOfDisks, char source, char aux, char destination)
         {
             if (nrOfDisks == 1)
                 return nrOfDisks;
             return HanoiTowers(nrOfDisks - 1, source, destination, aux) +
-                    HanoiTowers(1, source, aux, destination) +
-                    HanoiTowers(nrOfDisks - 1, aux, source, destination);
+                   HanoiTowers(1, source, aux, destination) +
+                   HanoiTowers(nrOfDisks - 1, aux, source, destination);
         }                                 
     }
 }
