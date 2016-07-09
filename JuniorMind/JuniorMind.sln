@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HanoiTowers", "HanoiTowers\HanoiTowers.csproj", "{EB40CA5B-D863-4EB7-9DF0-9BACE68886CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PascalTriangle", "PascalTriangle\PascalTriangle.csproj", "{0C58C05E-C15C-481D-B5B7-FFCA7D85A4C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -201,6 +203,10 @@ Global
 		{EB40CA5B-D863-4EB7-9DF0-9BACE68886CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB40CA5B-D863-4EB7-9DF0-9BACE68886CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB40CA5B-D863-4EB7-9DF0-9BACE68886CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C58C05E-C15C-481D-B5B7-FFCA7D85A4C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C58C05E-C15C-481D-B5B7-FFCA7D85A4C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C58C05E-C15C-481D-B5B7-FFCA7D85A4C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C58C05E-C15C-481D-B5B7-FFCA7D85A4C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

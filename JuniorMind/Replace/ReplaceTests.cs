@@ -36,7 +36,7 @@ namespace Replace
             if (initial == "")
                 return initial;
             string lastCharacterRemoved = Replace(initial.Substring(0, initial.Length - 1), toBeReplaced, toInsert);
-            return initial[initial.Length - 1] == toBeReplaced ? lastCharacterRemoved + toInsert : lastCharacterRemoved + initial[initial.Length - 1];              
+            return lastCharacterRemoved + (initial[initial.Length - 1] == toBeReplaced ?  toInsert : initial[initial.Length - 1].ToString());              
         }
     }
 }

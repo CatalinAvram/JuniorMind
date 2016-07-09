@@ -18,11 +18,12 @@ namespace Calculator
         [TestMethod]
         public void OneOperand()
         {
-            Assert.AreEqual(7, Calculate(new char[] {'*', '3', '4'));
+            Assert.AreEqual(7, Calculate(new char[] { '*', '3', '4' }));
         }
 
         double Calculate(char[] charsArray)
-        {                      
+        {
+            return 0;                  
         }
     }
 }
