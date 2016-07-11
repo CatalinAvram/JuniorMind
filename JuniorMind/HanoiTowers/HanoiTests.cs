@@ -28,8 +28,8 @@ namespace HanoiTowers
         public void ThreeeDisks()
         {
             CollectionAssert.AreEqual(new int[] { 1, 2, 3 }, HanoiTowers(3, new int[] { 1, 2, 3 }, new int[3], new int[3]));
-        }     
-
+        }
+            
         int[] HanoiTowers(int nrOfDisks, int[] source, int[] aux, int[] destination)
         {
             if (nrOfDisks == 1)
@@ -47,7 +47,7 @@ namespace HanoiTowers
         {
             destination[destination.Length - diskNumber] = source[source.Length - diskNumber];           
             return destination; 
-        }                               
+        }                                          
     }
 }
 
