@@ -26,6 +26,12 @@ namespace PascalTriangle
             CollectionAssert.AreEqual(new int[] { 1, 1, 1 }, GeneratePascalTriangle(2));
         }
 
+        [TestMethod]
+        public void ThirdLevel()
+        {
+            CollectionAssert.AreEqual(new int[] { 1, 1, 1, 1, 2, 1 }, GeneratePascalTriangle(3));
+        }
+
         int[] GeneratePascalTriangle(int level)
         {            
             if(level < 2)
