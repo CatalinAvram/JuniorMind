@@ -16,26 +16,43 @@ namespace Calculator
     public class CalculatorTests
     {
         [TestMethod]
-        public void OneOperand()
+        public void OneOperator()
         {
-            Assert.AreEqual(7, Calculate( "+, 3, 4", 0));
+            int i = 0;
+            Assert.AreEqual(7, Calculate(" +, 3, 4", ref i));
         }
 
-        double Calculate(string expression, int  i)
+        [TestMethod]
+        public void TwoOperators()
+        {
+            int i = 0;
+            Assert.AreEqual(4, Calculate(" *, +, 1, 1, 2",  ref i));
+        }
+
+        double Calculate(string expression, ref int i)
         {
             string[] expressionElements = expression.Split(',');
+            var current = expressionElements[i++];
             double result;
 
-            if (double.TryParse(expressionElements[i], out result))
+            if (Double.TryParse(current, out result))
                 return result;
-            return SelectOperation(expression, expressionElements, i);
+            return SelectOperation(expression, current, ref i);
         }
 
-        private double SelectOperation(string expression, string[] expressionElements, int i)
+        double SelectOperation(string expression, string current, ref int i)
         {
-            if(expressionElements[i] == "+")                           
-                return Calculate(expressionElements[i + 1], i) + Calculate(expressionElements[i + 2], i);
-            return 0;
+            switch (current)
+            {
+                case " +":
+                    return Calculate(expression, ref i) + Calculate(expression, ref i);
+                case " -":
+                    return Calculate(expression, ref i) - Calculate(expression, ref i);
+                case " *":
+                    return Calculate(expression, ref i) * Calculate(expression, ref i);
+                default:
+                    return Calculate(expression, ref i) / Calculate(expression, ref i);
+            }
         }
 
     }
