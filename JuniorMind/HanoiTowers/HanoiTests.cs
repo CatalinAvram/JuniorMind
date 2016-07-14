@@ -34,7 +34,6 @@ namespace HanoiTowers
         {
             if (nrOfDisks == 1)
                 return MoveDisk(1, source, destination);
-            else
             {
                 HanoiTowers(nrOfDisks - 1, source, destination, aux);
                 MoveDisk(nrOfDisks, source, destination);

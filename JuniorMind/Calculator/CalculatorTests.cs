@@ -19,19 +19,19 @@ namespace Calculator
         public void OneOperator()
         {
             int i = 0;
-            Assert.AreEqual(7, Calculate(" +, 3, 4", ref i));
+            Assert.AreEqual(7, Calculate("+ 3 4", ref i));
         }
 
         [TestMethod]
         public void TwoOperators()
         {
             int i = 0;
-            Assert.AreEqual(4, Calculate(" *, +, 1, 1, 2",  ref i));
+            Assert.AreEqual(4, Calculate("* + 1 1 2",  ref i));
         }
 
         double Calculate(string expression, ref int i)
         {
-            string[] expressionElements = expression.Split(',');
+            string[] expressionElements = expression.Split(' ');
             var current = expressionElements[i++];
             double result;
 
@@ -44,11 +44,11 @@ namespace Calculator
         {
             switch (current)
             {
-                case " +":
+                case "+":
                     return Calculate(expression, ref i) + Calculate(expression, ref i);
-                case " -":
+                case "-":
                     return Calculate(expression, ref i) - Calculate(expression, ref i);
-                case " *":
+                case "*":
                     return Calculate(expression, ref i) * Calculate(expression, ref i);
                 default:
                     return Calculate(expression, ref i) / Calculate(expression, ref i);
