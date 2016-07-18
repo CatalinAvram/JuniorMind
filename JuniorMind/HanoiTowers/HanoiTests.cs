@@ -11,50 +11,36 @@ namespace HanoiTowers
 {
     [TestClass]
     public class HanoiTests
-    {
-        /*[TestMethod]
-        public void MoveOneDisk()
-        {
-            CollectionAssert.AreEqual(new char[] { 'S', 'D' }, HanoiTowers(1, new int[] { 1 }, new int[] { 0 }, new int[] { 0 }));
-        }*/
-
-        /*[TestMethod]
-        public void TwoDisks()
-        {
-            CollectionAssert.AreEqual(new int[] { 1, 2 }, HanoiTowers(2, new int[] { 1, 2 }, new int[2] , new int[2]));
-        }
-
-        [TestMethod]
-        public void ThreeeDisks()
-        {
-            CollectionAssert.AreEqual(new int[] { 1, 2, 3 }, HanoiTowers(3, new int[] { 1, 2, 3 }, new int[3], new int[3]));
-        }*/
-
+    {     
         [TestMethod]
         public void TwoDisks()
         {
-            Assert.AreEqual("S AUX S D AUX D ", HanoiTowers(2, new int[] { 1, 2 }, new int[2], new int[2]));
+            Assert.AreEqual("S AUX S D AUX D ", HanoiTowers(2, "S", "AUX", "D"));
         }
 
-        string HanoiTowers(int nrOfDisks, int[] source, int[] aux, int[] destination)
+        [TestMethod]
+        public void ThreeDisks()
+        {
+            Assert.AreEqual("S D S AUX D AUX S D AUX S AUX D S D ", HanoiTowers(3, "S", "AUX", "D"));
+        }
+
+
+        string HanoiTowers(int nrOfDisks, string source, string aux, string destination)
         {
             string moves = "";         
             if (nrOfDisks == 1)
                 return MoveDisk(1, source, destination);           
             {
-                HanoiTowers(nrOfDisks - 1, source, destination, aux);
-                moves += "S AUX ";
-                moves += MoveDisk(nrOfDisks, source, destination);
-                HanoiTowers(nrOfDisks - 1, aux, source, destination);
-                moves += "AUX D ";
+                moves += HanoiTowers(nrOfDisks - 1, source, destination, aux) +
+                         MoveDisk(nrOfDisks, source, destination) +
+                         HanoiTowers(nrOfDisks - 1, aux, source, destination); 
             }
             return moves;
         }  
         
-        string MoveDisk(int diskNumber, int[] source, int[] destination)
+        string MoveDisk(int diskNumber, string source, string destination)
         {
-            destination[destination.Length - diskNumber] = source[source.Length - diskNumber];           
-            return "S D "; 
+            return $"{source} {destination} ";
         }                                          
     }
 }
