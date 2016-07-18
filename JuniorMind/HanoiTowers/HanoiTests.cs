@@ -24,7 +24,6 @@ namespace HanoiTowers
             Assert.AreEqual("S D S AUX D AUX S D AUX S AUX D S D ", HanoiTowers(3, "S", "AUX", "D"));
         }
 
-
         string HanoiTowers(int nrOfDisks, string source, string aux, string destination)
         {
             string moves = "";         
