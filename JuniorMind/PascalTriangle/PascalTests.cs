@@ -23,13 +23,13 @@ namespace PascalTriangle
         [TestMethod]
         public void SecondLevel()
         {
-            CollectionAssert.AreEqual(new int[] { 1, 1, 1 }, GeneratePascalTriangle(2));
+            CollectionAssert.AreEqual(new int[] { 1, 1 }, GeneratePascalTriangle(2));
         }
 
         [TestMethod]
         public void ThirdLevel()
         {
-            CollectionAssert.AreEqual(new int[] { 1, 1, 1, 1, 2, 1 }, GeneratePascalTriangle(3));
+            CollectionAssert.AreEqual(new int[] { 1, 2, 1 }, GeneratePascalTriangle(3));
         }
 
         int[] GeneratePascalTriangle(int level)
@@ -38,14 +38,11 @@ namespace PascalTriangle
             {
                 return new int[] { 1 };
             }
-
-            int[] triangleElements = new int[0];
+            int[] triangleElements = new int[level];
             int k = 0;
             for (int i = 0; i < level; i++)
-                for (int j = 0; j <= i; j++)
                 {
-                    Array.Resize(ref triangleElements, triangleElements.Length + 1);
-                    triangleElements[k] = ComputeCombinations(i, j);
+                    triangleElements[k] = ComputeCombinations(level - 1, i);
                     k++;
                 }
             return triangleElements;
