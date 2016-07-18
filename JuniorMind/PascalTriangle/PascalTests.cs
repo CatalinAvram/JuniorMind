@@ -38,12 +38,13 @@ namespace PascalTriangle
             {
                 return new int[] { 1 };
             }
+
             int[] triangleElements = new int[level];
-            int k = 0;
-            for (int i = 0; i < level; i++)
+            int i = 0;
+            for (int k = 0; k < level; k++)
                 {
-                    triangleElements[k] = ComputeCombinations(level - 1, i);
-                    k++;
+                    triangleElements[i] = ComputeFactorial(level - 1) / (ComputeFactorial(k) * ComputeFactorial(level - 1 - k));  
+                    i++;
                 }
             return triangleElements;
         }
@@ -53,11 +54,6 @@ namespace PascalTriangle
             if (n < 2)
                 return 1;          
             return n * ComputeFactorial(n - 1); 
-        }
-
-        int ComputeCombinations(int n, int k)
-        {
-            return ComputeFactorial(n) / (ComputeFactorial(k) * ComputeFactorial(n - k));
-        }
+        }      
     }
 }
