@@ -33,27 +33,28 @@ namespace PascalTriangle
         }
 
         int[] GeneratePascalTriangle(int level)
-        {            
-            if(level < 2)
-            {
-                return new int[] { 1 };
-            }
+           {            
+               if(level < 2)
+               {
+                   return new int[] { 1 };
+               }
 
-            int[] triangleElements = new int[level];
-            int i = 0;
-            for (int k = 0; k < level; k++)
-                {
-                    triangleElements[i] = ComputeFactorial(level - 1) / (ComputeFactorial(k) * ComputeFactorial(level - 1 - k));  
-                    i++;
-                }
-            return triangleElements;
-        }
+               int[] triangleElements = new int[level];
+               int i = 0;
+               for (int k = 0; k < level; k++)
+                   {
+                       triangleElements[i] = ComputeFactorial(level - 1) / (ComputeFactorial(k) * ComputeFactorial(level - 1 - k));  
+                       i++;
+                   }
+               return triangleElements;
+           }
 
-        int ComputeFactorial(int n)
-        {
-            if (n < 2)
-                return 1;          
-            return n * ComputeFactorial(n - 1); 
-        }      
-    }
-}
+           int ComputeFactorial(int n)
+           {
+               if (n < 2)
+                   return 1;          
+               return n * ComputeFactorial(n - 1); 
+           }      
+       }
+   }
+  

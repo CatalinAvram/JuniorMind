@@ -11,36 +11,35 @@ namespace HanoiTowers
 {
     [TestClass]
     public class HanoiTests
-    {     
+    {
         [TestMethod]
         public void TwoDisks()
         {
-            Assert.AreEqual("S AUX S D AUX D ", HanoiTowers(2, "S", "AUX", "D"));
+            Assert.AreEqual("[S->AUX] [S->D] [AUX->D] ", HanoiTowers(2, "S", "AUX", "D"));
         }
 
         [TestMethod]
         public void ThreeDisks()
         {
-            Assert.AreEqual("S D S AUX D AUX S D AUX S AUX D S D ", HanoiTowers(3, "S", "AUX", "D"));
+            Assert.AreEqual("[S->D] [S->AUX] [D->AUX] [S->D] [AUX->S] [AUX->D] [S->D] ", HanoiTowers(3, "S", "AUX", "D"));
         }
 
         string HanoiTowers(int nrOfDisks, string source, string aux, string destination)
         {
-            string moves = "";         
+            string moves = "";
             if (nrOfDisks == 1)
-                return MoveDisk(1, source, destination);           
+                return MoveDisk(1, source, destination);
             {
                 moves += HanoiTowers(nrOfDisks - 1, source, destination, aux) +
                          MoveDisk(nrOfDisks, source, destination) +
-                         HanoiTowers(nrOfDisks - 1, aux, source, destination); 
+                         HanoiTowers(nrOfDisks - 1, aux, source, destination);
             }
             return moves;
-        }  
-        
+        }
+
         string MoveDisk(int diskNumber, string source, string destination)
         {
-            return $"{source} {destination} ";
-        }                                          
+            return $"[{source}->{destination}] ";
+        }
     }
 }
-
