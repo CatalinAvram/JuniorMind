@@ -11,33 +11,44 @@ namespace RepairCenter
 {
     public class SortCases
     {
-        public Car[] SortAfterPriority(Car[] carsToBeSorted)
+        public string[] SortAfterPriority(Car[] carsToBeSorted)
         {
             Car carObject = new Car();
-            //int[] finalOrder = new int[carsToBeSorted.Length];
-            string priorities = "HighMediumLow";    
-             
-            for(int i = 0; i <= carsToBeSorted.Length - 1; i++)
-                for(int j = i + 1; j < carsToBeSorted.Length; j++)
+            string[] priorities = new string[] { "High", "Medium", "Low" };
+            string[] carName = new string[carsToBeSorted.Length];
+
+            for (int i = 0; i <= carsToBeSorted.Length - 1; i++)
+            {
+                for (int j = i + 1; j < carsToBeSorted.Length; j++)
                 {
-                    if (priorities.IndexOf(carsToBeSorted[i].Priority) > priorities.IndexOf(carsToBeSorted[j].Priority))
+                    if (Array.IndexOf(priorities, carsToBeSorted[i].Priority) > Array.IndexOf(priorities, carsToBeSorted[j].Priority))
                     {
                         carObject = carsToBeSorted[i];
                         carsToBeSorted[i] = carsToBeSorted[j];
                         carsToBeSorted[j] = carObject;
-                    }                       
+                    }
                 }
-            return carsToBeSorted;                               
+                carName[i] = carsToBeSorted[i].Name;
+            }
+            return carName;                               
         }
     }
 
     public class Car
     {
         private string priority;
+        private string name;
+
         public string Priority
         {
             get { return priority; }
             set { priority = value; }
-        }                 
+        }             
+        
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }    
     }
 }

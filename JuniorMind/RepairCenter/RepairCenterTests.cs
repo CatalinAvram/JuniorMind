@@ -9,7 +9,7 @@ namespace RepairCenter
     public class RepairCenterTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestForThreeCars()
         {
             SortCases ob = new SortCases();
             Car[] carsToBeSorted = new Car[3];
@@ -18,9 +18,13 @@ namespace RepairCenter
                 carsToBeSorted[i] = new Car();
             }
             carsToBeSorted[0].Priority = "Medium";
+            carsToBeSorted[0].Name = "Honda";
             carsToBeSorted[1].Priority = "High";
+            carsToBeSorted[1].Name = "Dacia";
             carsToBeSorted[2].Priority = "Low";
-            CollectionAssert.AreEqual(new Car[] { carsToBeSorted[1], carsToBeSorted[0], carsToBeSorted[2] }, ob.SortAfterPriority(carsToBeSorted));
+            carsToBeSorted[2].Name = "Ferrari";
+
+            CollectionAssert.AreEqual(new string[] { "Dacia", "Honda", "Ferrari" }, ob.SortAfterPriority(carsToBeSorted));
         }
     }
 }
