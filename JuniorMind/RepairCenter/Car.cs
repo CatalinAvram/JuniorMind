@@ -13,7 +13,7 @@ public enum Priority
 
 namespace RepairCenter
 {
-    public class Car   
+    class Car   
     {
         private Priority priority;
 

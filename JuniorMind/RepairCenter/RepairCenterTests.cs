@@ -15,6 +15,13 @@ namespace RepairCenter
             CollectionAssert.AreEqual(new int[] { 3, 2, 1 }, ShowCorrectOrder(priorities));
         }
 
+        [TestMethod]
+        public void MoreComplexCase()
+        {
+            Priority[] priorities = new Priority[] { Priority.High, Priority.Medium, Priority.Low, Priority.Medium, Priority.Low, Priority.High };
+            CollectionAssert.AreEqual(new int[] { 1, 6, 2, 4, 3, 5 }, ShowCorrectOrder(priorities));
+        }
+
         public int[] ShowCorrectOrder(Priority[] priorities)
         {
             Car[] carsToBeRepaired = new Car[priorities.Length];
@@ -24,8 +31,13 @@ namespace RepairCenter
             }
 
             Administrator admin = new Administrator(carsToBeRepaired);
-            admin.addArrivalNumber();
-            return admin.SortAfterPriorities();       
+            int[] carsOrder = new int[priorities.Length];
+            admin.AddArrivalNumber();
+            admin.SortAfterPriorities();
+
+            for (int i = 0; i < carsOrder.Length; i++)
+                carsOrder[i] = admin.GetNextCar(i);
+            return carsOrder;            
         }
     }
 }

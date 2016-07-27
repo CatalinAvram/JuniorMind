@@ -9,7 +9,7 @@ using System.Collections;
 Ordonează cazurile în funcție de prioritate.*/
 namespace RepairCenter
 {
-    public class Administrator
+    class Administrator
     {
         private Car[] carsToBeRepaired;
         private int[] arrivalNumber;
@@ -20,15 +20,15 @@ namespace RepairCenter
             arrivalNumber = new int[carsToBeRepaired.Length];
         }
 
-        public void addArrivalNumber()
+        public void AddArrivalNumber()
         {
             for (int i = 0; i < carsToBeRepaired.Length; i++)
             {
                 arrivalNumber[i] = i + 1;
-            }
+           } 
         }
 
-        public int[] SortAfterPriorities()
+        public void SortAfterPriorities()
         {           
             for (int i = 0; i < carsToBeRepaired.Length - 1; i++)
             {
@@ -42,7 +42,11 @@ namespace RepairCenter
                     }
                 }
             }
-            return arrivalNumber;
+        }
+
+        public int GetNextCar(int index)
+        {
+            return arrivalNumber[index];
         }
     }
 }
