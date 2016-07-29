@@ -32,7 +32,7 @@ namespace WordsSorting
                 }
             }
         }
-
+              
         public string GetNextWord(int index)
         {
             return words[index].WordLetters;

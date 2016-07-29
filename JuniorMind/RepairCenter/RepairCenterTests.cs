@@ -16,6 +16,13 @@ namespace RepairCenter
         }
 
         [TestMethod]
+        public void EqualPriorities()
+        {
+            Priority[] priorities = new Priority[] { Priority.High, Priority.High, Priority.High };
+            CollectionAssert.AreEqual(new int[] { 1, 2, 3 }, ShowCorrectOrder(priorities));
+        }
+
+        [TestMethod]
         public void MoreComplexCase()
         {
             Priority[] priorities = new Priority[] { Priority.High, Priority.Medium, Priority.Low, Priority.Medium, Priority.Low, Priority.High };
@@ -36,7 +43,7 @@ namespace RepairCenter
             admin.SortAfterPriorities();
 
             for (int i = 0; i < carsOrder.Length; i++)
-                carsOrder[i] = admin.GetNextCar(i);
+                carsOrder[i] = admin.GetNextCar();
             return carsOrder;            
         }
     }

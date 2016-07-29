@@ -29,12 +29,12 @@ namespace RepairCenter
         }
 
         public void SortAfterPriorities()
-        {           
+        {
             for (int i = 0; i < carsToBeRepaired.Length - 1; i++)
             {
                 for (int j = i + 1; j < carsToBeRepaired.Length; j++)
                 {
-                    if (carsToBeRepaired[i].Priority < carsToBeRepaired[j].Priority)
+                    if (carsToBeRepaired[i].Priority >= carsToBeRepaired[j].Priority)
                     {
                         int temp = arrivalNumber[i];
                         arrivalNumber[i] = arrivalNumber[j];
@@ -44,9 +44,11 @@ namespace RepairCenter
             }
         }
 
-        public int GetNextCar(int index)
+        public int GetNextCar()
         {
-            return arrivalNumber[index];
+            int nextCarNumber = arrivalNumber[arrivalNumber.Length - 1];
+            Array.Resize(ref arrivalNumber, arrivalNumber.Length - 1);
+            return nextCarNumber;
         }
     }
 }
