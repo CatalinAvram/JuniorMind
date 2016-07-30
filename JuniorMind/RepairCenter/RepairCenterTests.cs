@@ -25,8 +25,8 @@ namespace RepairCenter
         [TestMethod]
         public void MoreComplexCase()
         {
-            Priority[] priorities = new Priority[] { Priority.High, Priority.Medium, Priority.Low, Priority.Medium, Priority.Low, Priority.High };
-            CollectionAssert.AreEqual(new int[] { 1, 6, 2, 4, 3, 5 }, ShowCorrectOrder(priorities));
+            Priority[] priorities = new Priority[] { Priority.High, Priority.Medium, Priority.Low, Priority.Medium, Priority.Low };
+            CollectionAssert.AreEqual(new int[] { 1, 2, 4, 3, 5 }, ShowCorrectOrder(priorities));
         }
 
         public int[] ShowCorrectOrder(Priority[] priorities)

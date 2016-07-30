@@ -28,17 +28,30 @@ namespace RepairCenter
            } 
         }
 
+        public void Swap <T> (ref T a, ref T b)
+        {
+            T aux = a;
+            a = b;
+            b = aux;
+        }
+
         public void SortAfterPriorities()
         {
             for (int i = 0; i < carsToBeRepaired.Length - 1; i++)
             {
-                for (int j = i + 1; j < carsToBeRepaired.Length; j++)
+                for (int j = i + 1; j > 0; j--)
                 {
-                    if (carsToBeRepaired[i].Priority >= carsToBeRepaired[j].Priority)
+                    if (carsToBeRepaired[j - 1].Priority >= carsToBeRepaired[j].Priority)
                     {
-                        int temp = arrivalNumber[i];
-                        arrivalNumber[i] = arrivalNumber[j];
-                        arrivalNumber[j] = temp;
+                        Swap(ref carsToBeRepaired[j - 1], ref carsToBeRepaired[j]);
+                        Swap(ref arrivalNumber[j - 1], ref arrivalNumber[j]);
+                       /* Car tempCar = carsToBeRepaired[j - 1];
+                        carsToBeRepaired[j - 1] = carsToBeRepaired[j];
+                        carsToBeRepaired[j] = tempCar;
+
+                        int temp = arrivalNumber[j - 1];
+                        arrivalNumber[j - 1] = arrivalNumber[j];
+                        arrivalNumber[j] = temp;        */                 
                     }
                 }
             }
