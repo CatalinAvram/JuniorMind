@@ -44,14 +44,7 @@ namespace RepairCenter
                     if (carsToBeRepaired[j - 1].Priority >= carsToBeRepaired[j].Priority)
                     {
                         Swap(ref carsToBeRepaired[j - 1], ref carsToBeRepaired[j]);
-                        Swap(ref arrivalNumber[j - 1], ref arrivalNumber[j]);
-                       /* Car tempCar = carsToBeRepaired[j - 1];
-                        carsToBeRepaired[j - 1] = carsToBeRepaired[j];
-                        carsToBeRepaired[j] = tempCar;
-
-                        int temp = arrivalNumber[j - 1];
-                        arrivalNumber[j - 1] = arrivalNumber[j];
-                        arrivalNumber[j] = temp;        */                 
+                        Swap(ref arrivalNumber[j - 1], ref arrivalNumber[j]);                 
                     }
                 }
             }
