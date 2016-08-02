@@ -7,31 +7,23 @@ namespace WordsSorting
     public class WordsSortingTests
     {
         [TestMethod]
-        public void NumberOfApperances()
-        {
-            Word word = new Word("the", 0);
-            Assert.AreEqual(2, word.CountApperances("the frog the"));
-        }
-
-        [TestMethod]
         public void SimpleCase()
         {
-            CollectionAssert.AreEqual(new string[] { "the", "the", "frog" }, ShowWordsAfterAppearanceFrequency("the frog the"));
+            var words = new string[] { "the", "frog", "the"};
+            CollectionAssert.AreEqual(new Word[] { new Word("the", 2), new Word("frog", 1) }, ShowWordsAfterAppearanceFrequency(words));
         }
 
-        public string[] ShowWordsAfterAppearanceFrequency(string text)
+        public Word[] ShowWordsAfterAppearanceFrequency(string[] textWords)
         {
-            Word[] wordsToBeSorted = new Word[text.Split(' ').Length];
-            for (int i = 0; i < wordsToBeSorted.Length; i++)
-                wordsToBeSorted[i] = new Word(text.Split(' ')[i], 0);
+            WordsAdministrator admin = new WordsAdministrator();
+            for (int i = 0; i < textWords.Length; i++)
+                admin.AddWordAndNumberOfAppearances(textWords[i]);
+            admin.SortAfterAppearances();
 
-            WordsAdministrator admin = new WordsAdministrator(wordsToBeSorted);
-            admin.SortAfterAppearances(text);
-            string[] sortedWords = new string[wordsToBeSorted.Length];
-
-            for (int i = 0; i < sortedWords.Length; i++)
-                sortedWords[i] = admin.GetNextWord(i);
-            return sortedWords;
+            Word[] words = new Word[admin.sortedWords.Length];
+            for (int i = 0; i < admin.sortedWords.Length; i++)
+                words[i] = admin.GetNextWord();           
+            return words;
         }
     }
 }
