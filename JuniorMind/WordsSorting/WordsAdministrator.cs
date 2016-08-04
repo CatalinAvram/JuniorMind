@@ -12,7 +12,6 @@ namespace WordsSorting
         private Word[] words = new Word[0];
         private int index = -1;
 
-
         public void Add(string word)
         {
             for(int i = 0; i < words.Length; i++)
@@ -28,7 +27,7 @@ namespace WordsSorting
             SortAfterAppearances();
         }
 
-        public void SortAfterAppearances()
+        private void SortAfterAppearances()
         {
             for (int i = 0; i < words.Length - 1; i++)
             {
@@ -81,9 +80,9 @@ namespace WordsSorting
         {
             index = -1;
         }
+
         public Word GetNextWord()
         {
-
             MoveNext();
             return Current;
         }
