@@ -7,18 +7,13 @@ using System.Threading.Tasks;
 //Găsește și ordonează cuvintele dintr-un text în funcție de numărul de apariții.
 namespace WordsSorting
 {
-    class WordsAdministrator : IEnumerable<Word>
+    class WordsAdministrator : IEnumerator<Word>
     {
         private Word[] words = new Word[0];
         private int index = -1;
 
-        public Word[] sortedWords
-        {
-            get { return words; }
-            set { words = value; }
-        }
 
-        public void AddWordAndNumberOfAppearances(string word)
+        public void Add(string word)
         {
             for(int i = 0; i < words.Length; i++)
             {
@@ -30,6 +25,7 @@ namespace WordsSorting
             }
             Array.Resize(ref words, words.Length + 1);
             words[words.Length - 1] = new Word(word, 1);
+            SortAfterAppearances();
         }
 
         public void SortAfterAppearances()
@@ -49,26 +45,12 @@ namespace WordsSorting
             b = aux;
         }
 
-        public IEnumerator<Word> GetEnumerator()
+        public int GetNumberOfDistinctWords()
         {
-            foreach(Word word in words)
-            {
-                yield return word;
-            }
+            return words.Length;
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
-        bool MoveNext()
-        {
-            index++;
-            return index < words.Length;
-        }
-
-        Word Current
+        public Word Current
         {
             get
             {
@@ -76,13 +58,32 @@ namespace WordsSorting
             }
         }
 
-        void Reset()
+        object IEnumerator.Current
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool MoveNext()
+        {
+            index++;
+            return index < words.Length;
+        }
+
+        public void Reset()
         {
             index = -1;
         }
-     
         public Word GetNextWord()
         {
+
             MoveNext();
             return Current;
         }
