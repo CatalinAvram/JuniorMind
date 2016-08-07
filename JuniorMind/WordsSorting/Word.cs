@@ -18,12 +18,6 @@ namespace WordsSorting
             this.numberOfAppearances = numberOfAppearances;   
         }
 
-        public string WordLetters
-        {
-            get { return word; }
-            set { word = value; }
-        }
-
         public void IncreaseAppearances()
         {
             numberOfAppearances++;

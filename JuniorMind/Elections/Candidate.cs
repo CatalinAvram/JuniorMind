@@ -17,9 +17,21 @@ namespace Elections
             this.numberOfVotes = numberOfVotes;
         }
 
-        public void IncreaseVotes()
+        public string CandidateName
         {
-            numberOfVotes++;
+            get { return name; }
+            set { name = value; }
+        }
+
+        public int NumberOfVotes
+        {
+            get { return numberOfVotes; }
+            set { numberOfVotes = value; }
+        }
+
+        public int GetNumberOfVotes()
+        {
+            return numberOfVotes;
         }
 
         public int CompareTo(Candidate otherCandidate)

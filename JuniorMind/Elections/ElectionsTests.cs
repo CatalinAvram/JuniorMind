@@ -9,11 +9,26 @@ namespace Elections
     public class ElectionsTests
     {
         [TestMethod]
-        public void SortingTest()
+        public void AlphabeticalSort()
         {
-            var candidates = new SortedCandidates( new Candidate[] { new Candidate("PNL", 3), new Candidate("PSD", 1), new Candidate("USR", 7) });
-            var expectedOrder = new Candidate[] { new Candidate("USR", 7), new Candidate("PNL", 3), new Candidate("PSD", 1) };
-            CollectionAssert.AreEqual(expectedOrder, candidates.SortCandidates());
+            var candidates = new SortedPollingStation( new Candidate[] { new Candidate("USR", 7), new Candidate("PNL", 3), new Candidate("PSD", 1)  });
+            var expectedOrder = new SortedPollingStation(new Candidate[] { new Candidate("PNL", 3), new Candidate("PSD", 1), new Candidate("USR", 7) });
+            Assert.AreEqual(expectedOrder, candidates);
         }
+
+        [TestMethod]
+        public void SimpleCase()
+        {
+
+            var firstPollingStation = new SortedPollingStation(new Candidate[] {  new Candidate("PSD", 1), new Candidate("PNL", 3), new Candidate("USR", 7) });
+            var secondPollingStation = new SortedPollingStation(new Candidate[] { new Candidate("PNL", 4), new Candidate("PSD", 4), new Candidate("USR", 6) });
+            SortedPollingStation[] sortedStations = new SortedPollingStation[] { firstPollingStation, secondPollingStation };
+            Centralizer obj = new Centralizer(sortedStations);
+
+            var expectedOrder = new SortedPollingStation(new Candidate[] { new Candidate("USR", 13), new Candidate("PNL", 7), new Candidate("PSD", 5) });
+
+            Assert.AreEqual(expectedOrder, obj.CentralizePollingStations());
+        }
+
     }
 }
