@@ -7,35 +7,51 @@ using System.Threading.Tasks;
 
 namespace Elections
 {
-    class Centralizer : IEnumerable<SortedPollingStation>
+    class Centralizer : IEnumerable<PollingStation>
     {
-        SortedPollingStation[] sortedStations;
+        PollingStation[] pollingStations;
 
-        public Centralizer(SortedPollingStation[] sortedStations)
+        public Centralizer(PollingStation[] pollingStations)
         {
-            this.sortedStations = sortedStations;
+            this.pollingStations = pollingStations;
         }
-       
-        public SortedPollingStation CentralizePollingStations()
+
+        public PollingStation CentralizePollingStations()
         {
-            Candidate[] totalVotes = new Candidate[sortedStations[0].Candidates.Length];
-            for (int i = 0; i < totalVotes.Length; i++)
-                totalVotes[i] = new Candidate("", 0);
-          
-            for(int i = 0; i < totalVotes.Length; i++)
+            foreach(PollingStation pollingStation in pollingStations)
             {
-                foreach (Candidate candidate in sortedStations[0].Candidates)
+                pollingStation.SortCandidatesAlphabetically();
+            }
+
+            Candidate[] finalList = new Candidate[pollingStations[0].Candidates.Length];
+            pollingStations[0].InitializeCandidatesList(finalList);
+            AddCandidatesNames(finalList);         
+            for (int i = 0; i < pollingStations.Length; i++)
+            {
+                int k = 0;                    
+                foreach (Candidate candidate in pollingStations[i].Candidates)
                 {
-                    totalVotes[i].CandidateName = candidate.CandidateName;
-                    totalVotes[i].NumberOfVotes += candidate.GetNumberOfVotes();
+                    finalList[k].NumberOfVotes += candidate.GetNumberOfVotes();
+                    k++;                                                             
                 }
             }
-            return new SortedPollingStation(totalVotes);
+
+            return new PollingStation(finalList).SortCandidatesAfterNumberOfVotes();
         }
-        
-        public IEnumerator<SortedPollingStation> GetEnumerator()
+
+        private void AddCandidatesNames(Candidate[] candidatesList)
         {
-            foreach(SortedPollingStation sortedStation in sortedStations)
+            int i = 0;
+            foreach (Candidate candidate in pollingStations[0].Candidates)
+            {
+                candidatesList[i].CandidateName = candidate.CandidateName;
+                i++;
+            }
+        }
+
+        public IEnumerator<PollingStation> GetEnumerator()
+        {
+            foreach(PollingStation sortedStation in pollingStations)
             {
                 yield return sortedStation;
             }
