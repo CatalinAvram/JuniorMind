@@ -55,7 +55,14 @@ namespace IListImplementation
 
         public bool Contains(T item)
         {
-            throw new NotImplementedException();
+            foreach(T value in myList)
+            {
+                if(value.ToString() == item.ToString())
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void CopyTo(T[] array, int arrayIndex)

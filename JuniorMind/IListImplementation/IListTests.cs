@@ -33,5 +33,12 @@ namespace IListImplementation
             integersList.Clear();
             Assert.AreEqual(0, integersList.Count);
         }
+
+        [TestMethod]
+        public void ContainsTest()
+        {
+            var integersList = new List<int>() { 9, 13, 9 };
+            Assert.AreEqual(true, integersList.Contains(9));
+        }
     }
 }
