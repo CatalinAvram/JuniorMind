@@ -23,5 +23,15 @@ namespace IListImplementation
             integersList.Add(9);
             Assert.AreEqual(2, integersList.Count);
         }
+
+        [TestMethod]
+        public void ClearTest()
+        {
+            var integersList = new List<int>();
+            integersList.Add(13);
+            integersList.Add(9);
+            integersList.Clear();
+            Assert.AreEqual(0, integersList.Count);
+        }
     }
 }
