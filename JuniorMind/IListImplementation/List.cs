@@ -73,12 +73,18 @@ namespace IListImplementation
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            foreach(T value in myList)
+            {
+                yield return value;
+            }
         }
 
         public int IndexOf(T item)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < count; i++)
+                if (myList[i].Equals(item))
+                    return i;
+            return -1;
         }
 
         public void Insert(int index, T item)
@@ -98,7 +104,7 @@ namespace IListImplementation
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
     }
 }

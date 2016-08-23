@@ -49,5 +49,12 @@ namespace IListImplementation
             integersList.CopyTo(array, 1);
             CollectionAssert.AreEqual(new int[] { 10, 1, 2, 3, 4, 15 }, array);
         }
+
+        [TestMethod]
+        public void IndexOfTest()
+        {
+            var integersList = new List<int>() { 1, 2, 3, 4 };
+            Assert.AreEqual(2, integersList.IndexOf(3));
+        }
     }
 }
