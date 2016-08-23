@@ -57,7 +57,7 @@ namespace IListImplementation
         {
             foreach(T value in myList)
             {
-                if(value.ToString() == item.ToString())
+                if(value.Equals(item))
                 {
                     return true;
                 }
@@ -67,6 +67,13 @@ namespace IListImplementation
 
         public void CopyTo(T[] array, int arrayIndex)
         {
+            if (array == null)
+                throw new ArgumentNullException();
+            if (arrayIndex < 0)
+                throw new ArgumentOutOfRangeException();
+            if (array.Count() - arrayIndex < myList.Count())
+                throw new ArgumentException();
+
             for (int i = 0; i < count; ++i)           
                 array[i + arrayIndex] = myList[i];         
         }
@@ -89,6 +96,8 @@ namespace IListImplementation
 
         public void Insert(int index, T item)
         {
+            if (index < 0 || index >= count )
+                throw new ArgumentOutOfRangeException();
             Array.Resize(ref myList, count + 1);
             count++;
             for (int i = count - 1; i > index; i--)
@@ -108,8 +117,8 @@ namespace IListImplementation
 
         public void RemoveAt(int index)
         {
-            if (index < 0 || index > count - 1)
-                throw new IndexOutOfRangeException();
+            if (index < 0 || index >= count)
+                throw new ArgumentOutOfRangeException();
             for (int i = index; i < count - 1; i++)
                     myList[i] = myList[i + 1];
             Array.Resize(ref myList, count - 1);
