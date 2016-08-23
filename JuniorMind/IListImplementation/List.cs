@@ -67,7 +67,8 @@ namespace IListImplementation
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < count; ++i)           
+                array[i + arrayIndex] = myList[i];         
         }
 
         public IEnumerator<T> GetEnumerator()

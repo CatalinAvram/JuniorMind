@@ -40,5 +40,14 @@ namespace IListImplementation
             var integersList = new List<int>() { 9, 13, 9 };
             Assert.AreEqual(true, integersList.Contains(9));
         }
+
+        [TestMethod]
+        public void CopyToTest()
+        {
+            var integersList = new List<int>() { 1, 2, 3, 4 };
+            int[] array = new int[] { 10, 11, 12, 13, 14, 15 };
+            integersList.CopyTo(array, 1);
+            CollectionAssert.AreEqual(new int[] { 10, 1, 2, 3, 4, 15 }, array);
+        }
     }
 }
