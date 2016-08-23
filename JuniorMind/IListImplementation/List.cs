@@ -43,8 +43,9 @@ namespace IListImplementation
 
         public void Add(T item)
         {
-            throw new NotImplementedException();
-
+            Array.Resize(ref myList, count + 1);
+            myList[count] = item;
+            count++;
         }
 
         public void Clear()
