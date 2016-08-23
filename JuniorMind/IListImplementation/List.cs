@@ -89,7 +89,11 @@ namespace IListImplementation
 
         public void Insert(int index, T item)
         {
-            throw new NotImplementedException();
+            Array.Resize(ref myList, count + 1);
+            count++;
+            for (int i = count - 1; i > index; i--)
+                myList[i] = myList[i - 1];
+            myList[index] = item;
         }
 
         public bool Remove(T item)
@@ -117,14 +121,5 @@ namespace IListImplementation
             return GetEnumerator();
         }
 
-        /*public override bool Equals(object obj)
-        {
-            if (obj is List<T>)
-            {
-                var that = obj as List<T>;
-                return this.;
-            }
-            return false;
-        }*/
     }
 }

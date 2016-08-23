@@ -75,5 +75,14 @@ namespace IListImplementation
             var expected = new List<int>() { 1, 2, 4 };
             Assert.IsTrue(integersList.SequenceEqual(expected));
         }
+
+        [TestMethod]
+        public void InsertTest()
+        {
+            var integersList = new List<int>() { 3, 4, 5, 6 };
+            integersList.Insert(2, 10);
+            var expected = new List<int>() { 3, 4, 10, 5, 6 };
+            Assert.IsTrue(integersList.SequenceEqual(expected));
+        }
     }
 }
