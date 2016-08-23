@@ -94,12 +94,19 @@ namespace IListImplementation
 
         public bool Remove(T item)
         {
+            //if(myList.Contains(item))
             throw new NotImplementedException();
+
         }
 
         public void RemoveAt(int index)
         {
-            throw new NotImplementedException();
+            if (index < 0 || index > count - 1)
+                throw new IndexOutOfRangeException();
+            for (int i = index; i < count - 1; i++)
+                    myList[i] = myList[i + 1];
+            Array.Resize(ref myList, count - 1);
+            count--;
         }
 
         IEnumerator IEnumerable.GetEnumerator()

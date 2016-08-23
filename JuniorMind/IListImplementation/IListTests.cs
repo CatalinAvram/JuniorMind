@@ -56,5 +56,13 @@ namespace IListImplementation
             var integersList = new List<int>() { 1, 2, 3, 4 };
             Assert.AreEqual(2, integersList.IndexOf(3));
         }
+
+        [TestMethod]
+        public void RemoveAtTest()
+        {
+            var integersList = new List<int>() { 1, 2, 3, 4 };
+            integersList.RemoveAt(1);
+            Assert.AreEqual(3, integersList.Count);
+        }
     }
 }
