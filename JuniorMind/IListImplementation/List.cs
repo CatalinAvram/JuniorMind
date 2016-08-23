@@ -94,9 +94,12 @@ namespace IListImplementation
 
         public bool Remove(T item)
         {
-            //if(myList.Contains(item))
-            throw new NotImplementedException();
-
+            if (myList.Contains(item))
+            {
+                RemoveAt(IndexOf(item));
+                return true;
+            }
+            return false;
         }
 
         public void RemoveAt(int index)
@@ -113,5 +116,15 @@ namespace IListImplementation
         {
             return GetEnumerator();
         }
+
+        /*public override bool Equals(object obj)
+        {
+            if (obj is List<T>)
+            {
+                var that = obj as List<T>;
+                return this.;
+            }
+            return false;
+        }*/
     }
 }

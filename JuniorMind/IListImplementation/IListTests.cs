@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 namespace IListImplementation
 {
@@ -62,7 +63,17 @@ namespace IListImplementation
         {
             var integersList = new List<int>() { 1, 2, 3, 4 };
             integersList.RemoveAt(1);
-            Assert.AreEqual(3, integersList.Count);
+            var expected = new List<int>() { 1, 3, 4 };          
+            Assert.IsTrue(integersList.SequenceEqual(expected));
+        }
+
+        [TestMethod]
+        public void RemoveTest()
+        {
+            var integersList = new List<int>() { 1, 2, 3, 4 };
+            integersList.Remove(3);
+            var expected = new List<int>() { 1, 2, 4 };
+            Assert.IsTrue(integersList.SequenceEqual(expected));
         }
     }
 }
