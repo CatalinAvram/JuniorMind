@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elections", "Elections\Elec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IListImplementation", "IListImplementation\IListImplementation.csproj", "{93B5572F-4764-4920-825F-165A24F74379}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedList", "DoubleLinkedList\LinkedList.csproj", "{351CA381-ECE7-4D83-A705-F6DA8AE1C002}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -237,6 +239,10 @@ Global
 		{93B5572F-4764-4920-825F-165A24F74379}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93B5572F-4764-4920-825F-165A24F74379}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93B5572F-4764-4920-825F-165A24F74379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{351CA381-ECE7-4D83-A705-F6DA8AE1C002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{351CA381-ECE7-4D83-A705-F6DA8AE1C002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{351CA381-ECE7-4D83-A705-F6DA8AE1C002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{351CA381-ECE7-4D83-A705-F6DA8AE1C002}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
