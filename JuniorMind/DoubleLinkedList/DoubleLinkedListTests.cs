@@ -62,5 +62,13 @@ namespace LinkedList
             Assert.IsTrue(doublyLinkedList.Contains(4));
         }
 
+        [TestMethod]
+        public void FindSpecificNode()
+        {
+            var doublyLinkedList = new DoublyLinkedList<int> { 1, 2, 3, 4 };
+            Assert.AreEqual(null, doublyLinkedList.Find(100));
+            Node<int> existingNode = doublyLinkedList.Find(3);
+            Assert.AreEqual(3, existingNode.Data);
+        }
     }
 }

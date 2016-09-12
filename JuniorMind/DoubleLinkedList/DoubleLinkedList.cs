@@ -96,6 +96,18 @@ namespace LinkedList
             return false;
         }
 
+        public Node<T> Find(T item)
+        {
+            Node<T> foundNode = null;
+            for (Node<T> i = sentinel.Next; i != sentinel; i = i.Next)
+                if (i.Data.Equals(item))
+                {
+                    foundNode = i;
+                    break;
+                }
+            return foundNode;
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             Node<T> current = sentinel;
