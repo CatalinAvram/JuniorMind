@@ -38,5 +38,14 @@ namespace LinkedList
             doublyLinkedList.RemoveFirst();
             Assert.IsTrue(doublyLinkedList.SequenceEqual(new DoublyLinkedList<int> { 2, 3, 4 }));
         }
+
+        [TestMethod]
+        public void RemoveLastNode()
+        {
+            var doublyLinkedList = new DoublyLinkedList<int> { 1, 2, 3, 4 };
+            doublyLinkedList.RemoveLast();
+            Assert.IsTrue(doublyLinkedList.SequenceEqual(new DoublyLinkedList<int> {1, 2, 3 }));
+        }
+
     }
 }
