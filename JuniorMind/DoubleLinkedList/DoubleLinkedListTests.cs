@@ -24,5 +24,12 @@ namespace LinkedList
             Assert.IsTrue(doublyLinkedList.SequenceEqual(new DoublyLinkedList<int>() { 1, 2, 3 }));
         }
 
+        [TestMethod]
+        public void RemoveFirstOccurence()
+        {
+            var doublyLinkedList = new DoublyLinkedList<int> { 1, 2, 3, 2, 4 };
+            Assert.IsTrue(doublyLinkedList.Remove(2));
+        }
+
     }
 }

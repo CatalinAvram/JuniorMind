@@ -29,6 +29,10 @@ namespace LinkedList
             }
         }
 
+        public void Add(T item)
+        {
+            AddLast(item);
+        }
 
         public void AddFirst(T item)
         {       
@@ -40,12 +44,7 @@ namespace LinkedList
        
             count++;              
         }
-
-        public void Add(T item)
-        {
-            AddLast(item);
-        }
-
+      
         public void AddLast(T item)
         {                 
             Node<T> node = new Node<T>(item);
@@ -55,6 +54,19 @@ namespace LinkedList
             sentinel.Previous = node;
         
             count++;
+        }
+
+        public bool Remove(T item)
+        {
+            for(Node<T> i = sentinel.Next; i != sentinel; i = i.Next)
+                if(i.Data.Equals(item))
+                {
+                    i.Previous.Next = i.Next;
+                    i.Next.Previous = i.Previous;
+                    count--;
+                    return true;
+                }
+            return false;
         }
 
         public IEnumerator<T> GetEnumerator()
