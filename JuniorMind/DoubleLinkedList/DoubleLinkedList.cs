@@ -21,7 +21,7 @@ namespace LinkedList
             count = 0;
         }
 
-        private int Count
+        public int Count
         {
             get
             {
@@ -81,6 +81,19 @@ namespace LinkedList
             sentinel.Previous = sentinel.Previous.Previous;
             sentinel.Previous.Next = sentinel;
             count--;
+        }
+
+        public void Clear()
+        {
+            count = 0;
+        }
+
+        public bool Contains(T item)
+        {
+            for (Node<T> i = sentinel.Next; i != sentinel; i = i.Next)
+                if (i.Data.Equals(item))
+                    return true;
+            return false;
         }
 
         public IEnumerator<T> GetEnumerator()

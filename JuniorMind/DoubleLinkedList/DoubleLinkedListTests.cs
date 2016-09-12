@@ -47,5 +47,20 @@ namespace LinkedList
             Assert.IsTrue(doublyLinkedList.SequenceEqual(new DoublyLinkedList<int> {1, 2, 3 }));
         }
 
+        [TestMethod]
+        public void Clear()
+        {
+            var doublyLinkedList = new DoublyLinkedList<int> { 1, 2, 3, 4 };
+            doublyLinkedList.Clear();
+            Assert.AreEqual(0, doublyLinkedList.Count);
+        }
+
+        [TestMethod]
+        public void ContainsGivenElement()
+        {
+            var doublyLinkedList = new DoublyLinkedList<int> { 1, 2, 3, 4 };
+            Assert.IsTrue(doublyLinkedList.Contains(4));
+        }
+
     }
 }
