@@ -108,6 +108,22 @@ namespace LinkedList
             return foundNode;
         }
 
+        public void CopyTo(T[] destinationArray, int startIndex)
+        {
+            if (destinationArray == null)
+                throw new ArgumentNullException();
+            if (startIndex < 0)
+                throw new IndexOutOfRangeException();
+            if (count > destinationArray.Length - startIndex)
+                throw new ArgumentNullException();
+
+            int index = startIndex;              
+            for (Node<T> i = sentinel.Next; i != sentinel; i = i.Next)
+            {
+                destinationArray[index] = i.Data;
+                index++;
+            }
+        }
         public IEnumerator<T> GetEnumerator()
         {
             Node<T> current = sentinel;

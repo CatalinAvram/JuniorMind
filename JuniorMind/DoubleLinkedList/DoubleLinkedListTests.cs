@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
@@ -67,8 +66,20 @@ namespace LinkedList
         {
             var doublyLinkedList = new DoublyLinkedList<int> { 1, 2, 3, 4 };
             Assert.AreEqual(null, doublyLinkedList.Find(100));
+
             Node<int> existingNode = doublyLinkedList.Find(3);
             Assert.AreEqual(3, existingNode.Data);
+        }
+
+        [TestMethod]
+        public void CopyToMethod()
+        {
+            var doublyLinkedList = new DoublyLinkedList<int> { 1, 2, 7, 9 };
+            int[] destinationArray = new int[7];
+            int startIndex = 2;
+            doublyLinkedList.CopyTo(destinationArray, startIndex);
+
+            CollectionAssert.AreEqual(new int[] {0, 0, 1, 2, 7, 9, 0 }, destinationArray);
         }
     }
 }
