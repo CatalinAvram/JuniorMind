@@ -10,7 +10,7 @@ namespace LinkedList
         [TestMethod]
         public void AddFirstTest()
         {
-            var doublyLinkedList = new DoublyLinkedList<int>() { 2, 3 } ;
+            var doublyLinkedList = new DoublyLinkedList<int> { 2, 3 } ;
             doublyLinkedList.AddFirst(1);            
             Assert.IsTrue(doublyLinkedList.SequenceEqual(new DoublyLinkedList<int>(){ 1, 2, 3 }));    
         }

@@ -71,6 +71,8 @@ namespace LinkedList
 
         public void RemoveFirst()
         {
+            if (sentinel.Next == sentinel)
+                throw new InvalidOperationException();
             sentinel.Next = sentinel.Next.Next;
             sentinel.Next.Previous = sentinel;
             count--;
@@ -78,6 +80,8 @@ namespace LinkedList
 
         public void RemoveLast()
         {
+            if (sentinel.Previous == sentinel)
+                throw new InvalidOperationException();
             sentinel.Previous = sentinel.Previous.Previous;
             sentinel.Previous.Next = sentinel;
             count--;
@@ -124,6 +128,7 @@ namespace LinkedList
                 index++;
             }
         }
+
         public IEnumerator<T> GetEnumerator()
         {
             Node<T> current = sentinel;
